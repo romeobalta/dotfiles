@@ -5,6 +5,7 @@ mkdir -p ~/.config/nvim/lua
 
 
 for f in `find . -regex ".*\.vim$\|.*\.lua$|"`; do
+  echo $f
   rm -rf ~/.config/nvim/$f
   ln -s ~/dotfiles/$f ~/.config/nvim/$f
 done
