@@ -3,6 +3,9 @@
 mkdir -p ~/.config/nvim/plug
 mkdir -p ~/.config/nvim/lua
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+echo $SCRIPT_DIR
 
 for f in `find . -regex ".*\.vim$\|.*\.lua$|"`; do
   echo $f
