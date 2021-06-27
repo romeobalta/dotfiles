@@ -22,10 +22,24 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
   Plug 'neovim/nvim-lspconfig'
+  Plug 'kabouzeid/nvim-lspinstall'
+  Plug 'hrsh7th/nvim-compe'
+  " Plug 'nvim-lua/completion-nvim'
+  
+  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
   Plug 'kyazdani42/nvim-web-devicons'
+
+  Plug 'vim-airline/vim-airline'
+  " vcug 'vim-airline/vim-airline-themes'
+  
+  Plug 'preservim/nerdtree'
+
+  Plug 'ryanoasis/vim-devicons'
+
+  Plug 'mhinz/vim-startify'
 call plug#end()
 
 colorscheme dracula

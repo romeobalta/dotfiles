@@ -2,6 +2,7 @@
 
 mkdir -p ~/.config/nvim/plug
 mkdir -p ~/.config/nvim/lua
+mkdir -p ~/.config/nvim/lua/own
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
