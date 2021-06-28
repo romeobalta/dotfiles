@@ -32,7 +32,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'ryanoasis/vim-devicons'
 
-  Plug 'preservim/nerdtree'
+  "Plug 'preservim/nerdtree'
 call plug#end()
 
 colorscheme dracula
@@ -43,6 +43,12 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   use 'nvim-lua/lsp-status.nvim'
   use 'mhinz/vim-startify'
+
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {'kyazdani42/nvim-web-devicons'}
+  }
+
   use {
     'glepnir/galaxyline.nvim',
     branch = 'main',
