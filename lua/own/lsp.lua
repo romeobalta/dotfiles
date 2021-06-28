@@ -19,8 +19,6 @@ end
 require'lspinstall'.setup() -- important
 
 cmd([[
-  set completeopt=menuone,noselect
-
   set wildmode=longest,list,full
   set wildmenu
   
@@ -29,8 +27,6 @@ cmd([[
   set wildignore+=**/ios/*
   set wildignore+=**/.git/*
   set wildignore+=**/.git/*
-  
-  set shortmess+=c
   
   " LSP mappings
   nnoremap <silen> gd :lua vim .lsp.buf.definition()<CR>

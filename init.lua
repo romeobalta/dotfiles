@@ -18,23 +18,15 @@ require('own.compe')
 cmd([[
   set nohlsearch
 
-  nnoremap <silent> <C-n> :NERDTreeToggle<CR>
-  nnoremap <leader>n :NERDTreeFocus<CR>
-
-  let g:NERDTreeMapOpenVSplit = '<C-x>'
-  let g:NERDTreeMapOpenSplit = '<C-s>'
-  let g:NERDTreeMapOpenInTab = '<C-t>'
-
-  augroup nerd_tree_own
-    au!
-    au SessionLoadpost * NERDTree
-  augroup END
+  nnoremap <silent> <C-n> :NvimTreeToggle<CR>
 
   for key in ['<Up>', '<Down>', '<Left>', '<Right>']
     exec 'noremap' key '<Nop>'
     exec 'inoremap' key '<Nop>'
     exec 'cnoremap' key '<Nop>'
   endfor
+
+  set shortmess+=c
 ]])
 
 opt.termguicolors = true

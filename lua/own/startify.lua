@@ -11,7 +11,10 @@ cmd([=[
   let g:startify_change_to_vcs_root = 1
   let g:startify_session_autoload = 1
 
-  let g:startify_session_remove_lines = [ 'NERD_tree' ]
+  augroup nerd_tree_own
+    au!
+    "au SessionLoadpost * NvimTreeOpen
+  augroup END
 ]=])
 
 g.startify_lists = {
@@ -21,7 +24,5 @@ g.startify_lists = {
   { type = 'files',       header = { '   Files'  } },
 }
 
-g.startify_session_remove_lines = { 'NERD_tree' }
-
-g.startify_session_before_save = { 'silent! NERDTreeClose' }
+g.startify_session_before_save = { 'silent! NvimTreeClose' }
 g.startify_session_delete_buffers = 1
