@@ -1,7 +1,8 @@
+vim.cmd([[
 " auto-install vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    \? https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   "autocmd VimEnter * PlugInstall
   "autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
@@ -25,22 +26,28 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'kabouzeid/nvim-lspinstall'
   Plug 'hrsh7th/nvim-compe'
   " Plug 'nvim-lua/completion-nvim'
-  
-  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
   Plug 'kyazdani42/nvim-web-devicons'
-
-  Plug 'vim-airline/vim-airline'
-  " vcug 'vim-airline/vim-airline-themes'
-  
-  Plug 'preservim/nerdtree'
-
   Plug 'ryanoasis/vim-devicons'
 
-  Plug 'mhinz/vim-startify'
+  Plug 'preservim/nerdtree'
 call plug#end()
 
 colorscheme dracula
 highlight Normal guibg=none
+]])
+
+return require('packer').startup(function()
+  use 'wbthomason/packer.nvim'
+  use 'nvim-lua/lsp-status.nvim'
+  use 'mhinz/vim-startify'
+  use {
+    'glepnir/galaxyline.nvim',
+    branch = 'main',
+    config = function () require 'own.statusline' end,
+    requires = {'kyazdani42/nvim-web-devicons'},
+    event = 'VimEnter',
+  }
+end)
