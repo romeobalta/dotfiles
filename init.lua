@@ -1,5 +1,6 @@
 local cmd = vim.cmd
 local opt = vim.opt
+local u = require('own.utils')
 
 vim.g.mapleader = ' '
 vim.g.vimsyn_embed = 'lPr'
@@ -12,13 +13,29 @@ require('own.telescope')
 
 require('own.startify')
 
+require('own.compe')
+
 cmd([[
   set nohlsearch
 
+  nnoremap <silent> <C-n> :NERDTreeToggle<CR>
   nnoremap <leader>n :NERDTreeFocus<CR>
-]])
 
-require('own.compe')
+  let g:NERDTreeMapOpenVSplit = '<C-x>'
+  let g:NERDTreeMapOpenSplit = '<C-s>'
+  let g:NERDTreeMapOpenInTab = '<C-t>'
+
+  augroup nerd_tree_own
+    au!
+    au SessionLoadpost * NERDTree
+  augroup END
+
+  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+    exec 'noremap' key '<Nop>'
+    exec 'inoremap' key '<Nop>'
+    exec 'cnoremap' key '<Nop>'
+  endfor
+]])
 
 opt.termguicolors = true
 
