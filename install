@@ -1,13 +1,30 @@
 #!/usr/bin/env bash
 
-mkdir -p ~/.config/nvim/plug
-mkdir -p ~/.config/nvim/lua
 mkdir -p ~/.config/nvim/lua/own
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-for f in `find -E . -regex ".*\.vim$|.*\.lua$"`; do
+for f in `find -E . -regex ".*\.lua$"`; do
   echo $f
   rm -rf ~/.config/nvim/$f
   ln -s $SCRIPT_DIR/$f ~/.config/nvim/$f
 done
+
+dotfiles=(
+  '.zshrc'
+  '.aliases'
+  '.spaceship_profile'
+  '.devvars'
+)
+
+for f in "${dotfiles[@]}"
+do
+  echo $f
+  rm -rf ~/$f
+  ln -s $SCRIPT_DIR/$f ~/$f
+done
+
+echo $ZSH_CUSTOM
+
+rm -rf ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
+ln -s $SCRIPT_DIR/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
