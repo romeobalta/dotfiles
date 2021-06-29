@@ -15,6 +15,10 @@ require('own.startify')
 
 require('own.compe')
 
+require('own.signify')
+
+require('own.wilder')
+
 cmd([[
   set nohlsearch
 
@@ -26,7 +30,6 @@ cmd([[
     exec 'cnoremap' key '<Nop>'
   endfor
 
-  set shortmess+=c
 ]])
 
 opt.termguicolors = true
@@ -81,6 +84,7 @@ opt.ruler = true
 opt.completeopt = { 'menuone', 'noselect' }
 opt.clipboard = 'unnamedplus'
 opt.inccommand = 'nosplit'
+opt.updatetime = 100
 
 -------------------------
 -- Wild
@@ -88,4 +92,3 @@ opt.inccommand = 'nosplit'
 opt.wildoptions = 'pum'
 opt.pumblend = 7
 opt.pumheight = 20
-

@@ -45,8 +45,16 @@ return require('packer').startup(function()
   use 'mhinz/vim-startify'
 
   use {
+    'gelguy/wilder.nvim'
+  }
+
+  use {
     'kyazdani42/nvim-tree.lua',
     requires = {'kyazdani42/nvim-web-devicons'}
+  }
+
+  use {
+    'mhinz/vim-signify'
   }
 
   use {

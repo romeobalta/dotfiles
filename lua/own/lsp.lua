@@ -20,7 +20,7 @@ require'lspinstall'.setup() -- important
 
 cmd([[
   set wildmode=longest,list,full
-  set wildmenu
+  "set wildmenu
   
   set wildignore+=**/node_modules/*
   set wildignore+=**/android/*
