@@ -20,16 +20,14 @@ require('own.signify')
 require('own.wilder')
 
 cmd([[
+  colorscheme dracula
+  highlight Normal guibg=none
+]])
+
+cmd([[
   set nohlsearch
 
   nnoremap <silent> <C-n> :NvimTreeToggle<CR>
-
-  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
-    exec 'noremap' key '<Nop>'
-    exec 'inoremap' key '<Nop>'
-    exec 'cnoremap' key '<Nop>'
-  endfor
-
 ]])
 
 opt.termguicolors = true
