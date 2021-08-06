@@ -1,4 +1,4 @@
-LOCAL Cmd = vim.cmd
+local cmd = vim.cmd
 
 cmd([[
   call wilder#enable_cmdline_enter()
