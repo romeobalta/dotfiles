@@ -19,6 +19,8 @@ require('own.signify')
 
 require('own.wilder')
 
+require('own.maximizer')
+
 cmd([[
   colorscheme dracula
   highlight Normal guibg=none

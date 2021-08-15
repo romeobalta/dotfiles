@@ -47,7 +47,14 @@ return require('packer').startup(function()
 
   use {
     'nvim-treesitter/nvim-treesitter', 
-    -- do = ':TSUpdate', 
+  }
+
+  local configs = require'nvim-treesitter.configs'
+  configs.setup {
+    ensure_installed = "maintained",
+    highlight = {
+      enable = true,
+    }
   }
   
   use 'sheerun/vim-polyglot'
@@ -57,4 +64,7 @@ return require('packer').startup(function()
   use 'hrsh7th/nvim-compe'
   use 'kyazdani42/nvim-web-devicons'
   use 'ryanoasis/vim-devicons'
+
+  use 'szw/vim-maximizer'
+  use 'puremourning/vimspector'
 end)
