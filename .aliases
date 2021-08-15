@@ -11,4 +11,5 @@ alias gcm='git commit -m'
 alias gb='git branch'
 alias ll='ls -a -l'
 alias soundrestart='sudo launchctl stop com.apple.audio.coreaudiod && sudo launchctl start com.apple.audio.coreaudiod'
-
+alias dcu='docker compose up'
+alias dcd='docker compose down'
