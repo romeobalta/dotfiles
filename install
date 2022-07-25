@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 
-mkdir -p ~/.config/nvim/lua/own
-
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
-for f in `find -E . -regex ".*\.lua$"`; do
-  echo $f
-  rm -rf ~/.config/nvim/$f
-  ln -s $SCRIPT_DIR/$f ~/.config/nvim/$f
-done
+./install_nvim
 
 dotfiles=(
   '.zshrc'
