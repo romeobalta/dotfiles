@@ -77,6 +77,7 @@ M.mason = {
     "deno",
     "emmet-ls",
     "json-lsp",
+    "tailwindcss-language-server",
 
     -- shell
     "shfmt",
