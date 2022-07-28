@@ -78,6 +78,9 @@ M.mason = {
     "emmet-ls",
     "json-lsp",
     "tailwindcss-language-server",
+    "prettierd",
+    "prettier",
+    "eslint_d",
 
     -- shell
     "shfmt",

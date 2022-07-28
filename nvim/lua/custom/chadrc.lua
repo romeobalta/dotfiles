@@ -8,7 +8,7 @@ local override = require "custom.override"
 
 M.ui = {
   theme = "gruvbox",
-  theme_toggle = { "gruvbox", "gruvbox_light" }
+  theme_toggle = { "gruvbox", "gruvbox_light" },
 }
 
 M.plugins = {
