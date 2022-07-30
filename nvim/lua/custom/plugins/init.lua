@@ -51,7 +51,9 @@ return {
 		end,
 	},
 
-	["fedepujol/move.nvim"] = {},
+	["fedepujol/move.nvim"] = {
+    disable = true,
+  },
 
 	-- rust
 	["simrat39/rust-tools.nvim"] = {

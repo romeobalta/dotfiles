@@ -1,13 +1,65 @@
+-- vim.api.nvim_del_keymap('v', '<A-j>');
+-- vim.api.nvim_del_keymap('v', '<A-k>');
+
 local M = {}
 
 M.custom = {
 	n = {
 		["<leader>bd"] = { "<cmd> :bp | bd# <CR>", "close current buffer", opts = {} },
-		["P"] = { '"0p', "paste yanked not deleted", opts = {} },
-		["<A-k>"] = { "<cmd> :MoveLine(-1)<CR>", "move line down", opts = { noremap = true, silent = true } },
-		["<A-j>"] = { "<cmd> :MoveLine(1)<CR>", "move line up", opts = { noremap = true, silent = true } },
-		["<A-Up>"] = { "<cmd> :MoveLine(-1)<CR>", "move line up", opts = { noremap = true, silent = true } },
-		["<A-Down>"] = { "<cmd> :MoveLine(1)<CR>", "move line down", opts = { noremap = true, silent = true } },
+		["<leader>fr"] = { ":%s/", "enter search and replace", opts = { nowait = true } },
+
+		-- append and prepend in block
+		["<leader>a"] = {
+			function()
+				vim.go.operatorfunc = "v:lua.append"
+				vim.api.nvim_feedkeys("g@", "n", false)
+			end,
+			"append in block",
+			opts = { silent = true },
+		},
+		["<leader>i"] = {
+			function()
+				vim.go.operatorfunc = "v:lua.prepend"
+				vim.api.nvim_feedkeys("g@", "n", false)
+			end,
+			"prepend in block",
+			opts = { silent = true },
+		},
+
+		-- add empty lines
+		["<C-k>"] = { "maO<ESC>'a", "add line above", opts = { noremap = true } },
+		["<C-j>"] = { "mao<ESC>'a", "add line below", opts = { noremap = true } },
+	},
+
+	i = {
+		["jk"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
+
+		-- add empty lines
+		["<C-j>"] = { "<C-o>ma<C-o>o<C-o>'a", "add line below", opts = { noremap = true } },
+		["<C-k>"] = { "<C-o>ma<C-o>O<C-o>'a", "add line above", opts = { noremap = true } },
+	},
+
+	v = {
+		["y"] = { "ygv<ESC>", "yank then go at the end of the block", opts = { noremap = true } },
+	},
+}
+
+-- M.move_lines = {
+-- 	n = {
+-- 		["<A-k>"] = { "<cmd> :MoveLine(-1)<CR>", "move line down", opts = { noremap = true, silent = true } },
+-- 		["<A-j>"] = { "<cmd> :MoveLine(1)<CR>", "move line up", opts = { noremap = true, silent = true } },
+-- 		["<A-Up>"] = { "<cmd> :MoveLine(-1)<CR>", "move line up", opts = { noremap = true, silent = true } },
+-- 		["<A-Down>"] = { "<cmd> :MoveLine(1)<CR>", "move line down", opts = { noremap = true, silent = true } },
+-- 	},
+--
+-- 	v = {
+-- 		["<A-k>"] = { "<cmd> :'<, '>MoveBlock(-1)<CR>", "move line down", opts = { noremap = true, silent = true } },
+-- 		["<A-j>"] = { "<cmd> :'<, '>MoveBlock(1)<CR>", "move line up", opts = { noremap = true, silent = true } },
+-- 	},
+-- }
+
+M.session = {
+	n = {
 		["<leader>ss"] = {
 			"<cmd> :SessionManager save_current_session<CR>",
 			"save current session",
@@ -20,31 +72,11 @@ M.custom = {
 			"load last session",
 			opts = { noremap = true },
 		},
-
-		["<leader>frr"] = { ":%s/", "enter search and replace", opts = { nowait = true } },
-	},
-
-	i = {
-		["jk"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
-	},
-
-	v = {
-		["<A-k>"] = { "<cmd> :MoveBlock(-1)<CR>", "move line down", opts = { noremap = true, silent = true } },
-		["<A-j>"] = { "<cmd> :MoveBlock(1)<CR>", "move line up", opts = { noremap = true, silent = true } },
-		["<A-Up>"] = { "<cmd> :MoveBlock(-1)<CR>", "move line up", opts = { noremap = true, silent = true } },
-		["<A-Down>"] = { "<cmd> :MoveBlock(1)<CR>", "move line down", opts = { noremap = true, silent = true } },
 	},
 }
 
 M.lspconfig = {
 	n = {
-		["gi"] = {
-			function()
-				vim.lsp.buf.implementation()
-			end,
-			"   lsp implementation",
-		},
-
 		["<leader>gs"] = {
 			function()
 				vim.lsp.buf.signature_help()
@@ -59,7 +91,7 @@ M.lspconfig = {
 			"   lsp definition type",
 		},
 
-		["<leader>gra"] = {
+		["<leader>gr"] = {
 			function()
 				require("nvchad_ui.renamer").open()
 			end,
@@ -73,9 +105,17 @@ M.lspconfig = {
 			"   diagnostic setloclist",
 		},
 
-		["<leader>frm"] = {
-			"<cmd> :RustFmt<CR>",
+		-- add support for Rust formatting with RustFmt
+		["<leader>fm"] = {
+			function()
+				if vim.fn.exists(":RustFmt") > 0 then
+					vim.fn["rustfmt#Format"]()
+				else
+					vim.lsp.buf.formatting()
+				end
+			end,
 			"   lsp formatting",
+			opts = { noremap = false },
 		},
 	},
 }
