@@ -30,6 +30,7 @@ M.treesitter = {
     "regex",
     "sql",
     "typescript",
+    "rust",
   },
 }
 
@@ -81,6 +82,10 @@ M.mason = {
     "prettierd",
     "prettier",
     "eslint_d",
+
+    -- rust
+    "rust-analyzer",
+    "taplo",
 
     -- shell
     "shfmt",
