@@ -37,7 +37,6 @@ M.custom = {
 		["<C-j>"] = { "<C-o>ma<C-o>o<C-o>'a", "ﲔ add line below", opts = { noremap = true } },
 		["<C-k>"] = { "<C-o>ma<C-o>O<C-o>'a", "ﲗ add line above", opts = { noremap = true } },
 		["<C-Enter>"] = { "<C-o>ma<C-o>o<C-o>'a", "ﲔ add line below", opts = { noremap = true } },
-		["<C-S-Enter>"] = { "<C-o>ma<C-o>O<C-o>'a", "ﲗ add line above", opts = { noremap = true } },
 
 		-- undo
 		["<C-u>"] = { "<C-o>u", "碑 undo in insert mode", opts = { noremap = true } },
