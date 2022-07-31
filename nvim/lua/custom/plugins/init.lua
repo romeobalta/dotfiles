@@ -1,4 +1,5 @@
 return {
+
 	-- autoclose tags in html, jsx etc
 	["windwp/nvim-ts-autotag"] = {
 		ft = { "html", "javascriptreact" },
@@ -52,13 +53,13 @@ return {
 	},
 
 	["fedepujol/move.nvim"] = {
-    disable = true,
-  },
+		disable = true,
+	},
 
 	-- rust
 	["simrat39/rust-tools.nvim"] = {
-    requires = {"rust-lang/rust.vim"}
-  },
+		requires = { "rust-lang/rust.vim" },
+	},
 
 	-- dap
 	["nvim-lua/plenary.nvim"] = {},
@@ -68,7 +69,7 @@ return {
 	["Shatur/neovim-session-manager"] = {
 		requires = { "nvim-lua/plenary.nvim" },
 		config = function()
-      local Path = require("plenary.path")
+			local Path = require("plenary.path")
 
 			require("session_manager").setup({
 				sessions_dir = Path:new(vim.fn.stdpath("data"), "sessions"), -- The directory where the session files will be saved.

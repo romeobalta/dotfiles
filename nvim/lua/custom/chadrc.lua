@@ -18,6 +18,7 @@ M.plugins = {
 		["nvim-treesitter/nvim-treesitter"] = override.treesitter,
 		["lukas-reineke/indent-blankline.nvim"] = override.blankline,
 		["williamboman/mason"] = override.mason,
+		["hrsh7th/nvim-cmp"] = override.cmp,
 	},
 
 	user = require("custom.plugins"),
