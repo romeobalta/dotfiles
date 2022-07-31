@@ -29,6 +29,8 @@ M.custom = {
 		-- add empty lines
 		["<C-k>"] = { "maO<ESC>'a", "add line above", opts = { noremap = true } },
 		["<C-j>"] = { "mao<ESC>'a", "add line below", opts = { noremap = true } },
+		["<C-Enter>"] = { "maO<ESC>'a", "add line above", opts = { noremap = true } },
+		["<C-S-Enter>"] = { "mao<ESC>'a", "add line below", opts = { noremap = true } },
 	},
 
 	i = {
@@ -37,10 +39,23 @@ M.custom = {
 		-- add empty lines
 		["<C-j>"] = { "<C-o>ma<C-o>o<C-o>'a", "add line below", opts = { noremap = true } },
 		["<C-k>"] = { "<C-o>ma<C-o>O<C-o>'a", "add line above", opts = { noremap = true } },
+		["<C-Enter>"] = { "<C-o>ma<C-o>o<C-o>'a", "add line below", opts = { noremap = true } },
+		["<C-S-Enter>"] = { "<C-o>ma<C-o>O<C-o>'a", "add line above", opts = { noremap = true } },
+
+		-- undo
+		["<C-u>"] = { "<C-o>u", "undo in insert mode", opts = { noremap = true } },
 	},
 
 	v = {
 		["y"] = { "ygv<ESC>", "yank then go at the end of the block", opts = { noremap = true } },
+	},
+}
+
+M.rust = {
+	n = {
+		["<leader>rn"] = { "<cmd> :RustRunnables <CR>", "ﰌ rust runnables", opts = {} },
+		["<leader>rr"] = { "<cmd> :RustRun <CR>", "ﰌ rust run", opts = {} },
+		["<leader>re"] = { "<cmd> :RustExpandMacro <CR>", "ﲖ rust expand", opts = {} },
 	},
 }
 
