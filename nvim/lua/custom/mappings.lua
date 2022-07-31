@@ -1,12 +1,9 @@
--- vim.api.nvim_del_keymap('v', '<A-j>');
--- vim.api.nvim_del_keymap('v', '<A-k>');
-
 local M = {}
 
 M.custom = {
 	n = {
-		["<leader>bd"] = { "<cmd> :bp | bd# <CR>", "close current buffer", opts = {} },
-		["<leader>fr"] = { ":%s/", "enter search and replace", opts = { nowait = true } },
+		["<leader>bd"] = { "<cmd> :bp | bd# <CR>", " close current buffer", opts = {} },
+		["<leader>fr"] = { ":%s/", "  enter search and replace", opts = { nowait = true } },
 
 		-- append and prepend in block
 		["<leader>a"] = {
@@ -14,7 +11,7 @@ M.custom = {
 				vim.go.operatorfunc = "v:lua.append"
 				vim.api.nvim_feedkeys("g@", "n", false)
 			end,
-			"append in block",
+			"ﲒ append in block",
 			opts = { silent = true },
 		},
 		["<leader>i"] = {
@@ -22,28 +19,28 @@ M.custom = {
 				vim.go.operatorfunc = "v:lua.prepend"
 				vim.api.nvim_feedkeys("g@", "n", false)
 			end,
-			"prepend in block",
+			"ﲑ prepend in block",
 			opts = { silent = true },
 		},
 
 		-- add empty lines
-		["<C-k>"] = { "maO<ESC>'a", "add line above", opts = { noremap = true } },
-		["<C-j>"] = { "mao<ESC>'a", "add line below", opts = { noremap = true } },
-		["<C-Enter>"] = { "maO<ESC>'a", "add line above", opts = { noremap = true } },
-		["<C-S-Enter>"] = { "mao<ESC>'a", "add line below", opts = { noremap = true } },
+		["<C-k>"] = { "maO<ESC>'a", "ﲗ add line above", opts = { noremap = true } },
+		["<C-j>"] = { "mao<ESC>'a", "ﲔ add line below", opts = { noremap = true } },
+		["<C-Enter>"] = { "maO<ESC>'a", "ﲗ add line above", opts = { noremap = true } },
+		["<C-S-Enter>"] = { "mao<ESC>'a", "ﲔ add line below", opts = { noremap = true } },
 	},
 
 	i = {
 		["jk"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
 
 		-- add empty lines
-		["<C-j>"] = { "<C-o>ma<C-o>o<C-o>'a", "add line below", opts = { noremap = true } },
-		["<C-k>"] = { "<C-o>ma<C-o>O<C-o>'a", "add line above", opts = { noremap = true } },
-		["<C-Enter>"] = { "<C-o>ma<C-o>o<C-o>'a", "add line below", opts = { noremap = true } },
-		["<C-S-Enter>"] = { "<C-o>ma<C-o>O<C-o>'a", "add line above", opts = { noremap = true } },
+		["<C-j>"] = { "<C-o>ma<C-o>o<C-o>'a", "ﲔ add line below", opts = { noremap = true } },
+		["<C-k>"] = { "<C-o>ma<C-o>O<C-o>'a", "ﲗ add line above", opts = { noremap = true } },
+		["<C-Enter>"] = { "<C-o>ma<C-o>o<C-o>'a", "ﲔ add line below", opts = { noremap = true } },
+		["<C-S-Enter>"] = { "<C-o>ma<C-o>O<C-o>'a", "ﲗ add line above", opts = { noremap = true } },
 
 		-- undo
-		["<C-u>"] = { "<C-o>u", "undo in insert mode", opts = { noremap = true } },
+		["<C-u>"] = { "<C-o>u", "碑 undo in insert mode", opts = { noremap = true } },
 	},
 
 	v = {
@@ -77,14 +74,14 @@ M.session = {
 	n = {
 		["<leader>ss"] = {
 			"<cmd> :SessionManager save_current_session<CR>",
-			"save current session",
+			" save current session",
 			opts = { noremap = true },
 		},
 		["<leader>sl"] = { "<cmd> :SessionManager load_session<CR>", "load session", opts = { noremap = true } },
 		["<leader>sd"] = { "<cmd> :SessionManager delete_session<CR>", "delete session", opts = { noremap = true } },
 		["<leader>sp"] = {
 			"<cmd> :SessionManager load_last_session<CR>",
-			"load last session",
+			" load last session",
 			opts = { noremap = true },
 		},
 	},
@@ -96,28 +93,28 @@ M.lspconfig = {
 			function()
 				vim.lsp.buf.signature_help()
 			end,
-			"   lsp signature_help",
+			" lsp signature_help",
 		},
 
 		["<leader>gd"] = {
 			function()
 				vim.lsp.buf.type_definition()
 			end,
-			"   lsp definition type",
+			" lsp definition type",
 		},
 
 		["<leader>gr"] = {
 			function()
 				require("nvchad_ui.renamer").open()
 			end,
-			"   lsp rename",
+			" lsp rename",
 		},
 
 		["<leader>gq"] = {
 			function()
 				vim.diagnostic.setloclist()
 			end,
-			"   diagnostic setloclist",
+			" diagnostic setloclist",
 		},
 
 		-- add support for Rust formatting with RustFmt
@@ -129,7 +126,7 @@ M.lspconfig = {
 					vim.lsp.buf.formatting()
 				end
 			end,
-			"   lsp formatting",
+			" lsp formatting",
 			opts = { noremap = false },
 		},
 	},
@@ -138,15 +135,15 @@ M.lspconfig = {
 M.telescope = {
 	n = {
 		-- find
-		["<leader>fs"] = { "<cmd> Telescope live_grep <CR>", "   live grep" },
-		["<leader>fk"] = { "<cmd> Telescope keymaps <CR>", "   show keys" },
+		["<leader>fs"] = { "<cmd> Telescope live_grep <CR>", " live grep" },
+		["<leader>fk"] = { "<cmd> Telescope keymaps <CR>", "  show keys" },
 
 		-- git
-		["<leader>fcm"] = { "<cmd> Telescope git_commits <CR>", "   git commits" },
-		["<leader>fgt"] = { "<cmd> Telescope git_status <CR>", "  git status" },
+		["<leader>fgc"] = { "<cmd> Telescope git_commits <CR>", "  git commits" },
+		["<leader>fgs"] = { "<cmd> Telescope git_status <CR>", " git status" },
 
 		-- pick a hidden term
-		["<leader>fpt"] = { "<cmd> Telescope terms <CR>", "   pick hidden term" },
+		["<leader>fpt"] = { "<cmd> Telescope terms <CR>", "  pick hidden term" },
 	},
 }
 
