@@ -4,6 +4,7 @@ M.custom = {
 	n = {
 		["<leader>bd"] = { "<cmd> :bp | bd# <CR>", " close current buffer", opts = {} },
 		["<leader>fr"] = { ":%s/", "  enter search and replace", opts = { nowait = true } },
+		["<leader>w"] = { "<C-w>", "window operations", opts = { nowait = true } },
 
 		-- append and prepend in block
 		["<leader>a"] = {
@@ -28,6 +29,9 @@ M.custom = {
 		["<C-j>"] = { "mao<ESC>'a", "ﲔ add line below", opts = { noremap = true } },
 		["<C-Enter>"] = { "maO<ESC>'a", "ﲗ add line above", opts = { noremap = true } },
 		["<C-S-Enter>"] = { "mao<ESC>'a", "ﲔ add line below", opts = { noremap = true } },
+
+    -- jump back
+    ["<C-b>"] = { "<C-O>", "碑 jump back", opts = { noremap = true } },
 	},
 
 	i = {
@@ -40,6 +44,9 @@ M.custom = {
 
 		-- undo
 		["<C-u>"] = { "<C-o>u", "碑 undo in insert mode", opts = { noremap = true } },
+    
+    -- exit insert and save
+		["<C-s>"] = { "<ESC><cmd> :w<CR>", "exit insert mode and save", opts = { noremap = true } },
 	},
 
 	v = {
