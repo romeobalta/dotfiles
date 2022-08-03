@@ -99,6 +99,8 @@ M.cmp = function()
 				"i",
 				"s",
 			}),
+
+      ["<C-g>"] = cmp.mapping.scroll_docs(-4),
 		},
 	}
 end
