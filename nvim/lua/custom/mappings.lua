@@ -32,6 +32,10 @@ M.custom = {
 
     -- jump back
     ["<C-b>"] = { "<C-O>", "碑 jump back", opts = { noremap = true } },
+
+    -- move cursor
+    ["gs"] = { "^", " move cursor at start of the line", opts = { noremap = true}},
+    ["gl"] = { "$", " move cursor at end of the line", opts = { noremap = true}},
 	},
 
 	i = {
