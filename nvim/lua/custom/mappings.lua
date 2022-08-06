@@ -30,12 +30,12 @@ M.custom = {
 		["<C-Enter>"] = { "maO<ESC>'a", "ﲗ add line above", opts = { noremap = true } },
 		["<C-S-Enter>"] = { "mao<ESC>'a", "ﲔ add line below", opts = { noremap = true } },
 
-    -- jump back
-    ["<C-b>"] = { "<C-O>", "碑 jump back", opts = { noremap = true } },
+		-- jump back
+		["<C-b>"] = { "<C-O>", "碑 jump back", opts = { noremap = true } },
 
-    -- move cursor
-    ["gs"] = { "^", " move cursor at start of the line", opts = { noremap = true}},
-    ["gl"] = { "$", " move cursor at end of the line", opts = { noremap = true}},
+		-- move cursor
+		["gs"] = { "^", " move cursor at start of the line", opts = { noremap = true } },
+		["gl"] = { "$", " move cursor at end of the line", opts = { noremap = true } },
 	},
 
 	i = {
@@ -48,8 +48,8 @@ M.custom = {
 
 		-- undo
 		["<C-u>"] = { "<C-o>u", "碑 undo in insert mode", opts = { noremap = true } },
-    
-    -- exit insert and save
+
+		-- exit insert and save
 		["<C-s>"] = { "<ESC><cmd> :w<CR>", "exit insert mode and save", opts = { noremap = true } },
 	},
 
