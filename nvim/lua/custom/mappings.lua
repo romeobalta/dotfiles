@@ -55,6 +55,7 @@ M.custom = {
 
 	v = {
 		["y"] = { "ygv<ESC>", "yank then go at the end of the block", opts = { noremap = true } },
+		["<leader>y"] = { '"*y', "yank into clipboard", opts = { noremap = true } },
 	},
 }
 
