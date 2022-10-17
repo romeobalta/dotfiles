@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 ZSH_DISABLE_COMPFIX=true 
 
 # If you come from bash you might have to change your $PATH.
@@ -74,17 +76,17 @@ plugins=(
   git
   bundler
   dotenv
-  osx
-  rake
+  macos
   rbenv
   ruby
   jsontools
   node
   golang
   pip
+  rust
   web-search
-  zsh-autosuggestions
-  zsh-syntax-highlighting
+  # zsh-autosuggestions
+  # zsh-syntax-highlighting
   colored-man-pages
   colorize
   common-aliases
@@ -123,6 +125,7 @@ source $ZSH/oh-my-zsh.sh
 source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 
 source ~/.aliases
+source ~/.fn
 source ~/.spaceship_profile
 source ~/.devvars
 
@@ -135,3 +138,7 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
