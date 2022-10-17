@@ -1,16 +1,19 @@
 #!/usr/bin/env bash
 
 # install nvim first
-./install_nvim
+# ./install_nvim
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # copy dotfiles
 dotfiles=(
   '.zshrc'
+  '.fn'
   '.aliases'
   '.spaceship_profile'
   '.devvars'
+  '.gitconfig'
+  '.tmux.conf'
 )
 
 for f in "${dotfiles[@]}"
