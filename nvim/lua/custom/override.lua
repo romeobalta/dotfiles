@@ -65,6 +65,34 @@ M.blankline = {
 	},
 }
 
+M.mason = {
+	ensure_installed = {
+		-- lua stuff
+		"lua-language-server",
+		"stylua",
+
+		-- web dev
+		"css-lsp",
+		"html-lsp",
+		"typescript-language-server",
+		"deno",
+		"emmet-ls",
+		"json-lsp",
+		"tailwindcss-language-server",
+		"prettierd",
+		"prettier",
+		"eslint_d",
+
+		-- rust
+		"rust-analyzer",
+		"taplo",
+
+		-- shell
+		"shfmt",
+		"shellcheck",
+	},
+}
+
 -- arrow completion and snippet jumping using arrow keys
 M.cmp = function()
 	local cmp = require("cmp")
@@ -104,33 +132,5 @@ M.cmp = function()
 		},
 	}
 end
-
-M.mason = {
-	ensure_installed = {
-		-- lua stuff
-		"lua-language-server",
-		"stylua",
-
-		-- web dev
-		"css-lsp",
-		"html-lsp",
-		"typescript-language-server",
-		"deno",
-		"emmet-ls",
-		"json-lsp",
-		"tailwindcss-language-server",
-		"prettierd",
-		"prettier",
-		"eslint_d",
-
-		-- rust
-		"rust-analyzer",
-		"taplo",
-
-		-- shell
-		"shfmt",
-		"shellcheck",
-	},
-}
 
 return M

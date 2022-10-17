@@ -10,4 +10,6 @@ _G.autofmt = function()
 	end
 end
 
-vim.cmd([[autocmd BufWritePre,FileWritePre * lua autofmt()]])
+-- vim.cmd([[autocmd BufWritePre,FileWritePre * lua autofmt()]])
+
+vim.keymap.set({"n", "i", "v"}, "<C-T>", "<Nop>")
