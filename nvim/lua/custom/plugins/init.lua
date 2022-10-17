@@ -56,6 +56,10 @@ return {
 		disable = true,
 	},
 
+	["folke/which-key.nvim"] = {
+		disable = false,
+	},
+
 	-- rust
 	["simrat39/rust-tools.nvim"] = {
 		requires = { "rust-lang/rust.vim" },

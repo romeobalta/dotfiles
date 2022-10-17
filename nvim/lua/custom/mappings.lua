@@ -1,5 +1,19 @@
 local M = {}
 
+M.disabled = {
+	n = {
+		["<C-t>"] = "",
+	},
+
+	i = {
+		["<C-t>"] = "",
+	},
+
+	v = {
+		["<C-t>"] = "",
+	},
+}
+
 M.custom = {
 	n = {
 		["<leader>bd"] = { "<cmd> :bp | bd# <CR>", " close current buffer", opts = {} },
@@ -15,6 +29,7 @@ M.custom = {
 			"ﲒ append in block",
 			opts = { silent = true },
 		},
+
 		["<leader>i"] = {
 			function()
 				vim.go.operatorfunc = "v:lua.prepend"
