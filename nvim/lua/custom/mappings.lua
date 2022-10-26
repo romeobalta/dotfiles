@@ -115,32 +115,30 @@ M.session = {
 
 M.lspconfig = {
 	n = {
-		["<leader>gs"] = {
+		["gs"] = {
 			function()
 				vim.lsp.buf.signature_help()
 			end,
 			" lsp signature_help",
 		},
 
-		["<leader>gd"] = {
+		["gt"] = {
 			function()
 				vim.lsp.buf.type_definition()
 			end,
 			" lsp definition type",
 		},
 
-		["<leader>gr"] = {
+		["gc"] = {
 			function()
 				require("nvchad_ui.renamer").open()
 			end,
 			" lsp rename",
 		},
 
-		["<leader>gq"] = {
-			function()
-				vim.diagnostic.setloclist()
-			end,
-			" diagnostic setloclist",
+		["gq"] = {
+			"<cmd> :Telescope diagnostics theme=dropdown <CR>",
+			" diagnostic",
 		},
 
 		-- add support for Rust formatting with RustFmt
@@ -153,6 +151,18 @@ M.lspconfig = {
 				end
 			end,
 			" lsp formatting",
+			opts = { noremap = false },
+		},
+
+		["gr"] = {
+			"<cmd> :Telescope lsp_references <CR>",
+			" lsp references",
+			opts = { noremap = false },
+		},
+
+		["gd"] = {
+			"<cmd> :Telescope lsp_definitions <CR>",
+			" lsp definitions",
 			opts = { noremap = false },
 		},
 	},
