@@ -1,28 +1,24 @@
 -- Just an example, supposed to be placed in /lua/custom/
-
 local M = {}
-local override = require("custom.override")
+
+local gruvbox = require("custom.themes.gruvbox")
 
 -- make sure you maintain the structure of `core/default_config.lua` here,
 -- example of changing theme:
 
 M.ui = {
+	changed_themes = {
+		gruvbox = gruvbox.colours,
+	},
+
+	hl_add = gruvbox.hl_add,
+	hl_override = gruvbox.hl_override,
+
 	theme = "gruvbox",
-	theme_toggle = { "gruvbox", "gruvbox_light" },
 	transparency = true,
 }
 
-M.plugins = {
-	override = {
-		["kyazdani42/nvim-tree.lua"] = override.nvimtree,
-		["nvim-treesitter/nvim-treesitter"] = override.treesitter,
-		["lukas-reineke/indent-blankline.nvim"] = override.blankline,
-		["williamboman/mason.nvim"] = override.mason,
-		["hrsh7th/nvim-cmp"] = override.cmp,
-	},
-
-	user = require("custom.plugins"),
-}
+M.plugins = require("custom.plugins")
 
 M.mappings = require("custom.mappings")
 

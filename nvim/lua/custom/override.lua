@@ -128,9 +128,35 @@ M.cmp = function()
 				"s",
 			}),
 
-      ["<C-g>"] = cmp.mapping.scroll_docs(-4),
+			["<C-g>"] = cmp.mapping.scroll_docs(-4),
 		},
 	}
 end
+
+M.ui = {
+	statusline = {
+		separator_style = "arrow",
+		overriden_modules = function()
+			return {
+				git = function()
+					if not vim.b.gitsigns_head or vim.b.gitsigns_git_status then
+						return ""
+					end
+
+					local git_status = vim.b.gitsigns_status_dict
+
+					local added = (git_status.added and git_status.added ~= 0) and ("  " .. git_status.added) or ""
+					local changed = (git_status.changed and git_status.changed ~= 0) and ("  " .. git_status.changed)
+						or ""
+					local removed = (git_status.removed and git_status.removed ~= 0) and ("  " .. git_status.removed)
+						or ""
+					local branch_name = "   " .. git_status.head .. " "
+
+					return "%#St_gitIcons#" .. branch_name .. "%#St_gitIcons_added#" .. added .. "%#St_gitIcons_changed#" .. changed .. "%#St_gitIcons_removed#" .. removed
+				end,
+			}
+		end,
+	},
+}
 
 return M
