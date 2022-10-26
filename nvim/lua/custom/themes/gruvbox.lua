@@ -37,6 +37,10 @@ M.hl_override = {
 	St_NormalModeSep = {
 		bg = "lightbg",
 	},
+
+  NvimTreeGitDirty = {
+    fg = "sun",
+  }
 }
 
 return M

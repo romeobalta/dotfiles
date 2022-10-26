@@ -41,10 +41,33 @@ M.nvimtree = {
 
 	renderer = {
 		highlight_git = true,
+		ident_markers = {
+			enable = false,
+		},
+
 		icons = {
 			show = {
 				git = true,
 			},
+
+			glyphs = {
+				git = {
+					-- unstaged = "✗",
+					-- staged = "✓",
+					-- unmerged = "",
+					-- renamed = "➜",
+					-- untracked = "★",
+					-- deleted = "",
+					-- ignored = "◌",
+					unstaged = "",
+				},
+			},
+		},
+	},
+
+	actions = {
+		open_file = {
+			quit_on_open = true,
 		},
 	},
 }
@@ -152,11 +175,31 @@ M.ui = {
 						or ""
 					local branch_name = "   " .. git_status.head .. " "
 
-					return "%#St_gitIcons#" .. branch_name .. "%#St_gitIcons_added#" .. added .. "%#St_gitIcons_changed#" .. changed .. "%#St_gitIcons_removed#" .. removed
+					return "%#St_gitIcons#"
+						.. branch_name
+						.. "%#St_gitIcons_added#"
+						.. added
+						.. "%#St_gitIcons_changed#"
+						.. changed
+						.. "%#St_gitIcons_removed#"
+						.. removed
 				end,
 			}
 		end,
 	},
 }
+
+M.telescope = function()
+	local themes = require("telescope.themes")
+
+	return {
+		extensions = {
+			["ui-select"] = {
+				themes.get_dropdown({}),
+			},
+		},
+		extensions_list = { "themes", "terms", "ui-select" },
+	}
+end
 
 return M

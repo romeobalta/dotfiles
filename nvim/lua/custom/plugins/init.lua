@@ -97,23 +97,15 @@ return {
 
 	["nvim-telescope/telescope.nvim"] = {
 		cmd = false,
-		override_options = function()
-			local themes = require("telescope.themes")
-
-			return {
-				extensions = {
-					["ui-select"] = {
-						themes.get_dropdown({}),
-					},
-				},
-				extensions_list = { "themes", "terms", "ui-select" },
-			}
-		end,
+		override_options = override.telescope,
 	},
 
 	["kyazdani42/nvim-tree.lua"] = { override_options = override.nvimtree },
+
 	["lukas-reineke/indent-blankline.nvim"] = { override_options = override.blankline },
+
 	["williamboman/mason.nvim"] = { override_options = override.mason },
+
 	["hrsh7th/nvim-cmp"] = { override_options = override.cmp },
 
 	["NvChad/ui"] = { override_options = override.ui },
