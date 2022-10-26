@@ -1,3 +1,5 @@
+local override = require("custom.override")
+
 return {
 
 	-- autoclose tags in html, jsx etc
@@ -79,7 +81,7 @@ return {
 				sessions_dir = Path:new(vim.fn.stdpath("data"), "sessions"), -- The directory where the session files will be saved.
 				path_replacer = "__", -- The character to which the path separator will be replaced for session files.
 				colon_replacer = "++", -- The character to which the colon symbol will be replaced for session files.
-				autoload_mode = require("session_manager.config").AutoloadMode.Disabled, -- Define what to do when Neovim is started without arguments. Possible values: Disabled, CurrentDir, LastSession
+				autoload_mode = require("session_manager.config").AutoloadMode.LastSession, -- Define what to do when Neovim is started without arguments. Possible values: Disabled, CurrentDir, LastSession
 				autosave_last_session = true, -- Automatically save last session on exit and on session switch.
 				autosave_ignore_not_normal = true, -- Plugin will not save a session when no buffers are opened, or all of them aren't writable or listed.
 				autosave_ignore_filetypes = { -- All buffers of these file types will be closed before the session is saved.
@@ -90,4 +92,29 @@ return {
 			})
 		end,
 	},
+
+	["nvim-telescope/telescope-ui-select.nvim"] = {},
+
+	["nvim-telescope/telescope.nvim"] = {
+		cmd = false,
+		override_options = function()
+			local themes = require("telescope.themes")
+
+			return {
+				extensions = {
+					["ui-select"] = {
+						themes.get_dropdown({}),
+					},
+				},
+				extensions_list = { "themes", "terms", "ui-select" },
+			}
+		end,
+	},
+
+	["kyazdani42/nvim-tree.lua"] = { override_options = override.nvimtree },
+	["lukas-reineke/indent-blankline.nvim"] = { override_options = override.blankline },
+	["williamboman/mason.nvim"] = { override_options = override.mason },
+	["hrsh7th/nvim-cmp"] = { override_options = override.cmp },
+
+	["NvChad/ui"] = { override_options = override.ui },
 }
