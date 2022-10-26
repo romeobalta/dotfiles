@@ -55,6 +55,7 @@
     "telnet"
   ],
   "Scrollback Lines" : 1000,
+  "Brighten Bold Text" : false,
   "Flashing Bell" : false,
   "Cursor Guide Color" : {
     "Red Component" : 0.17867125570774078,
@@ -365,11 +366,11 @@
   "Use Bold Font" : true,
   "Silence Bell" : false,
   "Ansi 12 Color" : {
-    "Red Component" : 0.51372549019607838,
+    "Red Component" : 0.99607843137254903,
     "Color Space" : "sRGB",
-    "Blue Component" : 0.59607843137254901,
+    "Blue Component" : 0.098039215686274508,
     "Alpha Component" : 1,
-    "Green Component" : 0.6470588235294118
+    "Green Component" : 0.50196078431372548
   },
   "Window Type" : 0,
   "Use Bright Bold" : true,
