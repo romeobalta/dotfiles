@@ -123,12 +123,6 @@ source $ZSH/oh-my-zsh.sh
 
 
 source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
-
-source ~/.aliases
-source ~/.fn
-source ~/.spaceship_profile
-source ~/.devvars
-
 SPACESHIP_PROMPT_SEPARATE_LINE=true
 
 if command -v pyenv 1>/dev/null 2>&1; then
@@ -142,3 +136,8 @@ export NVM_DIR="$HOME/.nvm"
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 
+source ~/.aliases
+source ~/.fn
+source ~/.spaceship_profile
+source ~/.devvars
+source ~/.zshrc_custom
