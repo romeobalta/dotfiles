@@ -8,6 +8,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # copy dotfiles
 dotfiles=(
   '.zshrc'
+  '.zshrc_custom'
   '.fn'
   '.aliases'
   '.spaceship_profile'
