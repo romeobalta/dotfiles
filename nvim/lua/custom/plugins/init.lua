@@ -109,4 +109,6 @@ return {
 	["hrsh7th/nvim-cmp"] = { override_options = override.cmp },
 
 	["NvChad/ui"] = { override_options = override.ui },
+
+  ["github/copilot.vim"] = {},
 }
