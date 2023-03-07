@@ -41,7 +41,7 @@ M.nvimtree = {
 
 	renderer = {
 		highlight_git = true,
-		ident_markers = {
+		indent_markers = {
 			enable = false,
 		},
 
@@ -197,8 +197,9 @@ M.telescope = function()
 			["ui-select"] = {
 				themes.get_dropdown({}),
 			},
+			fzf = {},
 		},
-		extensions_list = { "themes", "terms", "ui-select" },
+		extensions_list = { "themes", "terms", "ui-select", "fzf" },
 	}
 end
 

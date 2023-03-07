@@ -95,12 +95,16 @@ return {
 
 	["nvim-telescope/telescope-ui-select.nvim"] = {},
 
+	["nvim-telescope/telescope-fzf-native.nvim"] = {
+		run = "make",
+	},
+
 	["nvim-telescope/telescope.nvim"] = {
 		cmd = false,
 		override_options = override.telescope,
 	},
 
-	["kyazdani42/nvim-tree.lua"] = { override_options = override.nvimtree },
+	["nvim-tree/nvim-tree.lua"] = { override_options = override.nvimtree },
 
 	["lukas-reineke/indent-blankline.nvim"] = { override_options = override.blankline },
 
@@ -110,5 +114,5 @@ return {
 
 	["NvChad/ui"] = { override_options = override.ui },
 
-  ["github/copilot.vim"] = {},
+	["github/copilot.vim"] = {},
 }
