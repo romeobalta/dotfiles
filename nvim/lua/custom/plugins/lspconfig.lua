@@ -17,45 +17,43 @@ local servers = {
 	"tailwindcss",
 	"yamlls",
 	"bashls",
-  "taplo",
-  "rust_analyzer",
+	"taplo",
+	"rust_analyzer",
 }
 
 local opts = {}
 
 for _, lsp in ipairs(servers) do
-
-  opts = {
+	opts = {
 		on_attach = on_attach,
 		capabilities = capabilities,
-  }
+	}
 
-  if lsp == "rust_analyzer" then
-     opts.settings = {
-       ["rust-analyzer"] = {
-         checkOnSave = {
-           command = "clippy"
-         }
-       }
-     }
+	if lsp == "rust_analyzer" then
+		opts.settings = {
+			["rust-analyzer"] = {
+				checkOnSave = {
+					command = "clippy",
+				},
+			},
+		}
 
-    require("rust-tools").setup({
-      server = opts,
-    })
-    goto continue
-  end
+		require("rust-tools").setup({
+			server = opts,
+		})
+		goto continue
+	end
 
-  if lsp == "cssls" then
-    opts.settings = {
-      css = {
-        lint = {
-          unknownAtRules = 'ignore',
-        }
-      }
-    }
-  end
+	if lsp == "cssls" then
+		opts.settings = {
+			css = {
+				lint = {
+					unknownAtRules = "ignore",
+				},
+			},
+		}
+	end
 
 	lspconfig[lsp].setup(opts)
-  ::continue::
+	::continue::
 end
-

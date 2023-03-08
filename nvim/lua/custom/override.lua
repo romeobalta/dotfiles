@@ -113,6 +113,7 @@ M.mason = {
 		-- shell
 		"shfmt",
 		"shellcheck",
+		"bash-language-server",
 	},
 }
 
@@ -152,6 +153,10 @@ M.cmp = function()
 			}),
 
 			["<C-g>"] = cmp.mapping.scroll_docs(-4),
+
+      -- disable so we can use copilot
+      ["<Tab>"] = cmp.config.disable,
+      ["<S-Tab>"] = cmp.config.disable,
 		},
 	}
 end
