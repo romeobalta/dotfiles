@@ -54,6 +54,11 @@ for _, lsp in ipairs(servers) do
 		}
 	end
 
+  if lsp == "tailwindcss" then
+    require("telescope").load_extension("tailiscope")
+    vim.keymap.set("n", "<leader>fw", "<cmd>Telescope tailiscope<CR>")
+  end
+
 	lspconfig[lsp].setup(opts)
 	-- ::continue::
 end
