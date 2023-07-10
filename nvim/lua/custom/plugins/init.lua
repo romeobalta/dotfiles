@@ -117,4 +117,6 @@ return {
 	["NvChad/ui"] = { override_options = override.ui },
 
 	["github/copilot.vim"] = {},
+
+  ["danielvolchek/tailiscope.nvim"] = {},
 }
