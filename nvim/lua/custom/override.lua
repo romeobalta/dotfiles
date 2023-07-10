@@ -154,9 +154,9 @@ M.cmp = function()
 
 			["<C-g>"] = cmp.mapping.scroll_docs(-4),
 
-      -- disable so we can use copilot
-      ["<Tab>"] = cmp.config.disable,
-      ["<S-Tab>"] = cmp.config.disable,
+			-- disable so we can use copilot
+			["<Tab>"] = cmp.config.disable,
+			["<S-Tab>"] = cmp.config.disable,
 		},
 	}
 end
@@ -203,8 +203,9 @@ M.telescope = function()
 				themes.get_dropdown({}),
 			},
 			fzf = {},
+			live_grep_args = {},
 		},
-		extensions_list = { "themes", "terms", "ui-select", "fzf" },
+		extensions_list = { "themes", "terms", "ui-select", "fzf", "live_grep_args" },
 	}
 end
 

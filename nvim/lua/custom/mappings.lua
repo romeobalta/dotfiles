@@ -171,8 +171,17 @@ M.lspconfig = {
 M.telescope = {
 	n = {
 		-- find
-		["<leader>fs"] = { "<cmd> Telescope live_grep <CR>", " live grep" },
+		["<leader>fs"] = {
+			"<cmd> lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+			" live grep",
+		},
 		["<leader>fk"] = { "<cmd> Telescope keymaps <CR>", "  show keys" },
+		["<leader>fds"] = { "<cmd> Telescope lsp_document_symbols <CR>", "@  show document symbols" },
+		["<leader>fch"] = { "<cmd> Telescope command_history <CR>", "  show command history" },
+		["<leader>fsh"] = { "<cmd> Telescope search_history <CR>", "  show search history" },
+		["<leader>flm"] = { "<cmd> Telescope marks <CR>", "  show marks" },
+		["<leader>fll"] = { "<cmd> Telescope loclist<CR>", "  show loclist" },
+		["<leader>flj"] = { "<cmd> Telescope jumplist<cr>", "  show jumplist" },
 
 		-- git
 		["<leader>fgc"] = { "<cmd> Telescope git_commits <CR>", "  git commits" },
