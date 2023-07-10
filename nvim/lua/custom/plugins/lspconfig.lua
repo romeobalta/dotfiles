@@ -18,7 +18,7 @@ local servers = {
 	"yamlls",
 	"bashls",
 	"taplo",
-	"rust_analyzer",
+	-- "rust_analyzer",
 }
 
 local opts = {}
@@ -29,20 +29,20 @@ for _, lsp in ipairs(servers) do
 		capabilities = capabilities,
 	}
 
-	if lsp == "rust_analyzer" then
-		opts.settings = {
-			["rust-analyzer"] = {
-				checkOnSave = {
-					command = "clippy",
-				},
-			},
-		}
-
-		require("rust-tools").setup({
-			server = opts,
-		})
-		goto continue
-	end
+	-- if lsp == "rust_analyzer" then
+	-- 	opts.settings = {
+	-- 		["rust-analyzer"] = {
+	-- 			checkOnSave = {
+	-- 				command = "clippy",
+	-- 			},
+	-- 		},
+	-- 	}
+	--
+	-- 	require("rust-tools").setup({
+	-- 		server = opts,
+	-- 	})
+	-- 	goto continue
+	-- end
 
 	if lsp == "cssls" then
 		opts.settings = {
@@ -55,5 +55,5 @@ for _, lsp in ipairs(servers) do
 	end
 
 	lspconfig[lsp].setup(opts)
-	::continue::
+	-- ::continue::
 end
