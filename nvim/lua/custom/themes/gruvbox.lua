@@ -9,6 +9,10 @@ M.colours = {
 		grey_fg = "#7c6f64",
 		one_bg2 = "#41462d",
 	},
+
+  base_16 = {
+    base02 = "#686563"
+  }
 }
 
 M.hl_add = {
