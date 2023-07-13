@@ -147,7 +147,7 @@ M.lspconfig = {
 				if vim.fn.exists(":RustFmt") > 0 then
 					vim.fn["rustfmt#Format"]()
 				else
-					vim.lsp.buf.formatting()
+					vim.lsp.buf.format()
 				end
 			end,
 			" lsp formatting",
