@@ -7,6 +7,7 @@ M.colours = {
 		line = "#7c6f64",
 		grey = "#7c6f64",
 		grey_fg = "#7c6f64",
+		one_bg2 = "#41462d",
 	},
 }
 
@@ -38,9 +39,9 @@ M.hl_override = {
 		bg = "lightbg",
 	},
 
-  NvimTreeGitDirty = {
-    fg = "sun",
-  }
+	NvimTreeGitDirty = {
+		fg = "sun",
+	},
 }
 
 return M
