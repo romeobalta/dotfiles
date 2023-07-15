@@ -67,7 +67,7 @@ M.nvimtree = {
 
 	actions = {
 		open_file = {
-      quit_on_open = true,
+			quit_on_open = true,
 		},
 	},
 }
@@ -198,6 +198,21 @@ M.telescope = function()
 	local themes = require("telescope.themes")
 
 	return {
+		defaults = {
+			prompt_prefix = "     ",
+		},
+		pickers = {
+			buffers = {
+				mappings = {
+					i = {
+						["<c-d>"] = "delete_buffer",
+					},
+					n = {
+						["<c-d>"] = "delete_buffer",
+					},
+				},
+			},
+		},
 		extensions = {
 			["ui-select"] = {
 				themes.get_dropdown({}),

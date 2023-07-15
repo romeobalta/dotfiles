@@ -6,7 +6,7 @@ _G.autofmt = function()
 	if vim.fn.exists(":RustFmt") > 0 then
 		vim.fn["rustfmt#Format"]()
 	else
-		vim.lsp.buf.formatting()
+		vim.lsp.buf.format()
 	end
 end
 
