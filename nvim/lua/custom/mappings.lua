@@ -173,7 +173,7 @@ M.telescope = {
 		-- find
 		["<leader>fs"] = {
 			"<cmd> lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
-			" live grep",
+			" live grep",
 		},
 		["<leader>fk"] = { "<cmd> Telescope keymaps <CR>", "  show keys" },
 		["<leader>fds"] = { "<cmd> Telescope lsp_document_symbols <CR>", "@  show document symbols" },

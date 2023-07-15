@@ -118,5 +118,7 @@ return {
 
 	["github/copilot.vim"] = {},
 
-  ["danielvolchek/tailiscope.nvim"] = {},
+	["danielvolchek/tailiscope.nvim"] = {},
+
+	["nvim-tree/nvim-web-devicons"] = {},
 }

@@ -3,9 +3,6 @@ local M = {}
 
 local gruvbox = require("custom.themes.gruvbox")
 
--- make sure you maintain the structure of `core/default_config.lua` here,
--- example of changing theme:
-
 M.ui = {
 	changed_themes = {
 		gruvbox = gruvbox.colours,
