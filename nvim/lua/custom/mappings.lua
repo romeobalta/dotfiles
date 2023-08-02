@@ -20,6 +20,29 @@ M.custom = {
 		["<leader>fr"] = { ":%s/", "  enter search and replace", opts = { nowait = true } },
 		["<leader>w"] = { "<C-w>", "window operations", opts = { nowait = true } },
 
+		["<leader>rr"] = {
+			function()
+				local output = vim.fn.system({ "rm", "~/.eslint_d" })
+				print(output)
+
+				vim.wait(100)
+
+				output = vim.fn.system({ "eslint_d", "restart" })
+				print(output)
+
+				vim.wait(100)
+
+				require("null-ls").toggle({})
+				vim.wait(100)
+				require("null-ls").toggle({})
+
+				vim.wait(100)
+				vim.cmd("LspStop")
+				vim.wait(100)
+				vim.cmd("LspStart")
+			end,
+		},
+
 		-- append and prepend in block
 		["<leader>a"] = {
 			function()
@@ -76,9 +99,9 @@ M.custom = {
 
 M.rust = {
 	n = {
-		["<leader>rn"] = { "<cmd> :RustRunnables <CR>", "ﰌ rust runnables", opts = {} },
-		["<leader>rr"] = { "<cmd> :RustRun <CR>", "ﰌ rust run", opts = {} },
-		["<leader>re"] = { "<cmd> :RustExpandMacro <CR>", "ﲖ rust expand", opts = {} },
+		-- ["<leader>rn"] = { "<cmd> :RustRunnables <CR>", "ﰌ rust runnables", opts = {} },
+		-- ["<leader>rr"] = { "<cmd> :RustRun <CR>", "ﰌ rust run", opts = {} },
+		-- ["<leader>re"] = { "<cmd> :RustExpandMacro <CR>", "ﲖ rust expand", opts = {} },
 	},
 }
 
