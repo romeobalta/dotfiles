@@ -121,4 +121,16 @@ return {
 	["danielvolchek/tailiscope.nvim"] = {},
 
 	["nvim-tree/nvim-web-devicons"] = {},
+
+	["folke/zen-mode.nvim"] = {
+		config = function()
+			require("zen-mode").setup({
+				window = {
+					backdrop = 1,
+					width = 0.5,
+					height = 1,
+				},
+			})
+		end,
+	},
 }
