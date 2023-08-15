@@ -200,8 +200,18 @@ M.telescope = function()
 	return {
 		defaults = {
 			prompt_prefix = "     ",
+			layout_config = {
+				cursor = {
+					width = 1,
+				},
+			},
 		},
 		pickers = {
+			diagnostics = {
+				theme = "ivy",
+				sort_by = "severity",
+			},
+
 			buffers = {
 				mappings = {
 					i = {
@@ -215,7 +225,8 @@ M.telescope = function()
 		},
 		extensions = {
 			["ui-select"] = {
-				themes.get_dropdown({}),
+				themes.get_cursor({}),
+        -- themes.get_dropdown({})
 			},
 			fzf = {},
 			live_grep_args = {},

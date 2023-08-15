@@ -20,6 +20,8 @@ M.custom = {
 		["<leader>fr"] = { ":%s/", "  enter search and replace", opts = { nowait = true } },
 		["<leader>w"] = { "<C-w>", "window operations", opts = { nowait = true } },
 
+		["<leader>z"] = { "<cmd>:ZenMode<CR>", "toggle zen mode", opts = {} },
+
 		["<leader>rr"] = {
 			function()
 				local output = vim.fn.system({ "rm", "~/.eslint_d" })
@@ -160,7 +162,12 @@ M.lspconfig = {
 		},
 
 		["gq"] = {
-			"<cmd> :Telescope diagnostics theme=dropdown <CR>",
+			"<cmd> :Telescope diagnostics <CR>",
+			" diagnostic",
+		},
+
+		["<leader>q"] = {
+			"<cmd> :Telescope diagnostics <CR>",
 			" diagnostic",
 		},
 
