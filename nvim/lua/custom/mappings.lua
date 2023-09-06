@@ -5,9 +5,9 @@ M.disabled = {
 		["<C-t>"] = "",
 	},
 
-	i = {
-		["<C-t>"] = "",
-	},
+  i = {
+    ["<C-t>"] = "",
+  },
 
 	v = {
 		["<C-t>"] = "",
@@ -21,29 +21,29 @@ M.custom = {
 		["<leader>w"] = { "<C-w>", "window operations", opts = { nowait = true } },
 
 		["<leader>z"] = { "<cmd>:ZenMode<CR>", "toggle zen mode", opts = {} },
-
-		["<leader>rr"] = {
-			function()
-				local output = vim.fn.system({ "rm", "~/.eslint_d" })
-				print(output)
-
-				vim.wait(100)
-
-				output = vim.fn.system({ "eslint_d", "restart" })
-				print(output)
-
-				vim.wait(100)
-
-				require("null-ls").toggle({})
-				vim.wait(100)
-				require("null-ls").toggle({})
-
-				vim.wait(100)
-				vim.cmd("LspStop")
-				vim.wait(100)
-				vim.cmd("LspStart")
-			end,
-		},
+		--
+		-- ["<leader>rs"] = {
+		-- 	function()
+		-- 		local output = vim.fn.system({ "rm", "~/.eslint_d" })
+		-- 		print(output)
+		--
+		-- 		vim.wait(100)
+		--
+		-- 		output = vim.fn.system({ "eslint_d", "restart" })
+		-- 		print(output)
+		--
+		-- 		vim.wait(100)
+		--
+		-- 		require("null-ls").toggle({})
+		-- 		vim.wait(100)
+		-- 		require("null-ls").toggle({})
+		--
+		-- 		vim.wait(100)
+		-- 		vim.cmd("LspStop")
+		-- 		vim.wait(100)
+		-- 		vim.cmd("LspStart")
+		-- 	end,
+		-- },
 
 		-- append and prepend in block
 		["<leader>a"] = {
@@ -65,8 +65,6 @@ M.custom = {
 		},
 
 		-- add empty lines
-		["<C-k>"] = { "maO<ESC>'a", "ﲗ add line above", opts = { noremap = true } },
-		["<C-j>"] = { "mao<ESC>'a", "ﲔ add line below", opts = { noremap = true } },
 		["<C-Enter>"] = { "maO<ESC>'a", "ﲗ add line above", opts = { noremap = true } },
 		["<C-S-Enter>"] = { "mao<ESC>'a", "ﲔ add line below", opts = { noremap = true } },
 
@@ -82,8 +80,6 @@ M.custom = {
 		["jk"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
 
 		-- add empty lines
-		["<C-j>"] = { "<C-o>ma<C-o>o<C-o>'a", "ﲔ add line below", opts = { noremap = true } },
-		["<C-k>"] = { "<C-o>ma<C-o>O<C-o>'a", "ﲗ add line above", opts = { noremap = true } },
 		["<C-Enter>"] = { "<C-o>ma<C-o>o<C-o>'a", "ﲔ add line below", opts = { noremap = true } },
 
 		-- undo
@@ -91,6 +87,57 @@ M.custom = {
 
 		-- exit insert and save
 		["<C-s>"] = { "<ESC><cmd> :w<CR>", "exit insert mode and save", opts = { noremap = true } },
+
+		-- copilot
+		["<C-w>"] = {
+			function()
+				require("copilot.suggestion").accept_word()
+        print("copilot")
+			end,
+			"ﲔ accept word suggestion",
+			opts = { noremap = true },
+		},
+		["<C-l>"] = {
+			function()
+				require("copilot.suggestion").accept_line()
+			end,
+			"ﲔ accept line suggestion",
+			opts = { noremap = true },
+		},
+		["<C-k>"] = {
+			function()
+				require("copilot.suggestion").next()
+			end,
+			"ﲔ next suggestion",
+			opts = { noremap = true },
+		},
+		["<C-j>"] = {
+			function()
+				require("copilot.suggestion").prev()
+			end,
+			"ﲔ prev suggestion",
+			opts = { noremap = true },
+		},
+		["<C-h>"] = {
+			function()
+				require("copilot.suggestion").dismiss()
+			end,
+			"ﲔ dismiss suggestion",
+			opts = { noremap = true },
+
+		},
+		["<Tab>"] = {
+			function()
+				if require("copilot.suggestion").is_visible() then
+					require("copilot.suggestion").accept()
+				else
+					vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
+				end
+			end,
+			"ﲔ accept suggestion",
+			opts = { noremap = true },
+		},
+
 	},
 
 	v = {
@@ -101,9 +148,9 @@ M.custom = {
 
 M.rust = {
 	n = {
-		-- ["<leader>rn"] = { "<cmd> :RustRunnables <CR>", "ﰌ rust runnables", opts = {} },
-		-- ["<leader>rr"] = { "<cmd> :RustRun <CR>", "ﰌ rust run", opts = {} },
-		-- ["<leader>re"] = { "<cmd> :RustExpandMacro <CR>", "ﲖ rust expand", opts = {} },
+		["<leader>rn"] = { "<cmd> :RustRunnables <CR>", "ﰌ rust runnables", opts = {} },
+		["<leader>rr"] = { "<cmd> :RustRun <CR>", "ﰌ rust run", opts = {} },
+		["<leader>re"] = { "<cmd> :RustExpandMacro <CR>", "ﲖ rust expand", opts = {} },
 	},
 }
 

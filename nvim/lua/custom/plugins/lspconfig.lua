@@ -35,14 +35,14 @@ for _, lsp in ipairs(servers) do
 	-- 			checkOnSave = {
 	-- 				command = "clippy",
 	-- 			},
+ --        cargo = {
+ --          allFeatures = true,
+ --        },
 	-- 		},
 	-- 	}
-	--
-	-- 	require("rust-tools").setup({
-	-- 		server = opts,
-	-- 	})
-	-- 	goto continue
-	-- end
+ --    opts.filetypes = { "rust" }
+ --    opts.root_dir = lspconfig.util.root_pattern("Cargo.toml")
+ --  end
 
 	if lsp == "cssls" then
 		opts.settings = {
@@ -54,10 +54,10 @@ for _, lsp in ipairs(servers) do
 		}
 	end
 
-  if lsp == "tailwindcss" then
-    require("telescope").load_extension("tailiscope")
-    vim.keymap.set("n", "<leader>fw", "<cmd>Telescope tailiscope<CR>")
-  end
+	if lsp == "tailwindcss" then
+		require("telescope").load_extension("tailiscope")
+		vim.keymap.set("n", "<leader>fw", "<cmd>Telescope tailiscope<CR>")
+	end
 
 	lspconfig[lsp].setup(opts)
 	-- ::continue::

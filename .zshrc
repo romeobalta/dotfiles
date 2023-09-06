@@ -139,5 +139,8 @@ source ~/.spaceship_profile
 source ~/.devvars
 source ~/.zshrc_custom
 
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
