@@ -38,4 +38,20 @@ M.autosave = function()
 	end
 end
 
+M.rust_tools = function()
+  local on_attach = require("plugins.configs.lspconfig").on_attach
+  local capabilities = require("plugins.configs.lspconfig").capabilities
+
+  local options = {
+    server = {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    },
+  }
+
+  print(options)
+
+  return options
+end
+
 return M

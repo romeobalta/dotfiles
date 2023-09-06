@@ -64,7 +64,14 @@ return {
 
 	-- rust
 	["simrat39/rust-tools.nvim"] = {
-		requires = { "rust-lang/rust.vim" },
+		requires = { "rust-lang/rust.vim", "neovim/nvim-lspconfig" },
+		ft = "rust",
+
+		config = function()
+			local options = require("custom.plugins.smolconfigs").rust_tools()
+
+			require("rust-tools").setup(options)
+		end,
 	},
 
 	-- dap
@@ -112,11 +119,31 @@ return {
 
 	["williamboman/mason.nvim"] = { override_options = override.mason },
 
+	["williamboman/mason-lspconfig.nvim"] = {},
+
 	["hrsh7th/nvim-cmp"] = { override_options = override.cmp },
 
 	["NvChad/ui"] = { override_options = override.ui },
 
-	["github/copilot.vim"] = {},
+	["zbirenbaum/copilot.lua"] = {
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = false,
+            accept_word = false,
+            accept_line = false,
+            next = false,
+            prev = false,
+            dismiss = false,
+          }
+        }
+      })
+		end,
+	},
 
 	["danielvolchek/tailiscope.nvim"] = {},
 
@@ -133,4 +160,15 @@ return {
 			})
 		end,
 	},
+
+	-- LSP completion source:
+	["hrsh7th/cmp-nvim-lsp"] = {},
+
+	-- [ful completion sources] = {},
+	["hrsh7th/cmp-nvim-lua"] = {},
+	["hrsh7th/cmp-nvim-lsp-signature-help"] = {},
+	["hrsh7th/cmp-vsnip"] = {},
+	["hrsh7th/cmp-path"] = {},
+	["hrsh7th/cmp-buffer"] = {},
+	["hrsh7th/vim-vsnip"] = {},
 }

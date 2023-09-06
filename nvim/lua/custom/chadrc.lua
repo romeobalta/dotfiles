@@ -27,4 +27,11 @@ _G.prepend = function()
 	vim.api.nvim_feedkeys("`[i", "n", false)
 end
 
+-- LSP Diagnostics Options Setup
+vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
+vim.opt.shortmess = vim.opt.shortmess + { c = true }
+vim.api.nvim_set_option("updatetime", 300)
+vim.g.copilot_no_maps = true
+
+
 return M
