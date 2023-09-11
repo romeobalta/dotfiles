@@ -18,7 +18,6 @@ local servers = {
 	"yamlls",
 	"bashls",
 	"taplo",
-	-- "rust_analyzer",
 }
 
 local opts = {}

@@ -74,6 +74,48 @@ M.custom = {
 		-- move cursor
 		["gs"] = { "^", " move cursor at start of the line", opts = { noremap = true } },
 		["gl"] = { "$", " move cursor at end of the line", opts = { noremap = true } },
+    
+    -- dap
+    ["<leader>dt"] = {
+      "<cmd>:lua require('dapui').toggle()<CR>",
+      "ﲔ dap toggle",
+      opts = { noremap = true },
+    },
+    ["<leader>db"] = {
+      "<cmd> :DapToggleBreakpoint<CR>",
+      "ﲔ dap toggle breakpoint",
+      opts = { noremap = true },
+    },
+    ["<leader>dc"] = {
+      "<cmd> :DapContinue<CR>",
+      "ﲔ dap continue",
+      opts = { noremap = true },
+    },
+    ["<leader>ds"] = {
+      "<cmd> :DapStepOver<CR>",
+      "ﲔ dap step over",
+      opts = { noremap = true },
+    },
+    ["<leader>di"] = {
+      "<cmd> :DapStepInto<CR>",
+      "ﲔ dap step into",
+      opts = { noremap = true },
+    },
+    ["<leader>do"] = {
+      "<cmd> :DapStepOut<CR>",
+      "ﲔ dap step out",
+      opts = { noremap = true },
+    },
+    ["<leader>dx"] = {
+      "<cmd> :DapTerminate<CR>",
+      "ﲔ dap terminate",
+      opts = { noremap = true },
+    },
+    ["<leader>dr"] = {
+      "<cmd>:lua require('dapui').open({ reset = true })<CR>",
+      "ﲔ dap reset ui",
+      opts = { noremap = true },
+    }
 	},
 
 	i = {
@@ -149,6 +191,7 @@ M.custom = {
 M.rust = {
 	n = {
 		["<leader>rn"] = { "<cmd> :RustRunnables <CR>", "ﰌ rust runnables", opts = {} },
+		["<leader>rd"] = { "<cmd> :RustDebuggables <CR>", "ﰌ rust debuggables", opts = {} },
 		["<leader>rr"] = { "<cmd> :RustRun <CR>", "ﰌ rust run", opts = {} },
 		["<leader>re"] = { "<cmd> :RustExpandMacro <CR>", "ﲖ rust expand", opts = {} },
 	},

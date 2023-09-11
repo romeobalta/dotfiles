@@ -130,18 +130,18 @@ return {
 		event = "InsertEnter",
 		config = function()
 			require("copilot").setup({
-        suggestion = {
-          auto_trigger = true,
-          keymap = {
-            accept = false,
-            accept_word = false,
-            accept_line = false,
-            next = false,
-            prev = false,
-            dismiss = false,
-          }
-        }
-      })
+				suggestion = {
+					auto_trigger = true,
+					keymap = {
+						accept = false,
+						accept_word = false,
+						accept_line = false,
+						next = false,
+						prev = false,
+						dismiss = false,
+					},
+				},
+			})
 		end,
 	},
 
@@ -171,4 +171,56 @@ return {
 	["hrsh7th/cmp-path"] = {},
 	["hrsh7th/cmp-buffer"] = {},
 	["hrsh7th/vim-vsnip"] = {},
+
+	-- dap
+	["rcarriga/nvim-dap-ui"] = {
+		requires = { "mfussenegger/nvim-dap" },
+		config = function()
+			require("dapui").setup({
+				layouts = {
+					{
+						elements = {
+							{
+								id = "watches",
+								size = 0.45,
+							},
+							{
+								id = "breakpoints",
+								size = 0.25,
+							},
+							{
+								id = "scopes",
+								size = 0.15,
+							},
+							{
+								id = "stacks",
+								size = 0.15,
+							},
+						},
+						position = "left",
+						size = 60,
+					},
+					{
+						elements = {
+							{
+								id = "console",
+								size = 0.5,
+							},
+							{
+								id = "repl",
+								size = 0.5,
+							},
+						},
+						position = "bottom",
+						size = 10,
+					},
+				},
+			})
+		end,
+	},
+	["theHamsta/nvim-dap-virtual-text"] = {
+		config = function()
+			require("nvim-dap-virtual-text").setup()
+		end,
+	},
 }
