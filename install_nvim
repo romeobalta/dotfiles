@@ -2,11 +2,12 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-# if NvChad not installed, install it
-[ ! -d "$HOME/.config/nvim" ] && (git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim)
+# # if NvChad not installed, install it
+# [ ! -d "$HOME/.config/nvim" ] && (git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim)
 
 # install custom config
 # mkdir -p ~/.config/nvim/lua/custom
 # cp -a ./nvim/lua/custom/. ~/.config/nvim/lua/custom
 
-ln -fs "$SCRIPT_DIR/nvim/lua/custom" "$HOME/.config/nvim/lua/custom"
+ln -fs "$SCRIPT_DIR/nvim/init.lua" "$HOME/.config/nvim"
+ln -fs "$SCRIPT_DIR/nvim/lua" "$HOME/.config/nvim"
