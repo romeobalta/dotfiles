@@ -46,8 +46,7 @@ M.general = {
 		["<leader>bx"] = {
 			function()
 				require("nvchad.tabufline").closeAllBufs()
-			end
-,
+			end,
 			"Close all buffers",
 		},
 
@@ -605,7 +604,7 @@ M.dap = {
 
 		["<leader>dt"] = {
 			"<cmd>:lua require('dapui').toggle()<CR>",
-      "  dap toggle ui",
+			"  dap toggle ui",
 			opts = { noremap = true },
 		},
 		["<leader>db"] = {

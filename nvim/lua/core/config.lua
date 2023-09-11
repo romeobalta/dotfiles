@@ -9,11 +9,11 @@ M.ui = {
 		},
 
 		St_gitIcons_changed = {
-			fg = "yellow",
+			-- fg = "yellow",
 		},
 
 		St_gitIcons_removed = {
-			fg = "red",
+			-- fg = "red",
 		},
 	},
 	hl_override = {
@@ -21,10 +21,10 @@ M.ui = {
 			fg = "lightbg",
 		},
 
-		-- St_EmptySpace2 = {
-		-- 	fg = "black",
-		-- 	bg = "black",
-		-- },
+		St_EmptySpace2 = {
+			fg = "black",
+			bg = "black",
+		},
 
 		St_NormalModeSep = {
 			bg = "lightbg",
@@ -37,12 +37,12 @@ M.ui = {
 	changed_themes = {
 		gruvbox = {
 			base_30 = {
-				black = "#262626",
+				-- 	black = "#262626",
 				statusline_bg = "#262626",
-				line = "#7c6f64",
-				grey = "#7c6f64",
+				-- 	line = "#7c6f64",
+				-- grey = "#7c6f64",
 				grey_fg = "#7c6f64",
-				one_bg2 = "#41462d",
+				-- one_bg2 = "#41462d",
 			},
 
 			base_16 = {
@@ -67,7 +67,7 @@ M.ui = {
 		selected_item_bg = "colored", -- colored / simple
 	},
 
-	telescope = { style = "borderless" }, -- borderless / bordered
+	telescope = { style = "bordered" }, -- borderless / bordered
 
 	------------------------------- nvchad_ui modules -----------------------------
 	statusline = {
@@ -147,8 +147,6 @@ M.ui = {
 		},
 	},
 }
-
--- M.plugins = "" -- path i.e "custom.plugins", so make custom/plugins.lua file
 
 M.lazy_nvim = require("plugins.configs.lazy_nvim") -- config for lazy.nvim startup options
 
