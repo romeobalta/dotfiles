@@ -42,6 +42,15 @@ M.general = {
 		["<leader>b"] = { "<cmd> enew <CR>", "New buffer" },
 		["<leader>ch"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
 
+		-- close all buffers
+		["<leader>bx"] = {
+			function()
+				require("nvchad.tabufline").closeAllBufs()
+			end
+,
+			"Close all buffers",
+		},
+
 		["<leader>fm"] = {
 			function()
 				vim.lsp.buf.format({ async = true })
@@ -519,35 +528,35 @@ M.copilot = {
 				require("copilot.suggestion").accept_word()
 				print("copilot")
 			end,
-			"ﲔ accept word suggestion",
+			"  accept word suggestion",
 			opts = { noremap = true },
 		},
 		["<C-l>"] = {
 			function()
 				require("copilot.suggestion").accept_line()
 			end,
-			"ﲔ accept line suggestion",
+			"  accept line suggestion",
 			opts = { noremap = true },
 		},
 		["<C-k>"] = {
 			function()
 				require("copilot.suggestion").next()
 			end,
-			"ﲔ next suggestion",
+			"  next suggestion",
 			opts = { noremap = true },
 		},
 		["<C-j>"] = {
 			function()
 				require("copilot.suggestion").prev()
 			end,
-			"ﲔ prev suggestion",
+			"  prev suggestion",
 			opts = { noremap = true },
 		},
 		["<C-h>"] = {
 			function()
 				require("copilot.suggestion").dismiss()
 			end,
-			"ﲔ dismiss suggestion",
+			"  dismiss suggestion",
 			opts = { noremap = true },
 		},
 		["<Tab>"] = {
@@ -558,7 +567,7 @@ M.copilot = {
 					vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
 				end
 			end,
-			"ﲔ accept suggestion",
+			"  accept suggestion",
 			opts = { noremap = true },
 		},
 	},
@@ -566,10 +575,10 @@ M.copilot = {
 
 M.rust = {
 	n = {
-		["<leader>rn"] = { "<cmd> :RustRunnables <CR>", "ﰌ rust runnables", opts = {} },
-		["<leader>rd"] = { "<cmd> :RustDebuggables <CR>", "ﰌ rust debuggables", opts = {} },
-		["<leader>rr"] = { "<cmd> :RustRun <CR>", "ﰌ rust run", opts = {} },
-		["<leader>re"] = { "<cmd> :RustExpandMacro <CR>", "ﲖ rust expand", opts = {} },
+		["<leader>rn"] = { "<cmd> :RustRunnables <CR>", " rust runnables", opts = {} },
+		["<leader>rd"] = { "<cmd> :RustDebuggables <CR>", " rust debuggables", opts = {} },
+		["<leader>rr"] = { "<cmd> :RustRun <CR>", " rust run", opts = {} },
+		["<leader>re"] = { "<cmd> :RustExpandMacro <CR>", " rust expand", opts = {} },
 	},
 }
 
@@ -585,6 +594,53 @@ M.session = {
 		["<leader>sp"] = {
 			"<cmd> :SessionManager load_last_session<CR>",
 			" load last session",
+			opts = { noremap = true },
+		},
+	},
+}
+
+-- dap
+M.dap = {
+	n = {
+
+		["<leader>dt"] = {
+			"<cmd>:lua require('dapui').toggle()<CR>",
+      "  dap toggle ui",
+			opts = { noremap = true },
+		},
+		["<leader>db"] = {
+			"<cmd> :DapToggleBreakpoint<CR>",
+			"  dap toggle breakpoint",
+			opts = { noremap = true },
+		},
+		["<leader>dc"] = {
+			"<cmd> :DapContinue<CR>",
+			"  dap continue",
+			opts = { noremap = true },
+		},
+		["<leader>ds"] = {
+			"<cmd> :DapStepOver<CR>",
+			"  dap step over",
+			opts = { noremap = true },
+		},
+		["<leader>di"] = {
+			"<cmd> :DapStepInto<CR>",
+			"  dap step into",
+			opts = { noremap = true },
+		},
+		["<leader>do"] = {
+			"<cmd> :DapStepOut<CR>",
+			"  dap step out",
+			opts = { noremap = true },
+		},
+		["<leader>dx"] = {
+			"<cmd> :DapTerminate<CR>",
+			"  dap terminate",
+			opts = { noremap = true },
+		},
+		["<leader>dr"] = {
+			"<cmd>:lua require('dapui').open({ reset = true })<CR>",
+			"  dap reset ui",
 			opts = { noremap = true },
 		},
 	},

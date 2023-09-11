@@ -123,9 +123,26 @@ local default_plugins = {
 			vim.g.mason_binaries_list = opts.ensure_installed
 		end,
 	},
+	"williamboman/mason-lspconfig.nvim",
 
 	{
 		"neovim/nvim-lspconfig",
+
+		dependencies = {
+			"jose-elias-alvarez/null-ls.nvim",
+			opts = function()
+				return require("plugins.configs.null_ls")
+			end,
+			config = function(_, opts)
+				local null_ls = require("null-ls")
+				null_ls.setup(opts)
+
+				vim.api.nvim_create_user_command("NullLsToggle", function()
+					null_ls.toggle({})
+				end, {})
+			end,
+		},
+
 		init = function()
 			require("core.utils").lazy_load("nvim-lspconfig")
 		end,
@@ -173,7 +190,7 @@ local default_plugins = {
 				"hrsh7th/cmp-nvim-lsp",
 				"hrsh7th/cmp-buffer",
 				"hrsh7th/cmp-path",
-				"hrsh7th/cmp-nvim-lsp-signature-help",
+				-- "hrsh7th/cmp-nvim-lsp-signature-help",
 			},
 		},
 		opts = function()
@@ -223,6 +240,9 @@ local default_plugins = {
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			"nvim-telescope/telescope-live-grep-args.nvim",
+			"nvim-telescope/telescope-ui-select.nvim",
+			"danielvolchek/tailiscope.nvim",
 		},
 		cmd = "Telescope",
 		init = function()
@@ -242,12 +262,6 @@ local default_plugins = {
 			end
 		end,
 	},
-	"nvim-telescope/telescope-ui-select.nvim",
-	{
-		"nvim-telescope/telescope-live-grep-args.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim" },
-	},
-  "danielvolchek/tailiscope.nvim",
 
 	-- Only load whichkey after all the gui
 	{
@@ -264,37 +278,12 @@ local default_plugins = {
 	},
 
 	{
-		"jose-elias-alvarez/null-ls.nvim",
-		after = "nvim-lspconfig",
-		opts = function()
-			return require("plugins.configs.null-ls")
-		end,
-		config = function(_, opts)
-			local null_ls = require("null-ls")
-			null_ls.setup(opts)
-
-			vim.api.nvim_create_user_command("NullLsToggle", function()
-				null_ls.toggle({})
-			end, {})
-		end,
-	},
-
-	{
-		"andreadev-it/shade.nvim",
-		opts = function()
-			return require("plugins.configs.shade")
-		end,
-		config = function(_, opts)
-			require("shade").setup(opts)
-		end,
-	},
-
-	{
 		"simrat39/rust-tools.nvim",
 		dependencies = { "rust-lang/rust.vim", "neovim/nvim-lspconfig" },
 		ft = "rust",
 		opts = function()
-			return require("plugins.configs.rust_tools")
+			local opts = require("plugins.configs.rust_tools")
+			return opts()
 		end,
 		config = function(_, opts)
 			require("rust-tools").setup(opts)
@@ -334,7 +323,7 @@ local default_plugins = {
 	-- session
 	{
 		"Shatur/neovim-session-manager",
-    lazy = false,
+		lazy = false,
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = function()
 			return require("plugins.configs.session_manager")
