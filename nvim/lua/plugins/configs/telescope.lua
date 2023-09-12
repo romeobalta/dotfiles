@@ -67,7 +67,7 @@ local options = {
 		},
 	},
 
-	extensions_list = { "themes", "terms", "fzf", "ui-select", "live_grep_args" },
+	extensions_list = { "themes", "terms", "fzf", "ui-select", "live_grep_args", "harpoon" },
 	extensions = {
 		fzf = {
 			fuzzy = true,

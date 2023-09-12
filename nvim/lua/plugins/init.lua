@@ -243,6 +243,16 @@ local default_plugins = {
 			"nvim-telescope/telescope-live-grep-args.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
 			"danielvolchek/tailiscope.nvim",
+			{
+				"ThePrimeagen/harpoon",
+				lazy = false,
+				opts = function()
+					return require("plugins.configs.harpoon")
+				end,
+				config = function(_, opts)
+					require("harpoon").setup(opts)
+				end,
+			},
 		},
 		cmd = "Telescope",
 		init = function()
@@ -336,6 +346,7 @@ local default_plugins = {
 	-- zen
 	{
 		"folke/zen-mode.nvim",
+		lazy = false,
 		opts = function()
 			return require("plugins.configs.zen_mode")
 		end,

@@ -21,6 +21,7 @@ _G.prepend = function()
 	vim.api.nvim_feedkeys("`[i", "n", false)
 end
 
+-- fix semantic highlighting
 local links = {
 	["@lsp.type.namespace"] = "@namespace",
 	["@lsp.type.type"] = "@type",
@@ -40,3 +41,9 @@ local links = {
 for newgroup, oldgroup in pairs(links) do
 	vim.api.nvim_set_hl(0, newgroup, { link = oldgroup, default = true })
 end
+
+-- disable diagnostics in node_modules
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*/node_modules/*",
+	command = "lua vim.diagnostic.disable(0)",
+})
