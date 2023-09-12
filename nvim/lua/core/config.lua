@@ -16,22 +16,26 @@ M.ui = {
 			fg = "red",
 		},
 
-    HarpoonInactive = {
-      fg = "grey_fg",
+    StFileName = {
+      fg = "orange",
     },
-    HarpoonActive = {
-      bg = "lightbg",
-    },
-    HarpoonNumberInactive = {
-      fg = "nord_blue",
-    },
-    HarpoonNumberActive = {
-      fg = "blue",
-      bg = "lightbg",
-    },
-    TabLineFill = {
-      fg = "statusline_bg",
-    }
+
+		HarpoonInactive = {
+			fg = "grey_fg",
+		},
+		HarpoonActive = {
+			bg = "lightbg",
+		},
+		HarpoonNumberInactive = {
+			fg = "nord_blue",
+		},
+		HarpoonNumberActive = {
+			fg = "blue",
+			bg = "lightbg",
+		},
+		TabLineFill = {
+			fg = "statusline_bg",
+		},
 	},
 	hl_override = {
 		St_EmptySpace = {
@@ -49,6 +53,11 @@ M.ui = {
 
 		NvimTreeGitDirty = {
 			fg = "sun",
+		},
+
+		TelescopeSelection = {
+			fg = "blue",
+			bg = "lightbg",
 		},
 	},
 	changed_themes = {
@@ -88,36 +97,52 @@ M.ui = {
 
 	------------------------------- nvchad_ui modules -----------------------------
 	statusline = {
-		theme = "vscode_colored", -- default/vscode/vscode_colored/minimal
-		-- default/round/block/arrow separators work only for default statusline theme
-		-- round and block will work for minimal theme only
-		-- separator_style = "default",
-		overriden_modules = function()
-			return {
-				git = function()
-					if not vim.b.gitsigns_head or vim.b.gitsigns_git_status then
-						return ""
+		theme = "vscode_colored",
+		overriden_modules = function(modules)
+			local git = function()
+				if not vim.b.gitsigns_head or vim.b.gitsigns_git_status or vim.o.columns < 120 then
+					return ""
+				end
+
+				local git_status = vim.b.gitsigns_status_dict
+
+				local added = (git_status.added and git_status.added ~= 0)
+						and ("%#St_lspInfo#  " .. git_status.added .. " ")
+					or ""
+				local changed = (git_status.changed and git_status.changed ~= 0)
+						and ("%#St_lspWarning# 󰝥 " .. git_status.changed .. " ")
+					or ""
+				local removed = (git_status.removed and git_status.removed ~= 0)
+						and ("%#St_lspError#  " .. git_status.removed .. " ")
+					or ""
+
+				return (added .. changed .. removed) ~= "" and (added .. changed .. removed .. " | ") or ""
+			end
+
+			local fileinfo = function()
+				local icon = " 󰈚 "
+				local fn = vim.fn
+				local filename = (fn.expand("%") == "" and "Empty ") or fn.expand("%:p")
+
+				-- get the path relative to the current working directory
+				filename = fn.fnamemodify(filename, ":~:.") -- :~:. strips the cwd from the path
+
+				if filename ~= "Empty " then
+					local devicons_present, devicons = pcall(require, "nvim-web-devicons")
+
+					if devicons_present then
+						local ft_icon = devicons.get_icon(filename)
+						icon = (ft_icon ~= nil and " " .. ft_icon) or ""
 					end
 
-					local git_status = vim.b.gitsigns_status_dict
+					filename = " " .. filename .. " "
+				end
 
-					local added = (git_status.added and git_status.added ~= 0) and ("  " .. git_status.added) or ""
-					local changed = (git_status.changed and git_status.changed ~= 0) and ("  " .. git_status.changed)
-						or ""
-					local removed = (git_status.removed and git_status.removed ~= 0) and ("  " .. git_status.removed)
-						or ""
-					local branch_name = "   " .. git_status.head .. " "
+				return "%#StFileName# " .. icon .. filename .. "%#StNormal#"
+			end
 
-					return "%#St_gitIcons#"
-						.. branch_name
-						.. "%#St_gitIcons_added#"
-						.. added
-						.. "%#St_gitIcons_changed#"
-						.. changed
-						.. "%#St_gitIcons_removed#"
-						.. removed
-				end,
-			}
+			modules[8] = git()
+			modules[2] = fileinfo()
 		end,
 	},
 

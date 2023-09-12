@@ -14,9 +14,6 @@ local config = {
 		-- Shell
 		null_ls.builtins.formatting.shfmt,
 		null_ls.builtins.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
-
-    -- Rust
-    null_ls.builtins.formatting.rustfmt,
 	},
 }
 

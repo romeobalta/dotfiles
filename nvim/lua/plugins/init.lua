@@ -354,6 +354,17 @@ local default_plugins = {
 			require("zen-mode").setup(opts)
 		end,
 	},
+
+	-- undotree
+	{
+
+		"mbbill/undotree",
+		cmd = "UndotreeToggle",
+    config = function()
+      vim.g.undotree_SplitWidth = 50
+      vim.g.undotree_SetFocusWhenToggle = 1
+    end
+	},
 }
 
 local config = require("core.utils").load_config()

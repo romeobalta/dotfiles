@@ -44,9 +44,14 @@ M.general = {
 
 		["<leader>fm"] = {
 			function()
-				vim.lsp.buf.format({ async = true })
+				if vim.fn.exists(":RustFmt") > 0 then
+					vim.fn["rustfmt#Format"]()
+				else
+					vim.lsp.buf.format()
+				end
 			end,
-			"LSP formatting",
+			"  lsp formatting",
+			opts = { noremap = false },
 		},
 
 		["<leader>fr"] = { ":%s/", "  enter search and replace", opts = { nowait = true } },
@@ -643,6 +648,7 @@ M.harpooon = {
 		["<leader>ma"] = {
 			function()
 				require("harpoon.mark").add_file()
+        vim.cmd.redrawtabline()
 			end,
 			"  add mark",
 			opts = { noremap = true },
@@ -670,12 +676,14 @@ M.harpooon = {
 		["<leader>bx"] = {
 			function()
 				require("harpoon.mark").clear_all()
+        vim.cmd.redrawtabline()
 			end,
 			"  close all marks",
 		},
 		["<leader>x"] = {
 			function()
 				require("harpoon.mark").rm_file()
+        vim.cmd.redrawtabline()
 			end,
 			"  close mark",
 		},
@@ -703,6 +711,16 @@ M.harpooon = {
 				require("harpoon.ui").nav_file(4)
 			end,
 			"  go to mark 4",
+		},
+	},
+}
+
+M.undotree = {
+	n = {
+		-- undotree
+		["<leader>u"] = {
+      "<cmd> UndotreeToggle <CR>",
+			"  undotree",
 		},
 	},
 }
