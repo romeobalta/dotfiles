@@ -9,12 +9,29 @@ M.ui = {
 		},
 
 		St_gitIcons_changed = {
-			-- fg = "yellow",
+			fg = "yellow",
 		},
 
 		St_gitIcons_removed = {
-			-- fg = "red",
+			fg = "red",
 		},
+
+    HarpoonInactive = {
+      fg = "grey_fg",
+    },
+    HarpoonActive = {
+      bg = "lightbg",
+    },
+    HarpoonNumberInactive = {
+      fg = "nord_blue",
+    },
+    HarpoonNumberActive = {
+      fg = "blue",
+      bg = "lightbg",
+    },
+    TabLineFill = {
+      fg = "statusline_bg",
+    }
 	},
 	hl_override = {
 		St_EmptySpace = {
@@ -107,7 +124,7 @@ M.ui = {
 	-- lazyload it when there are 1+ buffers
 	tabufline = {
 		show_numbers = true,
-		enabled = true,
+		enabled = false,
 		lazyload = true,
 		overriden_modules = nil,
 	},

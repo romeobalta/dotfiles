@@ -42,14 +42,6 @@ M.general = {
 		["<leader>b"] = { "<cmd> enew <CR>", "New buffer" },
 		["<leader>ch"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
 
-		-- close all buffers
-		["<leader>bx"] = {
-			function()
-				require("nvchad.tabufline").closeAllBufs()
-			end,
-			"Close all buffers",
-		},
-
 		["<leader>fm"] = {
 			function()
 				vim.lsp.buf.format({ async = true })
@@ -323,7 +315,7 @@ M.telescope = {
 		["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "Find files" },
 		["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
 		-- ["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
-		["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
+		-- ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
 		["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
 		["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" },
 		["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" },
@@ -343,7 +335,7 @@ M.telescope = {
 		-- theme switcher
 		["<leader>th"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
 
-		["<leader>ma"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
+		-- ["<leader>ma"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
 	},
 }
 
@@ -641,6 +633,76 @@ M.dap = {
 			"<cmd>:lua require('dapui').open({ reset = true })<CR>",
 			"  dap reset ui",
 			opts = { noremap = true },
+		},
+	},
+}
+
+-- harpooon
+M.harpooon = {
+	n = {
+		["<leader>ma"] = {
+			function()
+				require("harpoon.mark").add_file()
+			end,
+			"  add mark",
+			opts = { noremap = true },
+		},
+		["<leader>fb"] = {
+			"<cmd>Telescope harpoon marks<CR>",
+			"  list mark",
+			opts = { noremap = true },
+		},
+		["<Tab>"] = {
+			function()
+				require("harpoon.ui").nav_next()
+			end,
+			"  next mark",
+			opts = { noremap = true },
+		},
+		["<S-Tab>"] = {
+			function()
+				require("harpoon.ui").nav_prev()
+			end,
+			"  prev mark",
+			opts = { noremap = true },
+		},
+		-- close all marks
+		["<leader>bx"] = {
+			function()
+				require("harpoon.mark").clear_all()
+			end,
+			"  close all marks",
+		},
+		["<leader>x"] = {
+			function()
+				require("harpoon.mark").rm_file()
+			end,
+			"  close mark",
+		},
+
+		["<leader>1"] = {
+			function()
+				require("harpoon.ui").nav_file(1)
+			end,
+			"  go to mark 1",
+		},
+		["<leader>2"] = {
+			function()
+				require("harpoon.ui").nav_file(2)
+			end,
+			"  go to mark 2",
+		},
+		["<leader>3"] = {
+			function()
+				require("harpoon.ui").nav_file(3)
+			end,
+			"  go to mark 3",
+		},
+		["<leader>4"] = {
+			function()
+				require("harpoon.ui").nav_file(4)
+			end,
+			"  go to mark 4",
 		},
 	},
 }
