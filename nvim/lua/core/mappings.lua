@@ -653,11 +653,20 @@ M.harpooon = {
 			"  add mark",
 			opts = { noremap = true },
 		},
+		-- ["<leader>fb"] = {
+		-- 	"<cmd>Telescope harpoon marks<CR>",
+		-- 	"  list mark",
+		-- 	opts = { noremap = true },
+		-- },
 		["<leader>fb"] = {
-			"<cmd>Telescope harpoon marks<CR>",
+			function()
+				require("harpoon.ui").toggle_quick_menu()
+        vim.cmd.redrawtabline()
+			end,
 			"  list mark",
 			opts = { noremap = true },
 		},
+
 		["<Tab>"] = {
 			function()
 				require("harpoon.ui").nav_next()
@@ -672,6 +681,8 @@ M.harpooon = {
 			"  prev mark",
 			opts = { noremap = true },
 		},
+
+
 		-- close all marks
 		["<leader>bx"] = {
 			function()
