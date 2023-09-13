@@ -11,3 +11,5 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 ln -fs "$SCRIPT_DIR/nvim/init.lua" "$HOME/.config/nvim"
 ln -fs "$SCRIPT_DIR/nvim/lua" "$HOME/.config/nvim"
+
+cp -R "$SCRIPT_DIR/.warp/" "$HOME/.warp/"
