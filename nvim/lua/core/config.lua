@@ -1,5 +1,8 @@
 local M = {}
 
+local catppuccin = require("core.themes.catppuccin")
+local tokyodark = require("core.themes.tokyodark")
+
 M.ui = {
 	------------------------------- base46 -------------------------------------
 	-- hl = highlights
@@ -16,25 +19,40 @@ M.ui = {
 			fg = "red",
 		},
 
-    StFileName = {
-      fg = "orange",
-    },
+		StFileName = {
+			fg = "orange",
+		},
 
 		HarpoonInactive = {
-			fg = "grey_fg",
+			fg = "light_grey",
 		},
 		HarpoonActive = {
 			bg = "lightbg",
+			fg = "sun",
 		},
 		HarpoonNumberInactive = {
 			fg = "nord_blue",
 		},
 		HarpoonNumberActive = {
-			fg = "blue",
+			fg = "dark_purple",
 			bg = "lightbg",
 		},
+
 		TabLineFill = {
 			fg = "statusline_bg",
+		},
+
+		TelescopeMatching = {
+			fg = "dark_purple",
+		},
+
+		Cursor = {
+			fg = "darker_black",
+			bg = "lightbg",
+		},
+		TermCursor = {
+			fg = "darker_black",
+			bg = "lightbg",
 		},
 	},
 	hl_override = {
@@ -55,9 +73,41 @@ M.ui = {
 			fg = "sun",
 		},
 
-		TelescopeSelection = {
-			fg = "blue",
+		Cursor = {
+			fg = "darker_black",
 			bg = "lightbg",
+		},
+		TermCursor = {
+			fg = "darker_black",
+			bg = "lightbg",
+		},
+
+		TelescopeSelection = {
+			fg = "darker_black",
+			bg = "white",
+		},
+		TelescopeMatching = {
+			fg = "dark_purple",
+		},
+		TelescopeNormal = {
+			bg = "darker_black",
+		},
+		TelescopePromptNormal = {
+			bg = "darker_black",
+		},
+		TelescopePromptPrefix = {
+			bg = "darker_black",
+		},
+		TelescopePromptCounter = {
+			fg = "light_grey",
+		},
+		TelescopeBorder = {
+			fg = "light_grey",
+			bg = "darker_black",
+		},
+		TelescopePromptBorder = {
+			fg = "light_grey",
+			bg = "darker_black",
 		},
 	},
 	changed_themes = {
@@ -75,9 +125,12 @@ M.ui = {
 				base02 = "#686563",
 			},
 		},
+
+		catppuccin = catppuccin,
+		tokyodark = tokyodark,
 	},
-	theme_toggle = { "gruvbox", "gruvbox_light" },
-	theme = "gruvbox", -- default theme
+	theme_toggle = { "onedark", "penumbra_light" },
+	theme = "tokyodark", -- default theme
 	transparency = true,
 	lsp_semantic_tokens = true, -- needs nvim v0.9, just adds highlight groups for lsp semantic tokens
 
