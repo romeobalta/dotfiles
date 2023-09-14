@@ -1,7 +1,6 @@
 -- All plugins have lazy=true by default,to load a plugin on startup just lazy=false
 -- List of all default plugins & their definitions
 local default_plugins = {
-
 	"nvim-lua/plenary.nvim",
 
 	{
@@ -303,17 +302,20 @@ local default_plugins = {
 	-- dap stuff
 	{
 		"rcarriga/nvim-dap-ui",
-		dependencies = { "mfussenegger/nvim-dap" },
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			{
+				"theHamsta/nvim-dap-virtual-text",
+				config = function()
+					require("nvim-dap-virtual-text").setup()
+				end,
+			},
+		},
 		opts = function()
 			return require("plugins.configs.dapui")
 		end,
 		config = function(_, opts)
 			require("dapui").setup(opts)
-		end,
-	},
-	["theHamsta/nvim-dap-virtual-text"] = {
-		config = function()
-			require("nvim-dap-virtual-text").setup()
 		end,
 	},
 
@@ -360,10 +362,10 @@ local default_plugins = {
 
 		"mbbill/undotree",
 		cmd = "UndotreeToggle",
-    config = function()
-      vim.g.undotree_SplitWidth = 50
-      vim.g.undotree_SetFocusWhenToggle = 1
-    end
+		config = function()
+			vim.g.undotree_SplitWidth = 50
+			vim.g.undotree_SetFocusWhenToggle = 1
+		end,
 	},
 }
 

@@ -7,16 +7,16 @@ local config = {
 					size = 0.45,
 				},
 				{
-					id = "breakpoints",
-					size = 0.25,
+					id = "scopes",
+					size = 0.35,
 				},
 				{
-					id = "scopes",
-					size = 0.15,
+					id = "breakpoints",
+					size = 0.1,
 				},
 				{
 					id = "stacks",
-					size = 0.15,
+					size = 0.1,
 				},
 			},
 			position = "left",
@@ -34,7 +34,7 @@ local config = {
 				},
 			},
 			position = "bottom",
-			size = 10,
+			size = 13,
 		},
 	},
 }

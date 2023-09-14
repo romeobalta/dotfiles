@@ -21,29 +21,6 @@ M.custom = {
 		["<leader>w"] = { "<C-w>", "window operations", opts = { nowait = true } },
 
 		["<leader>z"] = { "<cmd>:ZenMode<CR>", "toggle zen mode", opts = {} },
-		--
-		-- ["<leader>rs"] = {
-		-- 	function()
-		-- 		local output = vim.fn.system({ "rm", "~/.eslint_d" })
-		-- 		print(output)
-		--
-		-- 		vim.wait(100)
-		--
-		-- 		output = vim.fn.system({ "eslint_d", "restart" })
-		-- 		print(output)
-		--
-		-- 		vim.wait(100)
-		--
-		-- 		require("null-ls").toggle({})
-		-- 		vim.wait(100)
-		-- 		require("null-ls").toggle({})
-		--
-		-- 		vim.wait(100)
-		-- 		vim.cmd("LspStop")
-		-- 		vim.wait(100)
-		-- 		vim.cmd("LspStart")
-		-- 	end,
-		-- },
 
 		-- append and prepend in block
 		["<leader>a"] = {
@@ -196,20 +173,6 @@ M.rust = {
 		["<leader>re"] = { "<cmd> :RustExpandMacro <CR>", "ﲖ rust expand", opts = {} },
 	},
 }
-
--- M.move_lines = {
--- 	n = {
--- 		["<A-k>"] = { "<cmd> :MoveLine(-1)<CR>", "move line down", opts = { noremap = true, silent = true } },
--- 		["<A-j>"] = { "<cmd> :MoveLine(1)<CR>", "move line up", opts = { noremap = true, silent = true } },
--- 		["<A-Up>"] = { "<cmd> :MoveLine(-1)<CR>", "move line up", opts = { noremap = true, silent = true } },
--- 		["<A-Down>"] = { "<cmd> :MoveLine(1)<CR>", "move line down", opts = { noremap = true, silent = true } },
--- 	},
---
--- 	v = {
--- 		["<A-k>"] = { "<cmd> :'<, '>MoveBlock(-1)<CR>", "move line down", opts = { noremap = true, silent = true } },
--- 		["<A-j>"] = { "<cmd> :'<, '>MoveBlock(1)<CR>", "move line up", opts = { noremap = true, silent = true } },
--- 	},
--- }
 
 M.session = {
 	n = {
