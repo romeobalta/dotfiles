@@ -48,13 +48,11 @@ local servers = {
 	"dotls",
 	"html",
 	"jsonls",
-	"jsonls",
 	"lua_ls",
 	"pylsp",
 	"tailwindcss",
 	"taplo",
 	"tsserver",
-	"yamlls",
 
 	-- TODO: maybe we want to reenable these later
 	-- "astro",
