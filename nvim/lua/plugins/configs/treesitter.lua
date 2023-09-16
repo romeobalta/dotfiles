@@ -1,7 +1,7 @@
 local options = {
 	ensure_installed = {
 		"bash",
-		"c",
+		-- "c",
 		"comment",
 		"css",
 		"dockerfile",

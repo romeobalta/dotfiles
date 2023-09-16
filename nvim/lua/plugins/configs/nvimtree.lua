@@ -62,11 +62,11 @@ local options = {
 					arrow_closed = "",
 				},
 				git = {
-					unstaged = "",
+					unstaged = "",
 					staged = "✓",
 					unmerged = "",
 					renamed = "➜",
-					untracked = "★",
+					untracked = "?",
 					deleted = "✗",
 					ignored = "◌",
 				},
