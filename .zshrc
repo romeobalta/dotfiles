@@ -137,7 +137,9 @@ source ~/.aliases
 source ~/.fn
 source ~/.spaceship_profile
 source ~/.devvars
-source ~/.zshrc_custom
+
+# source ~/.zshrc_custom only if it exists
+[ -f ~/.zshrc_custom ] && source ~/.zshrc_custom
 
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
@@ -145,3 +147,10 @@ export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 
+
+# bun completions
+[ -s "/Users/romeo/.bun/_bun" ] && source "/Users/romeo/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

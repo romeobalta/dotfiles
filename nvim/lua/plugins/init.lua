@@ -237,13 +237,15 @@ local default_plugins = {
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 			"nvim-telescope/telescope-live-grep-args.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
 			"danielvolchek/tailiscope.nvim",
 			{
-				"ThePrimeagen/harpoon",
+				-- TODO: move back to prime's repo once he merges the PR
+				-- "ThePrimeagen/harpoon",
+				"Khachig/harpoon",
+				branch = "nav_check_windows",
 				lazy = false,
 				opts = function()
 					return require("plugins.configs.harpoon")

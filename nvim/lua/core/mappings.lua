@@ -238,14 +238,14 @@ M.lspconfig = {
 			"Floating diagnostic",
 		},
 
-		["[d"] = {
+		["d["] = {
 			function()
 				vim.diagnostic.goto_prev({ float = { border = "rounded" } })
 			end,
 			"Goto prev",
 		},
 
-		["]d"] = {
+		["d]"] = {
 			function()
 				vim.diagnostic.goto_next({ float = { border = "rounded" } })
 			end,
@@ -648,7 +648,7 @@ M.harpooon = {
 		["<leader>ma"] = {
 			function()
 				require("harpoon.mark").add_file()
-        vim.cmd.redrawtabline()
+				vim.cmd.redrawtabline()
 			end,
 			"  add mark",
 			opts = { noremap = true },
@@ -661,7 +661,7 @@ M.harpooon = {
 		["<leader>fb"] = {
 			function()
 				require("harpoon.ui").toggle_quick_menu()
-        vim.cmd.redrawtabline()
+				vim.cmd.redrawtabline()
 			end,
 			"  list mark",
 			opts = { noremap = true },
@@ -682,44 +682,43 @@ M.harpooon = {
 			opts = { noremap = true },
 		},
 
-
 		-- close all marks
 		["<leader>bx"] = {
 			function()
 				require("harpoon.mark").clear_all()
-        vim.cmd.redrawtabline()
+				vim.cmd.redrawtabline()
 			end,
 			"  close all marks",
 		},
 		["<leader>x"] = {
 			function()
 				require("harpoon.mark").rm_file()
-        vim.cmd.redrawtabline()
+				vim.cmd.redrawtabline()
 			end,
 			"  close mark",
 		},
 
 		["<leader>1"] = {
 			function()
-				require("harpoon.ui").nav_file(1)
+				require("harpoon.ui").nav_file(1, { check_windows = true })
 			end,
 			"  go to mark 1",
 		},
 		["<leader>2"] = {
 			function()
-				require("harpoon.ui").nav_file(2)
+				require("harpoon.ui").nav_file(2, { check_windows = true })
 			end,
 			"  go to mark 2",
 		},
 		["<leader>3"] = {
 			function()
-				require("harpoon.ui").nav_file(3)
+				require("harpoon.ui").nav_file(3, { check_windows = true })
 			end,
 			"  go to mark 3",
 		},
 		["<leader>4"] = {
 			function()
-				require("harpoon.ui").nav_file(4)
+				require("harpoon.ui").nav_file(4, { check_windows = true })
 			end,
 			"  go to mark 4",
 		},
@@ -730,7 +729,7 @@ M.undotree = {
 	n = {
 		-- undotree
 		["<leader>u"] = {
-      "<cmd> UndotreeToggle <CR>",
+			"<cmd> UndotreeToggle <CR>",
 			"  undotree",
 		},
 	},
