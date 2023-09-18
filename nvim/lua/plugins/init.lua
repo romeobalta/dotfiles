@@ -61,6 +61,9 @@ local default_plugins = {
 
 	{
 		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-context",
+		},
 		init = function()
 			require("core.utils").lazy_load("nvim-treesitter")
 		end,

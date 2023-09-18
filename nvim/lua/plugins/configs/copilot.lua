@@ -1,6 +1,7 @@
 local config = {
 	suggestion = {
-		auto_trigger = true,
+    enabled = true,
+		auto_trigger = false,
 		keymap = {
 			accept = false,
 			accept_word = false,
@@ -10,6 +11,18 @@ local config = {
 			dismiss = false,
 		},
 	},
+
+  panel = {
+    enabled = true,
+    auto_refresh = false,
+    keymap = {
+      jump_prev = "<C-k>",
+      jump_next = "<C-j>",
+      accept = "<CR>",
+      refresh = "<C-r>",
+    },
+  },
+
 }
 
 return config
