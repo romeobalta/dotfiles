@@ -66,7 +66,7 @@ M.general = {
 				vim.go.operatorfunc = "v:lua.append"
 				vim.api.nvim_feedkeys("g@", "n", false)
 			end,
-			"ﲒ append in block",
+			"append in block",
 			opts = { silent = true },
 		},
 
@@ -75,8 +75,43 @@ M.general = {
 				vim.go.operatorfunc = "v:lua.prepend"
 				vim.api.nvim_feedkeys("g@", "n", false)
 			end,
-			"ﲑ prepend in block",
+			"prepend in block",
 			opts = { silent = true },
+		},
+
+		["<C-d>"] = {
+			"<C-d>zz",
+			"scroll down",
+		},
+		["<C-u>"] = {
+			"<C-u>zz",
+			"scroll up",
+		},
+
+		["n"] = {
+			"nzzzv",
+			"next search",
+		},
+		["N"] = {
+			"Nzzzv",
+			"prev search",
+		},
+
+		["Q"] = {
+			"<nop>",
+			"disable ex mode",
+		},
+
+		["<leader>s"] = {
+			":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/g<Left><Left>",
+			"  enter search and replace",
+		},
+
+		["{"] = {
+			"<nop>",
+		},
+		["}"] = {
+			"<nop>",
 		},
 	},
 
@@ -89,6 +124,9 @@ M.general = {
 		["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
 
 		["y"] = { "ygv<ESC>", "yank then go at the end of the block", opts = { noremap = true } },
+
+		["J"] = { ":m '>+1<CR>gv=gv", "Move line down", opts = { noremap = true } },
+		["K"] = { ":m '<-2<CR>gv=gv", "Move line up", opts = { noremap = true } },
 	},
 
 	x = {
@@ -458,10 +496,10 @@ M.gitsigns = {
 
 	n = {
 		-- Navigation through hunks
-		["]c"] = {
+		["c]"] = {
 			function()
 				if vim.wo.diff then
-					return "]c"
+					return "c]"
 				end
 				vim.schedule(function()
 					require("gitsigns").next_hunk()
@@ -472,10 +510,10 @@ M.gitsigns = {
 			opts = { expr = true },
 		},
 
-		["[c"] = {
+		["c["] = {
 			function()
 				if vim.wo.diff then
-					return "[c"
+					return "c["
 				end
 				vim.schedule(function()
 					require("gitsigns").prev_hunk()
@@ -564,6 +602,16 @@ M.copilot = {
 				end
 			end,
 			"  accept suggestion",
+			opts = { noremap = true },
+		},
+		["<C-p>"] = {
+			function()
+				require("copilot.panel").open({
+					"bottom",
+					0.4,
+				})
+			end,
+			"  open suggestion panel",
 			opts = { noremap = true },
 		},
 	},

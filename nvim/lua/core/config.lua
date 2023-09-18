@@ -54,8 +54,17 @@ M.ui = {
 			fg = "darker_black",
 			bg = "lightbg",
 		},
+
+    TreesitterContext = {
+      bg = "one_bg2",
+    },
+
 	},
 	hl_override = {
+    ColorColumn = {
+      bg = "lightbg",
+    },
+
 		St_EmptySpace = {
 			fg = "lightbg",
 		},
