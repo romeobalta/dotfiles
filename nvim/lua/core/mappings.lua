@@ -108,10 +108,25 @@ M.general = {
 		},
 
 		["{"] = {
-			"<nop>",
+			"<C-u>zz",
+			"scroll up",
 		},
 		["}"] = {
-			"<nop>",
+			"<C-d>zz",
+			"scroll down",
+		},
+
+		["<leader>grr"] = {
+			function()
+				local output = vim.fn.system({ "eslint_d", "stop" })
+				print(output)
+
+				vim.wait(100)
+
+				require("null-ls").toggle({})
+				vim.wait(100)
+				require("null-ls").toggle({})
+			end,
 		},
 	},
 
@@ -358,7 +373,7 @@ M.telescope = {
 		["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "Find files" },
 		["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
 		-- ["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
-		-- ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
+		["<leader>fl"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
 		["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
 		["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" },
 		["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" },
@@ -701,11 +716,6 @@ M.harpooon = {
 			"  add mark",
 			opts = { noremap = true },
 		},
-		-- ["<leader>fb"] = {
-		-- 	"<cmd>Telescope harpoon marks<CR>",
-		-- 	"  list mark",
-		-- 	opts = { noremap = true },
-		-- },
 		["<leader>fb"] = {
 			function()
 				require("harpoon.ui").toggle_quick_menu()
@@ -728,22 +738,6 @@ M.harpooon = {
 			end,
 			"  prev mark",
 			opts = { noremap = true },
-		},
-
-		-- close all marks
-		["<leader>bx"] = {
-			function()
-				require("harpoon.mark").clear_all()
-				vim.cmd.redrawtabline()
-			end,
-			"  close all marks",
-		},
-		["<leader>x"] = {
-			function()
-				require("harpoon.mark").rm_file()
-				vim.cmd.redrawtabline()
-			end,
-			"  close mark",
 		},
 
 		["<leader>1"] = {
