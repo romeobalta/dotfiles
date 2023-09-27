@@ -28,7 +28,7 @@ M.custom = {
 				vim.go.operatorfunc = "v:lua.append"
 				vim.api.nvim_feedkeys("g@", "n", false)
 			end,
-			"ﲒ append in block",
+			"append in block",
 			opts = { silent = true },
 		},
 
