@@ -102,17 +102,17 @@ for _, lsp in ipairs(servers) do
 		opts.filetypes = { "yaml" }
 	end
 
-  if lsp == "dotls" then
-    opts.filetypes = { "dot" }
-  end
+	if lsp == "dotls" then
+		opts.filetypes = { "dot" }
+	end
 
-  if lsp == "taplo" then
-    opts.filetypes = { "toml" }
-  end
+	if lsp == "taplo" then
+		opts.filetypes = { "toml" }
+	end
 
-  if lsp == "html" then
-    opts.filetypes = { "html" }
-  end
+	if lsp == "html" then
+		opts.filetypes = { "html" }
+	end
 
 	if lsp == "tailwindcss" then
 		require("telescope").load_extension("tailiscope")
@@ -144,20 +144,6 @@ for _, lsp in ipairs(servers) do
 		opts.filetypes = { "lua" }
 	end
 
-	-- if lsp == "rust_analyzer" then
-	-- 	opts.settings = {
-	-- 		["rust-analyzer"] = {
-	-- 			checkOnSave = {
-	-- 				command = "clippy",
-	-- 			},
-	--        cargo = {
-	--          allFeatures = true,
-	--        },
-	-- 		},
-	-- 	}
-	--    opts.filetypes = { "rust" }
-	--    opts.root_dir = lspconfig.util.root_pattern("Cargo.toml")
-	--  end
 
 	lspconfig[lsp].setup(opts)
 end

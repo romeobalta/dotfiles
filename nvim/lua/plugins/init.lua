@@ -108,6 +108,42 @@ local default_plugins = {
 
 	-- lsp stuff
 	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			"mason.nvim",
+			{
+				"williamboman/mason-lspconfig.nvim",
+				config = function()
+					require("mason-lspconfig").setup()
+				end,
+			},
+			{
+				"nvimtools/none-ls.nvim",
+				dependencies = {
+					"mason.nvim",
+				},
+				opts = function()
+					return require("plugins.configs.null_ls")
+				end,
+				config = function(_, opts)
+					local null_ls = require("null-ls")
+					null_ls.setup(opts)
+
+					vim.api.nvim_create_user_command("NullLsToggle", function()
+						null_ls.toggle({})
+					end, {})
+				end,
+			},
+		},
+		init = function()
+			require("core.utils").lazy_load("nvim-lspconfig")
+		end,
+		config = function()
+			require("plugins.configs.lspconfig")
+		end,
+	},
+
+	{
 		"williamboman/mason.nvim",
 		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
 		opts = function()
@@ -123,33 +159,6 @@ local default_plugins = {
 			end, {})
 
 			vim.g.mason_binaries_list = opts.ensure_installed
-		end,
-	},
-	"williamboman/mason-lspconfig.nvim",
-
-	{
-		"neovim/nvim-lspconfig",
-
-		dependencies = {
-			"jose-elias-alvarez/null-ls.nvim",
-			opts = function()
-				return require("plugins.configs.null_ls")
-			end,
-			config = function(_, opts)
-				local null_ls = require("null-ls")
-				null_ls.setup(opts)
-
-				vim.api.nvim_create_user_command("NullLsToggle", function()
-					null_ls.toggle({})
-				end, {})
-			end,
-		},
-
-		init = function()
-			require("core.utils").lazy_load("nvim-lspconfig")
-		end,
-		config = function()
-			require("plugins.configs.lspconfig")
 		end,
 	},
 
