@@ -1,7 +1,6 @@
 local options = {
 	ensure_installed = {
 		"bash",
-		-- "c",
 		"comment",
 		"css",
 		"dockerfile",
@@ -24,6 +23,7 @@ local options = {
 		"vim",
 		"yaml",
 		-- "astro",
+		-- "c",
 		-- "go",
 		-- "gomod",
 	},

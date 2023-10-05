@@ -10,7 +10,6 @@ local options = {
 		"prettier",
 		"eslint_d",
 		"stylua",
-    "sumneko_lua",
 
 		-- rust
 		"rust-analyzer",
