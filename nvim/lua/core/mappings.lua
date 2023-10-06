@@ -511,7 +511,7 @@ M.gitsigns = {
 
 	n = {
 		-- Navigation through hunks
-		["c]"] = {
+		["g]"] = {
 			function()
 				if vim.wo.diff then
 					return "c]"
@@ -525,7 +525,7 @@ M.gitsigns = {
 			opts = { expr = true },
 		},
 
-		["c["] = {
+		["g["] = {
 			function()
 				if vim.wo.diff then
 					return "c["
@@ -540,14 +540,14 @@ M.gitsigns = {
 		},
 
 		-- Actions
-		["<leader>grh"] = {
+		["<leader>gr"] = {
 			function()
 				require("gitsigns").reset_hunk()
 			end,
 			"Reset hunk",
 		},
 
-		["<leader>gph"] = {
+		["<leader>gp"] = {
 			function()
 				require("gitsigns").preview_hunk()
 			end,
@@ -559,13 +559,6 @@ M.gitsigns = {
 				package.loaded.gitsigns.blame_line()
 			end,
 			"Blame line",
-		},
-
-		["<leader>gtd"] = {
-			function()
-				require("gitsigns").toggle_deleted()
-			end,
-			"Toggle deleted",
 		},
 	},
 }
