@@ -757,6 +757,18 @@ M.harpooon = {
 			end,
 			"  go to mark 4",
 		},
+		["<leader>5"] = {
+			function()
+				require("harpoon.ui").nav_file(5, { check_windows = true })
+			end,
+			"  go to mark 5",
+		},
+		["<leader>6"] = {
+			function()
+				require("harpoon.ui").nav_file(6, { check_windows = true })
+			end,
+			"  go to mark 6",
+		},
 	},
 }
 

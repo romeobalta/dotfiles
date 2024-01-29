@@ -48,4 +48,11 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	command = "lua vim.diagnostic.disable(0)",
 })
 
+vim.api.nvim_create_autocmd("User", {
+	pattern = "LspRequest",
+	callback = function()
+		vim.cmd("redrawstatus")
+	end,
+})
+
 require("plugins.configs.dap")
