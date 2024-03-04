@@ -1,3 +1,5 @@
+local lazy_dir = vim.fn.stdpath("data") .. "/lazy"
+
 -- All plugins have lazy=true by default,to load a plugin on startup just lazy=false
 -- List of all default plugins & their definitions
 local default_plugins = {
@@ -167,16 +169,16 @@ local default_plugins = {
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
-			{
-				-- snippet plugin
-				"L3MON4D3/LuaSnip",
-				dependencies = "rafamadriz/friendly-snippets",
-				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-				config = function(_, opts)
-					local lua_snip = require("plugins.configs.luasnip")
-					lua_snip(opts)
-				end,
-			},
+			-- {
+			-- 	-- snippet plugin
+			-- 	"L3MON4D3/LuaSnip",
+			-- 	dependencies = "rafamadriz/friendly-snippets",
+			-- 	opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+			-- 	config = function(_, opts)
+			-- 		local lua_snip = require("plugins.configs.luasnip")
+			-- 		lua_snip(opts)
+			-- 	end,
+			-- },
 
 			-- autopairing of (){}[] etc
 			{
@@ -300,38 +302,19 @@ local default_plugins = {
 		end,
 	},
 
-	{
-		"simrat39/rust-tools.nvim",
-		dependencies = { "rust-lang/rust.vim", "neovim/nvim-lspconfig" },
-		ft = "rust",
-		opts = function()
-			local opts = require("plugins.configs.rust_tools")
-			return opts()
-		end,
-		config = function(_, opts)
-			require("rust-tools").setup(opts)
-		end,
-	},
-
-	-- dap stuff
-	{
-		"rcarriga/nvim-dap-ui",
-		dependencies = {
-			"mfussenegger/nvim-dap",
-			{
-				"theHamsta/nvim-dap-virtual-text",
-				config = function()
-					require("nvim-dap-virtual-text").setup()
-				end,
-			},
-		},
-		opts = function()
-			return require("plugins.configs.dapui")
-		end,
-		config = function(_, opts)
-			require("dapui").setup(opts)
-		end,
-	},
+  -- rust
+	-- {
+	-- 	"simrat39/rust-tools.nvim",
+	-- 	dependencies = { "rust-lang/rust.vim", "neovim/nvim-lspconfig" },
+	-- 	ft = "rust",
+	-- 	opts = function()
+	-- 		local opts = require("plugins.configs.rust_tools")
+	-- 		return opts()
+	-- 	end,
+	-- 	config = function(_, opts)
+	-- 		require("rust-tools").setup(opts)
+	-- 	end,
+	-- },
 
 	-- copilot
 	{

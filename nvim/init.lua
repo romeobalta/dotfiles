@@ -54,5 +54,3 @@ vim.api.nvim_create_autocmd("User", {
 		vim.cmd("redrawstatus")
 	end,
 })
-
-require("plugins.configs.dap")
