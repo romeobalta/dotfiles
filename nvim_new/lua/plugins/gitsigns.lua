@@ -14,7 +14,6 @@ return {
         return "<Ignore>"
       end,
       desc = "Jump to next hunk",
-      opts = { expr = true },
     },
 
     {
@@ -29,7 +28,6 @@ return {
         return "<Ignore>"
       end,
       desc = "Jump to prev hunk",
-      opts = { expr = true },
     },
 
     -- Actions on hunks
