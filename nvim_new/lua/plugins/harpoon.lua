@@ -8,7 +8,6 @@ return {
         vim.cmd.redrawtabline()
       end,
       desc = " add mark",
-      opts = { noremap = true },
     },
     {
       "<leader>fb",
@@ -17,7 +16,6 @@ return {
         vim.cmd.redrawtabline()
       end,
       desc = " list mark",
-      opts = { noremap = true },
     },
     {
       "<Tab>",
@@ -25,7 +23,6 @@ return {
         require("harpoon.ui").nav_next()
       end,
       desc = " next mark",
-      opts = { noremap = true },
     },
     {
       "<S-Tab>",
@@ -33,7 +30,6 @@ return {
         require("harpoon.ui").nav_prev()
       end,
       desc = " prev mark",
-      opts = { noremap = true },
     },
     {
       "<leader>1",
