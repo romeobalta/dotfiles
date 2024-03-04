@@ -258,8 +258,7 @@ local default_plugins = {
 			{
 				-- TODO: move back to prime's repo once he merges the PR
 				-- "ThePrimeagen/harpoon",
-				"Khachig/harpoon",
-				branch = "nav_check_windows",
+				"romeobalta/harpoon",
 				lazy = false,
 				opts = function()
 					return require("plugins.configs.harpoon")
@@ -302,7 +301,7 @@ local default_plugins = {
 		end,
 	},
 
-  -- rust
+	-- rust
 	-- {
 	-- 	"simrat39/rust-tools.nvim",
 	-- 	dependencies = { "rust-lang/rust.vim", "neovim/nvim-lspconfig" },
