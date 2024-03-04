@@ -20,6 +20,10 @@ M.on_attach = function(client, bufnr)
 	if not utils.load_config().ui.lsp_semantic_tokens and client.supports_method("textDocument/semanticTokens") then
 		client.server_capabilities.semanticTokensProvider = nil
 	end
+
+	if client.name == "tsserver" then
+		vim.keymap.set("n", "<leader>co", "TypescriptOrganizeImports", { buffer = bufnr, desc = "Organize Imports" })
+	end
 end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -53,6 +57,7 @@ local servers = {
 	"tailwindcss",
 	"taplo",
 	"tsserver",
+	"eslint",
 
 	-- TODO: maybe we want to reenable these later
 	-- "astro",
@@ -144,6 +149,11 @@ for _, lsp in ipairs(servers) do
 		opts.filetypes = { "lua" }
 	end
 
+	if lsp == "eslint" then
+		opts.settings = {
+			workingDirectories = { mode = "auto" },
+		}
+	end
 
 	lspconfig[lsp].setup(opts)
 end
