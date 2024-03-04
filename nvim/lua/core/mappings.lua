@@ -695,6 +695,24 @@ M.dap = {
 			"  dap reset ui",
 			opts = { noremap = true },
 		},
+		["<leader>da"] = {
+			function()
+				if vim.fn.filereadable(".vscode/launch.json") then
+					local js_based_languages = { "typescript", "javascript", "javascriptreact", "typescriptreact" }
+					local dap_vscode = require("dap.ext.vscode")
+					dap_vscode.load_launchjs(nil, {
+						["chrome"] = js_based_languages,
+						["node"] = js_based_languages,
+						["pwa-node"] = js_based_languages,
+						["pwa-chrome"] = js_based_languages,
+						["node-terminal"] = js_based_languages,
+					})
+				end
+				require("dap").continue()
+			end,
+			"  dap attach",
+			opts = { noremap = true },
+		},
 	},
 }
 
