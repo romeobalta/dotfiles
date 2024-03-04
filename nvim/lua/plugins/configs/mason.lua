@@ -9,6 +9,7 @@ local options = {
 		"prettierd",
 		"prettier",
 		"eslint_d",
+    "eslint",
 		"stylua",
 
 		-- rust
