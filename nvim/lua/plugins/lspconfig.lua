@@ -1,3 +1,7 @@
+if true then
+  return {}
+end
+
 local keys = {
   {
     "gD",
@@ -109,6 +113,7 @@ local keys = {
 
 return {
   "neovim/nvim-lspconfig",
+  lazy = false,
   keys = keys,
   dependencies = {
     "mason.nvim",

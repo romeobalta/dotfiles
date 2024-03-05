@@ -1,3 +1,5 @@
+if true then return {} end
+
 return {
   "williamboman/mason.nvim",
   cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
