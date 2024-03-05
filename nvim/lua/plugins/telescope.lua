@@ -62,11 +62,6 @@ local keys = {
     desc = "Git commits",
   },
   {
-    "<leader>fgs",
-    "<cmd> Telescope git_status <CR>",
-    desc = "Git status",
-  },
-  {
     "<leader>pt",
     "<cmd> Telescope terms <CR>",
     desc = "Pick hidden term",

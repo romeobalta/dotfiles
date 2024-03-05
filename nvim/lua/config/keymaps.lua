@@ -2,6 +2,8 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+local Util = require("lazyvim.util")
+
 vim.keymap.set("i", "<C-b>", "<ESC>^i", { desc = "Beginning of line" })
 vim.keymap.set("i", "<C-e>", "<End>", { desc = "End of line" })
 vim.keymap.set("i", "jk", "<ESC>", { desc = "Escape insert mode", nowait = true })
@@ -81,3 +83,7 @@ vim.keymap.set(
   { desc = "Move up", expr = true, silent = true }
 )
 vim.keymap.set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Do not copy replaced text", silent = true })
+
+vim.keymap.set("n", "<leader>fgs", function()
+  Util.terminal({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false })
+end, { desc = "Lazygit (cwd)" })
