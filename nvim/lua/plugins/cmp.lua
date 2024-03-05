@@ -63,7 +63,8 @@ return {
 			fields = field_arrangement[cmp_style] or { "abbr", "kind", "menu" },
 
 			format = function(_, item)
-				local icon = (cmp_ui.icons) or ""
+		local icons = require("config.util").icons.kinds
+		local icon = (cmp_ui.icons and icons[item.kind]) or ""
 
 				if cmp_style == "atom" or cmp_style == "atom_colored" then
 					icon = " " .. icon .. " "
