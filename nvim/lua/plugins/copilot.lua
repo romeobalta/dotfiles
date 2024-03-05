@@ -3,7 +3,6 @@ local keys = {
     "<C-w>",
     function()
       require("copilot.suggestion").accept_word()
-      print("copilot")
     end,
     desc = " accept word suggestion",
     mode = "i",
@@ -43,6 +42,7 @@ local keys = {
   {
     "<Tab>",
     function()
+      print("tab")
       if require("copilot.suggestion").is_visible() then
         require("copilot.suggestion").accept()
       else
@@ -67,30 +67,18 @@ local keys = {
 
 return {
   "zbirenbaum/copilot.lua",
-  keys = keys,
-  cmd = "Copilot",
-  event = "InsertEnter",
+  -- keys = keys,
   opts = {
     suggestion = {
+      enabled = true,
       auto_trigger = true,
       keymap = {
         accept = false,
-        accept_word = false,
+        accept_word = "<C-w>",
         accept_line = false,
         next = false,
         prev = false,
         dismiss = false,
-      },
-    },
-
-    panel = {
-      enabled = true,
-      auto_refresh = false,
-      keymap = {
-        jump_prev = "<C-k>",
-        jump_next = "<C-j>",
-        accept = "<CR>",
-        refresh = "<C-r>",
       },
     },
 
@@ -110,7 +98,8 @@ return {
       python = true,
     },
   },
-  config = function(_, opts)
-    require("copilot").setup(opts)
+
+  config = function()
+    require("copilot").setup()
   end,
 }

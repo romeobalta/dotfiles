@@ -81,3 +81,39 @@ vim.keymap.set(
   { desc = "Move up", expr = true, silent = true }
 )
 vim.keymap.set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Do not copy replaced text", silent = true })
+
+-- copilot mappings
+vim.keymap.set("i", "<C-w>", function()
+  require("copilot.suggestion").accept_word()
+end, { desc = " accept word suggestion" })
+
+vim.keymap.set("i", "<C-l>", function()
+  require("copilot.suggestion").accept_line()
+end, { desc = " accept line suggestion" })
+
+vim.keymap.set("i", "<C-k>", function()
+  require("copilot.suggestion").next()
+end, { desc = " next suggestion" })
+
+vim.keymap.set("i", "<C-j>", function()
+  require("copilot.suggestion").prev()
+end, { desc = " prev suggestion" })
+
+vim.keymap.set("i", "<C-h>", function()
+  require("copilot.suggestion").dismiss()
+end, { desc = " dismiss suggestion" })
+
+vim.keymap.set("i", "<Tab>", function()
+  if require("copilot.suggestion").is_visible() then
+    require("copilot.suggestion").accept()
+  else
+    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
+  end
+end, { desc = " accept suggestion", noremap = true })
+
+vim.keymap.set("i", "<C-p>", function()
+  require("copilot.panel").open({
+    "bottom",
+    0.4,
+  })
+end, { desc = " open suggestion panel" })

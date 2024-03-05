@@ -1,5 +1,8 @@
 return {
   "romeobalta/harpoon",
+  dependencies = {
+    "folke/tokyonight.nvim",
+  },
   keys = {
     {
       "<leader>ma",
