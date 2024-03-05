@@ -52,6 +52,8 @@ opt.colorcolumn = "100"
 opt.hlsearch = false
 opt.incsearch = true
 
+opt.wrap = true
+
 -- interval for writing swap file to disk, also used by gitsigns
 opt.updatetime = 250
 
@@ -60,12 +62,3 @@ opt.updatetime = 250
 opt.whichwrap:append("<>[]hl")
 
 g.copilot_no_maps = true
-
--- disable some default providers
-for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
-	vim.g["loaded_" .. provider .. "_provider"] = 0
-end
-
--- add binaries installed by mason.nvim to path
-local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
