@@ -42,13 +42,6 @@ local keys = {
     desc = "LSP definition type",
   },
   {
-    "<leader>ra",
-    function()
-      require("nvchad.renamer").open()
-    end,
-    desc = "LSP rename",
-  },
-  {
     "<leader>ca",
     function()
       vim.lsp.buf.code_action()
@@ -166,10 +159,6 @@ return {
     M.on_attach = function(client, bufnr)
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
-
-      if client.server_capabilities.signatureHelpProvider then
-        require("nvchad.signature").setup(client)
-      end
 
       if client.name == "tsserver" then
         vim.keymap.set("n", "<leader>co", "TypescriptOrganizeImports", { buffer = bufnr, desc = "Organize Imports" })
@@ -293,7 +282,6 @@ return {
               library = {
                 [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                 [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-                [vim.fn.stdpath("data") .. "/lazy/ui/nvchad_types"] = true,
                 [vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy"] = true,
               },
               maxPreload = 100000,

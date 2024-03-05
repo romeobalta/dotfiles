@@ -302,7 +302,7 @@ local default_plugins = {
 		end,
 	},
 
-  -- rust
+	-- rust
 	-- {
 	-- 	"simrat39/rust-tools.nvim",
 	-- 	dependencies = { "rust-lang/rust.vim", "neovim/nvim-lspconfig" },
