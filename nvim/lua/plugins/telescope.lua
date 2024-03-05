@@ -71,11 +71,6 @@ local keys = {
     "<cmd> Telescope terms <CR>",
     desc = "Pick hidden term",
   },
-  {
-    "<leader>th",
-    "<cmd> Telescope themes <CR>",
-    desc = "Nvchad themes",
-  },
 }
 
 local options = function()
@@ -153,7 +148,7 @@ local options = function()
     },
   },
 
-  extensions_list = { "themes", "terms", "fzf", "ui-select", "live_grep_args", "harpoon" },
+  extensions_list = { "fzf", "ui-select", "live_grep_args", "harpoon" },
   extensions = {
     fzf = {
       fuzzy = true,

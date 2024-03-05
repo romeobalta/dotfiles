@@ -1,5 +1,5 @@
 return {
-  "Khachig/harpoon",
+  "romeobalta/harpoon",
   keys = {
     {
       "<leader>ma",
@@ -60,7 +60,6 @@ return {
       desc = " go to mark 4",
     },
   },
-  branch = "nav_check_windows",
   lazy = false,
   opts = {
     excluded_filetypes = { "dashboard", "NvimTree", "terminal", "harpoon" },

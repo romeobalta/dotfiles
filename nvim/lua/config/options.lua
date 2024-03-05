@@ -2,6 +2,9 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 local opt = vim.opt
 local g = vim.g
 
@@ -57,19 +60,12 @@ opt.updatetime = 250
 opt.whichwrap:append("<>[]hl")
 
 g.copilot_no_maps = true
-g.mapleader = " "
 
 -- disable some default providers
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
-  vim.g["loaded_" .. provider .. "_provider"] = 0
+	vim.g["loaded_" .. provider .. "_provider"] = 0
 end
 
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
-
-vim.fn.sign_define(
-  "DapBreakpoint",
-  { text = "🔴", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
-)
-vim.fn.sign_define("DapStopped", { text = "🟡", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
