@@ -71,6 +71,8 @@ local keys = {
     "<cmd> Telescope terms <CR>",
     desc = "Pick hidden term",
   },
+  { "<leader>q", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
+  { "<leader>Q", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
 
   -- disable
   {
@@ -81,6 +83,8 @@ local keys = {
     "<leader>/",
     false,
   },
+  { "<leader>sd", false },
+  { "<leader>sD", false },
 }
 
 local options = function()

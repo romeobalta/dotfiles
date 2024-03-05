@@ -1,22 +1,18 @@
-if true then
-  return {}
-end
-
 local keys = {
   {
     "<leader>ss",
     "<cmd> :SessionManager save_current_session<CR>",
-    desc = " save current session",
+    desc = " save current session",
   },
   {
     "<leader>sl",
     "<cmd> :SessionManager load_session<CR>",
-    desc = "load session",
+    desc = " load session",
   },
   {
     "<leader>sd",
     "<cmd> :SessionManager delete_session<CR>",
-    desc = "delete session",
+    desc = " delete session",
   },
   {
     "<leader>sp",
@@ -24,6 +20,8 @@ local keys = {
     desc = " load last session",
   },
 }
+
+local t = {}
 
 return {
   "Shatur/neovim-session-manager",

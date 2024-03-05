@@ -78,13 +78,6 @@ local newKeys = {
     desc = "Goto next",
   },
   {
-    "<leader>q",
-    function()
-      vim.diagnostic.setloclist()
-    end,
-    desc = "Diagnostic setloclist",
-  },
-  {
     "<leader>wa",
     function()
       vim.lsp.buf.add_workspace_folder()
@@ -106,6 +99,8 @@ local newKeys = {
     desc = "List workspace folders",
   },
   { "<leader>ra", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
+
+  -- disable
   { "<leader>cr", false },
 }
 
