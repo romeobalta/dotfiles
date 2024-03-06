@@ -233,7 +233,7 @@ M.on_highlights = function(hl, c)
       fg = c.base05,
     }
     hl["@variable.parameter"] = {
-      fg = c.base05,
+      fg = c.blue5,
     }
     hl["@reference"] = {
       fg = c.base05,
