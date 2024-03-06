@@ -113,4 +113,7 @@ return {
       keys[#keys + 1] = newKey
     end
   end,
+  opts = {
+    format = { timeout_ms = 5000 },
+  },
 }
