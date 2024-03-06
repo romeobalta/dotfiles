@@ -8,13 +8,13 @@ M.on_colors = function(c)
   c.base04 = "#30313c"
   c.base05 = "#abb2bf"
   c.base06 = "#b2b9c6"
-  c.base07 = "#a9b1d6"
+  c.base07 = "#A0A8CD"
   c.base08 = "#ee6d85"
   c.base09 = "#7199ee"
   c.base10 = "#7199ee"
   c.base11 = "#dfae67"
   c.base12 = "#a485dd"
-  c.base13 = "#38a89d"
+  c.base13 = "#98c379"
   c.base14 = "#a485dd"
   c.base15 = "#f3627a"
 
@@ -233,7 +233,7 @@ M.on_highlights = function(hl, c)
       fg = c.base05,
     }
     hl["@variable.parameter"] = {
-      fg = c.blue5,
+      italic = true,
     }
     hl["@reference"] = {
       fg = c.base05,

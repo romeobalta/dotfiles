@@ -6,18 +6,16 @@ local autocmd = vim.api.nvim_create_autocmd
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
 
--- vim.cmd [[colorscheme tokyonight]]
-
 autocmd("FileType", {
-	pattern = "qf",
-	callback = function()
-		vim.opt_local.buflisted = false
-	end,
+  pattern = "qf",
+  callback = function()
+    vim.opt_local.buflisted = false
+  end,
 })
 
 -------------------------------------- dap stuff ------------------------------------------
-vim.fn.sign_define(
-	"DapBreakpoint",
-	{ text = "🔴", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
-)
-vim.fn.sign_define("DapStopped", { text = "🟡", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
+-- vim.fn.sign_define(
+-- 	"DapBreakpoint",
+-- 	{ text = "🔴", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+-- )
+-- vim.fn.sign_define("DapStopped", { text = "🟡", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
