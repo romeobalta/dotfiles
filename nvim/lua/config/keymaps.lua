@@ -26,13 +26,6 @@ vim.keymap.set("n", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { 
 -- Other mappings
 vim.keymap.set("n", "<leader>b", "<cmd> enew <CR>", { desc = "New buffer" })
 vim.keymap.set("n", "<leader>ch", "<cmd> NvCheatsheet <CR>", { desc = "Mapping cheatsheet" })
-vim.keymap.set("n", "<leader>fm", function()
-  if vim.fn.exists(":RustFmt") > 0 then
-    vim.fn["rustfmt#Format"]()
-  else
-    vim.lsp.buf.format()
-  end
-end, { desc = " lsp formatting", noremap = false })
 
 vim.keymap.set("n", "<leader>fr", ":%s/", { desc = " enter search and replace", nowait = true })
 vim.keymap.set("n", "<leader>w", "<C-w>", { desc = "window operations", nowait = true })
@@ -87,3 +80,7 @@ vim.keymap.set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Do not copy 
 vim.keymap.set("n", "<leader>fgs", function()
   Util.terminal({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false })
 end, { desc = "Lazygit (cwd)" })
+
+vim.keymap.set({ "n", "v" }, "<leader>fm", function()
+  Util.format({ force = true })
+end, { desc = "Format" })
