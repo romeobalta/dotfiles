@@ -8,21 +8,25 @@ M.on_colors = function(c)
   c.base04 = "#30313c"
   c.base05 = "#abb2bf"
   c.base06 = "#b2b9c6"
-  c.base07 = "#A0A8CD"
+  c.base07 = "#a9b1d6"
   c.base08 = "#ee6d85"
   c.base09 = "#7199ee"
   c.base10 = "#7199ee"
   c.base11 = "#dfae67"
   c.base12 = "#a485dd"
-  c.base13 = "#98c379"
+  c.base13 = "#38a89d"
   c.base14 = "#a485dd"
   c.base15 = "#f3627a"
 
   c.red = c.base15
   c.green = c.base13
   c.blue = c.base10
-  c.bg_dark = "#171823"
+
   c.bg = c.base00
+  c.bg_dark = "#171823"
+
+  c.fg = c.base07
+  c.fg_dark = "#A0A8CD"
 end
 
 M.on_highlights = function(hl, c)
@@ -89,7 +93,7 @@ M.on_highlights = function(hl, c)
       sp = "none",
     }
     hl.Include = {
-      fg = c.base13,
+      fg = c.base14,
     }
     hl.Keyword = {
       fg = c.base14,
@@ -240,6 +244,10 @@ M.on_highlights = function(hl, c)
     hl["@punctuation.delimiter"] = {
       fg = c.base15,
     }
+    hl["@punctuation.special"] = {
+      fg = c.base08,
+    }
+
     hl["@string"] = {
       fg = c.base11,
     }
@@ -316,7 +324,7 @@ M.on_highlights = function(hl, c)
       link = "Conditional",
     }
     -- markup
-    hl["@markup.heading"] = { fg = c.base13 }
+    hl["@markup.heading"] = { fg = c.base14 }
     hl["@markup.raw"] = { fg = c.base09 }
     hl["@markup.link"] = { fg = c.base08 }
     hl["@markup.link.url"] = { fg = c.base09, underline = true }
