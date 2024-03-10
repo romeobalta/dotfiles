@@ -102,6 +102,7 @@ local newKeys = {
 
   -- disable
   { "<leader>cr", false },
+  { "<c-k>", false, mode = "i" },
 }
 
 return {
