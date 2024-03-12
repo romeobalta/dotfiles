@@ -64,18 +64,18 @@ local newKeys = {
     desc = "Floating diagnostic",
   },
   {
-    "d[",
+    "[d",
     function()
       vim.diagnostic.goto_prev({ float = { border = "rounded" } })
     end,
-    desc = "Goto prev",
+    desc = "Goto prev diagnostic",
   },
   {
-    "d]",
+    "]d",
     function()
       vim.diagnostic.goto_next({ float = { border = "rounded" } })
     end,
-    desc = "Goto next",
+    desc = "Goto next diagnostic",
   },
   {
     "<leader>wa",

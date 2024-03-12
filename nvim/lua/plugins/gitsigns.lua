@@ -3,31 +3,23 @@ return {
 
   keys = {
     {
-      "g]",
+      "]g",
       function()
-        if vim.wo.diff then
-          return "c]"
-        end
         vim.schedule(function()
           require("gitsigns").next_hunk()
         end)
-        return "<Ignore>"
       end,
-      desc = "Jump to next hunk",
+      desc = "Goto next hunk",
     },
 
     {
-      "g[",
+      "[g",
       function()
-        if vim.wo.diff then
-          return "c["
-        end
         vim.schedule(function()
           require("gitsigns").prev_hunk()
         end)
-        return "<Ignore>"
       end,
-      desc = "Jump to prev hunk",
+      desc = "Goto prev git hunk",
     },
 
     -- Actions on hunks
@@ -36,7 +28,7 @@ return {
       function()
         require("gitsigns").reset_hunk()
       end,
-      desc = "Reset hunk",
+      desc = "Reset git hunk",
     },
 
     {
@@ -44,7 +36,7 @@ return {
       function()
         require("gitsigns").preview_hunk()
       end,
-      desc = "Preview hunk",
+      desc = "Preview git hunk",
     },
 
     {
