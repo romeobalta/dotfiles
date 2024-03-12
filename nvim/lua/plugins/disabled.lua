@@ -10,7 +10,10 @@ return {
   },
   {
     "folke/flash.nvim",
-    enabled = false,
+    keys = {
+      { "s", mode = { "x" }, false },
+      { "S", mode = { "x" }, false },
+    },
   },
   {
     "folke/persistence.nvim",
