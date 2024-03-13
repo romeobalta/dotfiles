@@ -46,12 +46,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "scroll up" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "next search" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "prev search" })
 vim.keymap.set("n", "Q", "<nop>", { desc = "disable ex mode" })
--- vim.keymap.set(
---   "n",
---   "<leader>s",
---   ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/g<Left><Left>",
---   { desc = " enter search and replace" }
--- )
 vim.keymap.set("n", "{", "<C-u>zz", { desc = "scroll up" })
 vim.keymap.set("n", "}", "<C-d>zz", { desc = "scroll down" })
 
