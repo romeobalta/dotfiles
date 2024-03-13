@@ -12,7 +12,7 @@ local g = vim.g
 opt.laststatus = 3 -- global statusline
 opt.showmode = false
 
-opt.relativenumber = false
+-- opt.relativenumber = false
 
 -- disable nvim intro
 -- opt.shortmess:append("sI")
