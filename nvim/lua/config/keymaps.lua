@@ -25,21 +25,7 @@ vim.keymap.set("n", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { 
 
 -- Other mappings
 vim.keymap.set("n", "<leader>b", "<cmd> enew <CR>", { desc = "New buffer" })
-vim.keymap.set("n", "<leader>ch", "<cmd> NvCheatsheet <CR>", { desc = "Mapping cheatsheet" })
-
-vim.keymap.set("n", "<leader>fr", ":%s/", { desc = " enter search and replace", nowait = true })
 vim.keymap.set("n", "<leader>w", "<C-w>", { desc = "window operations", nowait = true })
-vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>", { desc = "toggle zen mode" })
-
-vim.keymap.set("n", "<leader>a", function()
-  vim.go.operatorfunc = "v:lua.append"
-  vim.api.nvim_feedkeys("g@", "n", false)
-end, { desc = "append in block", silent = true })
-
-vim.keymap.set("n", "<leader>i", function()
-  vim.go.operatorfunc = "v:lua.prepend"
-  vim.api.nvim_feedkeys("g@", "n", false)
-end, { desc = "prepend in block", silent = true })
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "scroll down" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "scroll up" })
@@ -71,10 +57,10 @@ vim.keymap.set(
 )
 vim.keymap.set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Do not copy replaced text", silent = true })
 
+-- Util mappings
 vim.keymap.set("n", "<leader>fgs", function()
   Util.terminal({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false })
 end, { desc = "Lazygit (cwd)" })
-
 vim.keymap.set({ "n", "v" }, "<leader>fm", function()
   Util.format({ force = true })
 end, { desc = "Format" })
