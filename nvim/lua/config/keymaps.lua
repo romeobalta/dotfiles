@@ -64,3 +64,15 @@ end, { desc = "Lazygit (cwd)" })
 vim.keymap.set({ "n", "v" }, "<leader>fm", function()
   Util.format({ force = true })
 end, { desc = "Format" })
+
+-- Copilot and LuaSnip integration
+vim.keymap.set("i", "<tab>", function()
+  local copilot_suggestion = require("copilot.suggestion")
+  if require("luasnip").jumpable(1) then
+    require("luasnip").jump(1)
+  elseif copilot_suggestion.is_visible() then
+    require("copilot.suggestion").accept()
+  else
+    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
+  end
+end, { desc = "LuaSnip jump or Copilot autocomplete or Tab" })
