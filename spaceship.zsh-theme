@@ -804,7 +804,7 @@ spaceship_golang() {
 
   _exists go || return
 
-  local go_version=$(go version | grep --colour=never -oE '[[:digit:]].[[:digit:]]')
+  local go_version=$(go version | grep --colour=never -oe "go[0-9.]*" | grep --colour=never -oe "[0-9.]*")
 
   _prompt_section \
     "$SPACESHIP_GOLANG_COLOR" \
