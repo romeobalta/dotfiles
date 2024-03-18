@@ -39,6 +39,7 @@ M.on_colors = function(c)
   c.base11 = "#fab387"
   c.base12 = "#cba6f7"
   c.base13 = "#badba3"
+  c.base13 = "#b4cea1"
   c.base14 = "#cba6f7"
   c.base15 = "#f38ba8"
 
