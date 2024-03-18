@@ -1,44 +1,42 @@
 local M = {}
 
-M.on_colors = function(c)
-  -- tokyo colours
-  -- c.dark_grey = "#30313c"
-  -- c.base_text = "#abb2bf"
-  -- c.red = "#ee6d85"
-  -- c.blue = "#7199ee"
-  -- c.orange = "#dfae67"
-  -- c.purple = "#a485dd"
-  -- c.green = "#98c379"
+-- colours
 
+local activate_tokyo = function(c)
+  -- tokyo colours
+  c.dark_grey = "#30313c"
+  c.base_text = "#abb2bf"
+  c.red = "#ee6d85"
+  c.blue = "#7199ee"
+  c.orange = "#dfae67"
+  c.purple = "#a485dd"
+  c.green = "#98c379"
+end
+
+local activate_dull = function(c)
   -- catppuccin mocha coulours
   c.dark_grey = "#30313c"
+  c.base_text = "#cea1ae"
   c.red = "#f38ba8"
-  c.blue = "#8caaee"
+  c.blue = "#8a9cc2"
   c.orange = "#fab387"
-  c.purple = "#cba6f7"
+  c.purple = "#a38ac2"
   c.green = "#b4cea1"
+end
 
+M.on_colors = function(c)
   c.bg = "#1e1e2e"
   c.bg_dark = "#171823"
 
   c.fg = "#cdd6f4"
   c.fg_dark = "#a0a8cd"
 
-  c.base_text = "#cea1ae"
+  activate_dull(c)
 end
 
-M.on_highlights = function(hl, c)
-  -- If big transparency
-  -- hl.CursorLine = {
-  --   bg = c.bg,
-  -- }
-  -- hl.CursorLineNr = {
-  --   bg = c.bg,
-  -- }
-  -- hl.TreesitterContext = {
-  --   bg = c.bg,
-  -- }
+-- highlight groups
 
+local activate_mono = function(hl, c)
   hl.HarpoonInactive = { fg = c.blue7, bg = c.bg }
   hl.HarpoonNumberInactive = { fg = c.blue, bg = c.bg }
   hl.HarpoonActive = { fg = c.blue, bg = c.bg_dark }
@@ -55,13 +53,13 @@ M.on_highlights = function(hl, c)
   hl.Define = { fg = c.purple }
   hl.Delimiter = { fg = c.red }
   hl.Float = { fg = c.blue }
-  hl.Function = { fg = c.green }
+  hl.Function = { fg = c.base_text, italic = true }
   hl.Identifier = { fg = c.red }
   hl.Include = { fg = c.purple }
   hl.Keyword = { fg = c.purple }
   hl.Label = { fg = c.blue }
   hl.Macro = { fg = c.red }
-  hl.Number = { fg = c.blue }
+  hl.Number = { fg = c.red }
   hl.Operator = { fg = c.red }
   hl.PreProc = { fg = c.blue }
   hl.Repeat = { fg = c.blue }
@@ -69,9 +67,9 @@ M.on_highlights = function(hl, c)
   hl.SpecialChar = { fg = c.red }
   hl.Statement = { fg = c.red }
   hl.StorageClass = { fg = c.blue }
-  hl.String = { fg = c.orange }
+  hl.String = { fg = c.green }
   hl.Structure = { fg = c.purple }
-  hl.Tag = { fg = c.blue }
+  hl.Tag = { fg = c.red }
   hl.Todo = { fg = c.blue, bg = c.bg_dark }
   hl.Type = { fg = c.blue }
   hl.Typedef = { fg = c.blue }
@@ -119,7 +117,7 @@ M.on_highlights = function(hl, c)
   hl["@none"] = { fg = c.base_text }
   hl["@number.float"] = { fg = c.blue }
   hl["@operator"] = { link = "Operator" }
-  hl["@property"] = { fg = c.red }
+  hl["@property"] = { fg = c.base_text }
   hl["@punctuation.bracket"] = { fg = c.red }
   hl["@punctuation.delimiter"] = { fg = c.red }
   hl["@punctuation.special"] = { fg = c.red }
@@ -145,7 +143,7 @@ M.on_highlights = function(hl, c)
   hl["@variable.builtin"] = { fg = c.blue }
   hl["@variable.member"] = { link = "Variable" }
   hl["@variable.member.key"] = { link = "Variable" }
-  hl["@variable.parameter"] = { italic = true }
+  hl["@variable.parameter"] = { fg = c.red }
 
   hl["@markup.heading"] = { fg = c.purple }
   hl["@markup.raw"] = { fg = c.blue }
@@ -156,6 +154,10 @@ M.on_highlights = function(hl, c)
   hl["@markup.strong"] = { bold = true }
   hl["@markup.italic"] = { italic = true }
   hl["@markup.strikethrough"] = { strikethrough = true }
+end
+
+M.on_highlights = function(hl, c)
+  activate_mono(hl, c)
 end
 
 return M
