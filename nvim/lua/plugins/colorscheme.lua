@@ -15,4 +15,14 @@ return {
       on_highlights = tokyodark.on_highlights,
     },
   },
+  -- {
+  --   "catppuccin/nvim",
+  --   opts = {
+  --     flavour = "machiatto",
+  --     transparent_background = true,
+  --     dim_inactive = {
+  --       enable = true,
+  --     },
+  --   },
+  -- },
 }
