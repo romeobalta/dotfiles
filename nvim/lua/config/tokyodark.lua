@@ -30,6 +30,7 @@ M.on_colors = function(c)
   -- c.base05 = "#cdd6f4"
   -- c.base05 = "#d9a5b3"
   c.base05 = "#f8bacb"
+  c.base05 = "#cea1ae"
   c.base06 = "#b2b9c6"
   c.base07 = "#cdd6f4"
   c.base08 = "#f38ba8"
@@ -49,16 +50,28 @@ M.on_colors = function(c)
   c.bg_dark = "#171823"
 
   c.fg = c.base07
-  c.fg_dark = "#A0A8CD"
+  c.fg_dark = "#a0a8cd"
 end
 
 M.on_highlights = function(hl, c)
+  -- If big transparency
+  -- hl.CursorLine = {
+  --   bg = c.bg,
+  -- }
+  -- hl.CursorLineNr = {
+  --   bg = c.bg,
+  -- }
+  -- hl.TreesitterContext = {
+  --   bg = c.bg,
+  -- }
+
   hl.HarpoonInactive = {
     fg = c.blue7,
+    bg = c.bg,
   }
   hl.HarpoonNumberInactive = {
     fg = c.blue,
-    bg = c.bg_light,
+    bg = c.bg,
   }
   hl.HarpoonActive = {
     fg = c.base09,
@@ -296,6 +309,8 @@ M.on_highlights = function(hl, c)
     hl["@tag.delimiter"] = {
       fg = c.base15,
     }
+    hl["@tag.tsx"] = { link = "Tag" }
+
     hl["@text"] = {
       fg = c.base05,
     }
