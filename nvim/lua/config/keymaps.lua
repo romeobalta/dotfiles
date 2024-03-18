@@ -27,6 +27,11 @@ vim.keymap.set("n", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { 
 vim.keymap.set("n", "<leader>b", "<cmd> enew <CR>", { desc = "New buffer" })
 vim.keymap.set("n", "<leader>w", "<C-w>", { desc = "window operations", nowait = true })
 
+vim.keymap.set("n", "<leader>w<Up>", "", { desc = "disable", nowait = true })
+vim.keymap.set("n", "<leader>w<Down>", "", { desc = "disable", nowait = true })
+vim.keymap.set("n", "<leader>w<Left>", "", { desc = "disable", nowait = true })
+vim.keymap.set("n", "<leader>w<Right>", "", { desc = "disable", nowait = true })
+
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "scroll down" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "scroll up" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "next search" })

@@ -1,22 +1,45 @@
 local M = {}
 
 M.on_colors = function(c)
+  -- tokyo colours
+  -- c.base00 = "#1e1e2e"
+  -- c.base01 = "#1b1c27"
+  -- c.base02 = "#545560"
+  -- c.base03 = "#282934"
+  -- c.base04 = "#30313c"
+  -- c.base05 = "#abb2bf"
+  -- c.base06 = "#b2b9c6"
+  -- c.base07 = "#A0A8CD"
+  -- c.base08 = "#ee6d85"
+  -- c.base09 = "#7199ee"
+  -- c.base10 = "#7199ee"
+  -- c.base11 = "#dfae67"
+  -- c.base12 = "#a485dd"
+  -- c.base13 = "#98c379"
+  -- c.base14 = "#a485dd"
+  -- c.base15 = "#f3627a"
+
+  -- catppuccin mocha coulours
   c.base00 = "#1e1e2e"
   c.base01 = "#1b1c27"
   c.base02 = "#545560"
   c.base03 = "#282934"
   c.base04 = "#30313c"
-  c.base05 = "#abb2bf"
+  -- c.base05 = "#ffadad"
+  -- c.base05 = "#abb2bf"
+  -- c.base05 = "#cdd6f4"
+  -- c.base05 = "#d9a5b3"
+  c.base05 = "#f8bacb"
   c.base06 = "#b2b9c6"
-  c.base07 = "#A0A8CD"
-  c.base08 = "#ee6d85"
-  c.base09 = "#7199ee"
-  c.base10 = "#7199ee"
-  c.base11 = "#dfae67"
-  c.base12 = "#a485dd"
-  c.base13 = "#98c379"
-  c.base14 = "#a485dd"
-  c.base15 = "#f3627a"
+  c.base07 = "#cdd6f4"
+  c.base08 = "#f38ba8"
+  c.base09 = "#8caaee"
+  c.base10 = "#8caaee"
+  c.base11 = "#fab387"
+  c.base12 = "#cba6f7"
+  c.base13 = "#badba3"
+  c.base14 = "#cba6f7"
+  c.base15 = "#f38ba8"
 
   c.red = c.base15
   c.green = c.base13
@@ -105,7 +128,7 @@ M.on_highlights = function(hl, c)
       fg = c.base09,
     }
     hl.Operator = {
-      fg = c.base05,
+      fg = c.base15,
       sp = "none",
     }
     hl.PreProc = {
@@ -162,6 +185,7 @@ M.on_highlights = function(hl, c)
     hl["@lsp.type.type"] = { link = "@type" }
     hl["@lsp.type.typeParamater"] = { link = "TypeDef" }
     hl["@lsp.type.variable"] = { link = "@variable" }
+    hl["@lsp.typemod.type.defaultLibrary"] = { link = "Type" }
 
     hl["@annotation"] = {
       fg = c.base15,
@@ -215,7 +239,7 @@ M.on_highlights = function(hl, c)
       fg = c.base13,
     }
     hl["@operator"] = {
-      fg = c.base05,
+      fg = c.base15,
     }
     hl["@keyword.operator"] = {
       fg = c.base14,
