@@ -33,7 +33,7 @@ local keys = {
   },
   {
     "<leader>fz",
-    "<cmd> Telescnpe current_buffer_fuzzy_find <CR>",
+    "<cmd> Telescope current_buffer_fuzzy_find <CR>",
     desc = "Find in current buffer",
   },
   {
