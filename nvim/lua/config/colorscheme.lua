@@ -14,7 +14,7 @@ local activate_tokyo = function(c)
 end
 
 local activate_dull = function(c)
-  -- catppuccin mocha coulours
+  -- dull coulours
   c.dark_grey = "#30313c"
   c.base_text = "#cea1ae"
   c.red = "#f38ba8"
@@ -96,18 +96,18 @@ local activate_mono = function(hl, c)
   hl["@keyword.import"] = { link = "Include" }
   hl["@keyword.operator"] = { link = "Keyword" }
   hl["@keyword.return"] = { link = "Keyword" }
-  hl["@lsp.type.class"] = { link = "Structure" }
+  hl["@lsp.type.class"] = { link = "Type" }
   hl["@lsp.type.decorator"] = { link = "Function" }
   hl["@lsp.type.enum"] = { link = "Type" }
   hl["@lsp.type.enumMember"] = { link = "Constant" }
   hl["@lsp.type.function"] = { link = "Function" }
-  hl["@lsp.type.interface"] = { link = "Structure" }
+  hl["@lsp.type.interface"] = { link = "Type" }
   hl["@lsp.type.macro"] = { link = "@macro" }
   hl["@lsp.type.method"] = { link = "@method" }
   hl["@lsp.type.namespace"] = { link = "Type" }
   hl["@lsp.type.parameter"] = { link = "@variable.parameter" }
   hl["@lsp.type.property"] = { link = "@property" }
-  hl["@lsp.type.struct"] = { link = "Structure" }
+  hl["@lsp.type.struct"] = { link = "Type" }
   hl["@lsp.type.type"] = { link = "Type" }
   hl["@lsp.type.typeParamater"] = { link = "TypeDef" }
   hl["@lsp.type.variable"] = { link = "@variable" }
