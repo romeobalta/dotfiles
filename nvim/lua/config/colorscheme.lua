@@ -19,7 +19,8 @@ local activate_dull = function(c)
   c.base_text = "#cea1ae"
   c.red = "#f38ba8"
   c.blue = "#8a9cc2"
-  c.orange = "#fab387"
+  -- c.orange = "#fab387"
+  c.orange = "#e5b799"
   c.purple = "#a38ac2"
   c.green = "#b4cea1"
 end
@@ -67,7 +68,7 @@ local activate_mono = function(hl, c)
   hl.SpecialChar = { fg = c.red }
   hl.Statement = { fg = c.red }
   hl.StorageClass = { fg = c.blue }
-  hl.String = { fg = c.green }
+  hl.String = { fg = c.orange }
   hl.Structure = { fg = c.purple }
   hl.Tag = { fg = c.red }
   hl.Todo = { fg = c.blue, bg = c.bg_dark }
