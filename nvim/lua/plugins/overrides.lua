@@ -9,6 +9,14 @@ return {
     enabled = false,
   },
   {
+    "folke/persistence.nvim",
+    enabled = false,
+  },
+  {
+    "nvimdev/dashboard-nvim",
+    enabled = false,
+  },
+  {
     "folke/flash.nvim",
     keys = {
       { "s", mode = { "n", "x", "o" }, false },
@@ -32,11 +40,11 @@ return {
     },
   },
   {
-    "folke/persistence.nvim",
-    enabled = false,
-  },
-  {
-    "nvimdev/dashboard-nvim",
-    enabled = false,
+    "folke/noice.nvim",
+    opts = {
+      presets = {
+        lsp_doc_border = true,
+      },
+    },
   },
 }
