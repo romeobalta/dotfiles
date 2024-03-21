@@ -1,5 +1,12 @@
 fd
+go
+jq
+lazygit
 neovim
 rbenv
 ripgrep
 tmux
+stow
+watch
+wget
+yarn
