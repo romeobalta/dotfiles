@@ -138,6 +138,7 @@ source ~/.aliases
 source ~/.fn
 source ~/.spaceship_profile
 source ~/.devvars
+source ~/.binds
 
 # source ~/.zshrc_custom only if it exists
 [ -f ~/.zshrc_custom ] && source ~/.zshrc_custom
