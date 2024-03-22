@@ -2,11 +2,23 @@
 
 # list of directories to search for
 dirs=(
-	~/
-	~/projects
-	~/projects/personal
-	~/projects/work
+	~
 )
+
+# check if ~/projects/_archived exists and add it to the list
+if [[ -d ~/projects/_archived ]]; then
+	dirs+=(~/projects/_archived)
+fi
+
+# check if ~/personal exists and add it to the list
+if [[ -d ~/personal ]]; then
+	dirs+=(~/personal)
+fi
+
+# check if ~/work exists and add it to the list
+if [[ -d ~/work ]]; then
+	dirs+=(~/work)
+fi
 
 if [[ $# -eq 1 ]]; then
 	selected=$1
