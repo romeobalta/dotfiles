@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+find ~ ~/Projects -mindepth 1 -maxdepth 1 -type d | fzf
