@@ -2,13 +2,15 @@ local keys = {
   {
     "<leader>fs",
     function()
-      require("telescope").extensions.live_grep_args.live_grep_args()
+      require("telescope.builtin").live_grep({ additional_args = { "--hidden" } })
     end,
     desc = " live grep",
   },
   {
     "<leader>ff",
-    "<cmd> Telescope find_files <CR>",
+    function()
+      require("telescope.builtin").git_files()
+    end,
     desc = "Find files",
   },
   {
@@ -26,28 +28,28 @@ local keys = {
     "<cmd> Telescope help_tags <CR>",
     desc = "Help page",
   },
-  {
-    "<leader>fo",
-    "<cmd> Telescope oldfiles <CR>",
-    desc = "Find oldfiles",
-  },
+  -- {
+  --   "<leader>fo",
+  --   "<cmd> Telescope oldfiles <CR>",
+  --   desc = "Find oldfiles",
+  -- },
   {
     "<leader>fz",
     "<cmd> Telescope current_buffer_fuzzy_find <CR>",
     desc = "Find in current buffer",
   },
+  -- {
+  --   "<leader>fk",
+  --   "<cmd> Telescope keymaps <CR>",
+  --   desc = " show keys",
+  -- },
   {
-    "<leader>fk",
-    "<cmd> Telescope keymaps <CR>",
-    desc = " show keys",
-  },
-  {
-    "<leader>fds",
+    "<leader>fd",
     "<cmd> Telescope lsp_document_symbols <CR>",
     desc = "@ show document symbols",
   },
   {
-    "<leader>fch",
+    "<leader>fc",
     "<cmd> Telescope command_history <CR>",
     desc = " show command history",
   },
@@ -61,11 +63,11 @@ local keys = {
     "<cmd> Telescope git_commits <CR>",
     desc = "Git commits",
   },
-  {
-    "<leader>pt",
-    "<cmd> Telescope terms <CR>",
-    desc = "Pick hidden term",
-  },
+  -- {
+  --   "<leader>pt",
+  --   "<cmd> Telescope terms <CR>",
+  --   desc = "Pick hidden term",
+  -- },
   { "<leader>q", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
   { "<leader>Q", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
 
@@ -80,6 +82,27 @@ local keys = {
   },
   { "<leader>sd", false },
   { "<leader>sD", false },
+
+  { '<leader>s"', mode = { "n" }, false },
+  { "<leader>sa", mode = { "n" }, false },
+  { "<leader>sb", mode = { "n" }, false },
+  { "<leader>sc", mode = { "n" }, false },
+  { "<leader>sC", mode = { "n" }, false },
+  { "<leader>sd", mode = { "n" }, false },
+  { "<leader>sD", mode = { "n" }, false },
+  { "<leader>sg", mode = { "n" }, false },
+  { "<leader>sG", mode = { "n" }, false },
+  { "<leader>sh", mode = { "n" }, false },
+  { "<leader>sH", mode = { "n" }, false },
+  { "<leader>sk", mode = { "n" }, false },
+  { "<leader>sM", mode = { "n" }, false },
+  { "<leader>sm", mode = { "n" }, false },
+  { "<leader>so", mode = { "n" }, false },
+  { "<leader>sR", mode = { "n" }, false },
+  { "<leader>sw", mode = { "n" }, false },
+  { "<leader>sW", mode = { "n" }, false },
+  { "<leader>sw", mode = { "n" }, false },
+  { "<leader>sW", mode = { "n" }, false },
 }
 
 local options = function()
