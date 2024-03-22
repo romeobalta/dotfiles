@@ -16,8 +16,6 @@ vim.keymap.set("i", "jk", "<ESC>", { desc = "Escape insert mode", nowait = true 
 vim.keymap.set("n", "<Esc>", ":noh <CR>", { desc = "Clear highlights", silent = true })
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Window left" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window right" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Window down" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Window up" })
 vim.keymap.set("n", "<C-s>", "<ESC><cmd> w<CR>", { desc = "Exit insert mode and save", noremap = true })
 vim.keymap.set("n", "<C-c>", "<cmd> %y+ <CR>", { desc = "Copy whole file" })
 
@@ -31,8 +29,6 @@ vim.keymap.set("n", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { 
 vim.keymap.set("n", "<leader>b", "<cmd> enew <CR>", { desc = "New buffer" })
 vim.keymap.set("n", "<leader>w", "<C-w>", { desc = "window operations", nowait = true })
 
-vim.keymap.set("n", "<leader>w<Up>", "", { desc = "disable", nowait = true })
-vim.keymap.set("n", "<leader>w<Down>", "", { desc = "disable", nowait = true })
 vim.keymap.set("n", "<leader>w<Left>", "", { desc = "disable", nowait = true })
 vim.keymap.set("n", "<leader>w<Right>", "", { desc = "disable", nowait = true })
 
@@ -87,3 +83,6 @@ end, { desc = "Format" })
 -- end, { desc = "LuaSnip jump or Copilot autocomplete or Tab" })
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
