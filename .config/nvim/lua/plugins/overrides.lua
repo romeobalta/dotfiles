@@ -4,7 +4,10 @@ return {
     enabled = false,
   },
   {
-
+    "nvim-pack/nvim-spectre",
+    enabled = false,
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
     enabled = false,
   },
@@ -45,6 +48,12 @@ return {
       presets = {
         lsp_doc_border = true,
       },
+    },
+    keys = {
+      { "<leader>sna", mode = { "n" }, false },
+      { "<leader>snd", mode = { "n" }, false },
+      { "<leader>snh", mode = { "n" }, false },
+      { "<leader>snl", mode = { "n" }, false },
     },
   },
 }

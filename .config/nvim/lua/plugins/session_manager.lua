@@ -21,10 +21,9 @@ local keys = {
   },
 }
 
-local t = {}
-
 return {
   "Shatur/neovim-session-manager",
+  enabled = false,
   keys = keys,
   lazy = false,
   dependencies = { "nvim-lua/plenary.nvim" },
