@@ -85,3 +85,5 @@ end, { desc = "Format" })
 --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
 --   end
 -- end, { desc = "LuaSnip jump or Copilot autocomplete or Tab" })
+
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
