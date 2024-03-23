@@ -9,6 +9,7 @@ default, work < ctrl - 1 : open -a /Applications/Alacritty.app/Contents/MacOS/al
 # only default
 default < ctrl - 2 : open -a /Applications/Arc.app/Contents/MacOS/Arc
 default < ctrl - 3 : open -a /Applications/Discord.app/Contents/MacOS/Discord
+default < ctrl - 7 : open -a /System/Applications/Mail.app/Contents/MacOS/Mail
 default < ctrl - 8 : open -a /System/Applications/Messages.app/Contents/MacOS/Messages
 default < ctrl - 9 : open -a /Applications/WhatsApp.app/Contents/MacOS/WhatsApp
 
