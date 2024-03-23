@@ -8,7 +8,7 @@ default, work < ctrl - 1 : open -a /Applications/Alacritty.app/Contents/MacOS/al
 
 # only default
 default < ctrl - 2 : open -a /Applications/Arc.app/Contents/MacOS/Arc
-default < ctrl - 3 : open -a /Applications/Discord.app/Contents/MacOS/Discord
+default < ctrl - 4 : open -a /Applications/Discord.app/Contents/MacOS/Discord
 default < ctrl - 7 : open -a /System/Applications/Mail.app/Contents/MacOS/Mail
 default < ctrl - 8 : open -a /System/Applications/Messages.app/Contents/MacOS/Messages
 default < ctrl - 9 : open -a /Applications/WhatsApp.app/Contents/MacOS/WhatsApp
@@ -16,5 +16,5 @@ default < ctrl - 9 : open -a /Applications/WhatsApp.app/Contents/MacOS/WhatsApp
 # only work
 work < ctrl - 2 : open -a "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 # TODO: slack & simulator
-work < ctrl - 3 : open -a "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-work < ctrl - 4 : open -a "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+work < ctrl - 3 : open -a /Applications/Xcode-15.0.0.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator
+work < ctrl - 4 : open -a /Applications/Slack.app/Contents/MacOS/Slack
