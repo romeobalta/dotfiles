@@ -9,13 +9,28 @@ local keys = {
   {
     "<leader>ff",
     function()
+      require("telescope.builtin").find_files({
+        hidden = true,
+      })
+    end,
+    desc = "Find files",
+  },
+  {
+    "<leader>fg",
+    function()
       require("telescope.builtin").git_files()
     end,
     desc = "Find files",
   },
   {
     "<leader>fa",
-    "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>",
+    function()
+      require("telescope.builtin").find_files({
+        follow = true,
+        hidden = true,
+        no_ignore = true,
+      })
+    end,
     desc = "Find all",
   },
   {
