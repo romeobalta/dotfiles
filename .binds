@@ -1,2 +1,2 @@
 bindkey -s ^f "tmux-sessionizer\n"
-bindkey -s ^l "lazygit\n"
+bindkey -s ^g "lazygit\n"
