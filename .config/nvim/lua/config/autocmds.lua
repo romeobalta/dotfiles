@@ -13,4 +13,11 @@ autocmd("FileType", {
   end,
 })
 
+autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*.mdx",
+  callback = function()
+    vim.bo.filetype = "markdown.mdx"
+  end,
+})
+
 -------------------------------------- dap stuff ------------------------------------------

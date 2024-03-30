@@ -116,5 +116,8 @@ return {
   end,
   opts = {
     format = { timeout_ms = 5000 },
+    servers = {
+      mdx_analyzer = {},
+    },
   },
 }
