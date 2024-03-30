@@ -5,10 +5,14 @@ default < ctrl - 0x1D ; work
 work < ctrl - 0x1D ; default
 
 default, work < ctrl - 1 : open -a /Applications/Alacritty.app/Contents/MacOS/alacritty
+default, work < ctrl - 5 : open -a /Applications/Notion.app/Contents/MacOS/Notion
 
 # only default
 default < ctrl - 2 : open -a /Applications/Arc.app/Contents/MacOS/Arc
+
 default < ctrl - 4 : open -a /Applications/Discord.app/Contents/MacOS/Discord
+
+
 default < ctrl - 7 : open -a /System/Applications/Mail.app/Contents/MacOS/Mail
 default < ctrl - 8 : open -a /System/Applications/Messages.app/Contents/MacOS/Messages
 default < ctrl - 9 : open -a /Applications/WhatsApp.app/Contents/MacOS/WhatsApp
