@@ -106,18 +106,32 @@ local newKeys = {
 }
 
 return {
-  "neovim/nvim-lspconfig",
-  init = function()
-    local keys = require("lazyvim.plugins.lsp.keymaps").get()
+  {
+    "neovim/nvim-lspconfig",
+    init = function()
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
 
-    for _, newKey in ipairs(newKeys) do
-      keys[#keys + 1] = newKey
-    end
-  end,
-  opts = {
-    format = { timeout_ms = 5000 },
-    servers = {
-      mdx_analyzer = {},
+      for _, newKey in ipairs(newKeys) do
+        keys[#keys + 1] = newKey
+      end
+    end,
+    opts = {
+      format = { timeout_ms = 5000 },
+      servers = {
+        mdx_analyzer = {},
+      },
+    },
+  },
+  {
+    {
+      "mfussenegger/nvim-lint",
+      opts = {
+        linters = {
+          markdownlint = {
+            args = { "--config", "~/.markdownlint.jsonc", "--" },
+          },
+        },
+      },
     },
   },
 }

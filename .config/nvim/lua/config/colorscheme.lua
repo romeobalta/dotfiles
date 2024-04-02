@@ -127,6 +127,7 @@ local activate_mono = function(hl, c)
   hl["@string"] = { link = "String" }
   hl["@string.escape"] = { link = "Special" }
   hl["@string.regex"] = { link = "Special" }
+  hl["@string.regexp"] = { link = "Special" }
   hl["@string.special.symbol"] = { link = "String" }
   hl["@string.special.url"] = { link = "Special" }
   hl["@tag"] = { link = "Tag" }
