@@ -2,3 +2,4 @@
 .gitconfig
 .zshrc_custom
 
+.config/nvim/lazyvim.json
