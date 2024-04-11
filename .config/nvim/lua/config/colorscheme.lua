@@ -2,8 +2,7 @@ local M = {}
 
 -- colours
 
-local activate_tokyo = function(c)
-  -- tokyo colours
+local activate_highcontrast = function(c)
   c.dark_grey = "#30313c"
   c.base_text = "#abb2bf"
   c.red = "#ee6d85"
@@ -14,10 +13,10 @@ local activate_tokyo = function(c)
 end
 
 local activate_dull = function(c)
-  -- dull coulours
   c.dark_grey = "#30313c"
   c.base_text = "#cea1ae"
   c.red = "#f38ba8"
+  c.red_strong = "#f38ba8"
   c.blue = "#8a9cc2"
   -- c.orange = "#fab387"
   c.orange = "#e5b799"
@@ -34,8 +33,6 @@ M.on_colors = function(c)
 
   activate_dull(c)
 end
-
--- highlight groups
 
 local activate_mono = function(hl, c)
   hl.HarpoonInactive = { fg = c.blue7, bg = c.bg }
@@ -97,18 +94,18 @@ local activate_mono = function(hl, c)
   hl["@keyword.import"] = { link = "Include" }
   hl["@keyword.operator"] = { link = "Keyword" }
   hl["@keyword.return"] = { link = "Keyword" }
-  hl["@lsp.type.class"] = { link = "Type" }
+  hl["@lsp.type.class"] = { link = "Structure" }
   hl["@lsp.type.decorator"] = { link = "Function" }
   hl["@lsp.type.enum"] = { link = "Type" }
   hl["@lsp.type.enumMember"] = { link = "Constant" }
   hl["@lsp.type.function"] = { link = "Function" }
-  hl["@lsp.type.interface"] = { link = "Type" }
+  hl["@lsp.type.interface"] = { link = "Structure" }
   hl["@lsp.type.macro"] = { link = "@macro" }
   hl["@lsp.type.method"] = { link = "@method" }
   hl["@lsp.type.namespace"] = { link = "Type" }
   hl["@lsp.type.parameter"] = { link = "@variable.parameter" }
-  hl["@lsp.type.property"] = { link = "@property" }
-  hl["@lsp.type.struct"] = { link = "Type" }
+  hl["@lsp.type.property"] = { link = "Variable" }
+  hl["@lsp.type.struct"] = { link = "Structure" }
   hl["@lsp.type.type"] = { link = "Type" }
   hl["@lsp.type.typeParamater"] = { link = "TypeDef" }
   hl["@lsp.type.variable"] = { link = "@variable" }
@@ -118,7 +115,7 @@ local activate_mono = function(hl, c)
   hl["@none"] = { fg = c.base_text }
   hl["@number.float"] = { fg = c.blue }
   hl["@operator"] = { link = "Operator" }
-  hl["@property"] = { fg = c.base_text }
+  hl["@property"] = { link = "Variable" }
   hl["@punctuation.bracket"] = { fg = c.red }
   hl["@punctuation.delimiter"] = { fg = c.red }
   hl["@punctuation.special"] = { fg = c.red }
@@ -131,7 +128,7 @@ local activate_mono = function(hl, c)
   hl["@string.special.symbol"] = { link = "String" }
   hl["@string.special.url"] = { link = "Special" }
   hl["@tag"] = { link = "Tag" }
-  hl["@tag.attribute"] = { link = "@property" }
+  hl["@tag.attribute"] = { link = "Variable" }
   hl["@tag.delimiter"] = { fg = c.red }
   hl["@tag.tsx"] = { link = "Tag" }
   hl["@text"] = { fg = c.base_text }
