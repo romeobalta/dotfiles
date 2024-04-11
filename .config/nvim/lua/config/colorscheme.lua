@@ -59,6 +59,7 @@ local activate_mono = function(hl, c)
   hl.Macro = { fg = c.red }
   hl.Number = { fg = c.red }
   hl.Operator = { fg = c.red }
+  hl.Parameter = { fg = c.red }
   hl.PreProc = { fg = c.blue }
   hl.Repeat = { fg = c.blue }
   hl.Special = { fg = c.purple }
@@ -90,25 +91,26 @@ local activate_mono = function(hl, c)
   hl["@keyword"] = { link = "Keyword" }
   hl["@keyword.conditional"] = { link = "Conditional" } -- markup
   hl["@keyword.exception"] = { fg = c.red }
+  hl["@keyword.exception.typescript"] = { link = "Keyword" }
   hl["@keyword.function"] = { link = "Keyword" }
   hl["@keyword.import"] = { link = "Include" }
   hl["@keyword.operator"] = { link = "Keyword" }
   hl["@keyword.return"] = { link = "Keyword" }
-  hl["@lsp.type.class"] = { link = "Structure" }
+  hl["@lsp.type.class"] = { link = "Function" }
   hl["@lsp.type.decorator"] = { link = "Function" }
   hl["@lsp.type.enum"] = { link = "Type" }
   hl["@lsp.type.enumMember"] = { link = "Constant" }
   hl["@lsp.type.function"] = { link = "Function" }
   hl["@lsp.type.interface"] = { link = "Structure" }
-  hl["@lsp.type.macro"] = { link = "@macro" }
-  hl["@lsp.type.method"] = { link = "@method" }
+  hl["@lsp.type.macro"] = { link = "Macro" }
+  hl["@lsp.type.method"] = { link = "Function" }
   hl["@lsp.type.namespace"] = { link = "Type" }
-  hl["@lsp.type.parameter"] = { link = "@variable.parameter" }
+  hl["@lsp.type.parameter"] = { link = "Parameter" }
   hl["@lsp.type.property"] = { link = "Variable" }
   hl["@lsp.type.struct"] = { link = "Structure" }
   hl["@lsp.type.type"] = { link = "Type" }
   hl["@lsp.type.typeParamater"] = { link = "TypeDef" }
-  hl["@lsp.type.variable"] = { link = "@variable" }
+  -- hl["@lsp.type.variable"] = { link = "Variable" }
   hl["@lsp.typemod.type.defaultLibrary"] = { link = "Type" }
   hl["@method"] = { link = "Function" }
   hl["@module"] = { fg = c.red }
@@ -142,7 +144,7 @@ local activate_mono = function(hl, c)
   hl["@variable.builtin"] = { fg = c.blue }
   hl["@variable.member"] = { link = "Variable" }
   hl["@variable.member.key"] = { link = "Variable" }
-  hl["@variable.parameter"] = { fg = c.red }
+  hl["@variable.parameter"] = { link = "Parameter" }
 
   hl["@markup.heading"] = { fg = c.purple }
   hl["@markup.raw"] = { fg = c.blue }
