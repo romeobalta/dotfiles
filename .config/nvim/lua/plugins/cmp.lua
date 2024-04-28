@@ -32,10 +32,6 @@ return {
             vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-c>", true, true, true), "n", true)
           end
         end,
-        ["<CR>"] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Insert,
-          select = true,
-        }),
         -- disable for copilot panel
         ["<C-p>"] = cmp.mapping(function(fallback)
           cmp.close()
