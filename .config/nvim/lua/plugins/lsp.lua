@@ -21,21 +21,21 @@ local newKeys = {
     desc = "Goto next diagnostic",
   },
   {
-    "<leader>wa",
+    "<leader>cwa",
     function()
       vim.lsp.buf.add_workspace_folder()
     end,
     desc = "Add workspace folder",
   },
   {
-    "<leader>wr",
+    "<leader>cwr",
     function()
       vim.lsp.buf.remove_workspace_folder()
     end,
     desc = "Remove workspace folder",
   },
   {
-    "<leader>wl",
+    "<leader>cwl",
     function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end,
