@@ -1,24 +1,21 @@
 :: default
 :: work
 
-default < ctrl - 0x1D ; work
-work < ctrl - 0x1D ; default
+# default < ctrl - 0x1D ; work
 
-default, work < ctrl - 1 : open -a /Applications/Alacritty.app/Contents/MacOS/alacritty
-default, work < ctrl - 5 : open -a /Applications/Notion.app/Contents/MacOS/Notion
-
-# only default
+default < ctrl - 1 : open -a /Applications/Alacritty.app/Contents/MacOS/alacritty
 default < ctrl - 2 : open -a /Applications/Arc.app/Contents/MacOS/Arc
-
+default < ctrl - 3 : open -a /Applications/ChatGPT.app/Contents/MacOS/ChatGPT
 default < ctrl - 4 : open -a /Applications/Discord.app/Contents/MacOS/Discord
-
+default < ctrl - 5 : open -a /Applications/Notion.app/Contents/MacOS/Notion
 
 default < ctrl - 7 : open -a /System/Applications/Mail.app/Contents/MacOS/Mail
 default < ctrl - 8 : open -a /Applications/WhatsApp.app/Contents/MacOS/WhatsApp
 default < ctrl - 9 : open -a /System/Applications/Messages.app/Contents/MacOS/Messages
 
+# work < ctrl - 0x1D ; default
 # only work
-work < ctrl - 2 : open -a "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+# default, work < ctrl - 2 : open -a "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 # TODO: slack & simulator
-work < ctrl - 3 : open -a /Applications/Xcode-15.0.0.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator
-work < ctrl - 4 : open -a /Applications/Slack.app/Contents/MacOS/Slack
+# work < ctrl - 3 : open -a /Applications/Xcode-15.0.0.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator
+# work < ctrl - 4 : open -a /Applications/Slack.app/Contents/MacOS/Slack
