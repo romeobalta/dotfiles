@@ -1,17 +1,20 @@
 :: default
-:: work
+:: cursor
 
-# default < ctrl - 0x1D ; work
+default < ctrl - 0x1D ; cursor
+cursor < ctrl - 0x1D ; default
 
 default < ctrl - 1 : open -a /Applications/Alacritty.app/Contents/MacOS/alacritty
-default < ctrl - 2 : open -a /Applications/Arc.app/Contents/MacOS/Arc
-default < ctrl - 3 : open -a /Applications/ChatGPT.app/Contents/MacOS/ChatGPT
-default < ctrl - 4 : open -a /Applications/Discord.app/Contents/MacOS/Discord
-default < ctrl - 5 : open -a /Applications/Notion.app/Contents/MacOS/Notion
+cursor < ctrl - 1 : open -a /Applications/Cursor.app/Contents/MacOS/Cursor
+default, cursor < ctrl - 2 : open -a /Applications/Arc.app/Contents/MacOS/Arc
+default, cursor < ctrl - 3 : open -a /Applications/ChatGPT.app/Contents/MacOS/ChatGPT
+default, cursor < ctrl - 4 : open -a /Applications/Discord.app/Contents/MacOS/Discord
+default, cursor < ctrl - 5 : open -a /Applications/Notion.app/Contents/MacOS/Notion
 
-default < ctrl - 7 : open -a /System/Applications/Mail.app/Contents/MacOS/Mail
-default < ctrl - 8 : open -a /Applications/WhatsApp.app/Contents/MacOS/WhatsApp
-default < ctrl - 9 : open -a /System/Applications/Messages.app/Contents/MacOS/Messages
+default, cursor < ctrl - 7 : open -a /System/Applications/Mail.app/Contents/MacOS/Mail
+default, cursor < ctrl - 8 : open -a /Applications/WhatsApp.app/Contents/MacOS/WhatsApp
+default, cursor < ctrl - 9 : open -a /System/Applications/Messages.app/Contents/MacOS/Messages
+
 
 # work < ctrl - 0x1D ; default
 # only work

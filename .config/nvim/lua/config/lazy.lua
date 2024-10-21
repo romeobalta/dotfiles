@@ -15,8 +15,8 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.editor.leap" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- import/override with your plugins
-    -- { import = "lazyvim.plugins.extras.coding.copilot" },
-    { import = "lazyvim.plugins.extras.coding.copilot-chat" },
+    { import = "lazyvim.plugins.extras.coding.copilot" },
+    -- { import = "lazyvim.plugins.extras.coding.copilot-chat" },
     { import = "lazyvim.plugins.extras.coding.mini-surround" },
     { import = "lazyvim.plugins.extras.dap.core" },
     { import = "lazyvim.plugins.extras.lang.docker" },
@@ -31,6 +31,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
     { import = "lazyvim.plugins.extras.ui.treesitter-context" },
     { import = "lazyvim.plugins.extras.util.dot" },
+    { import = "lazyvim.plugins.extras.vscode" },
 
     { import = "plugins" },
   },
