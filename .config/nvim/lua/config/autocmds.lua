@@ -13,11 +13,20 @@ autocmd("FileType", {
   end,
 })
 
+-- Highlight some special panes
+local special_pane_ns = vim.api.nvim_create_namespace("SpecialPane")
+vim.api.nvim_set_hl(special_pane_ns, "BackgroundSpecial", { bg = "#1b1d2b" })
+vim.api.nvim_set_hl(special_pane_ns, "Normal", { link = "BackgroundSpecial" })
+autocmd("FileType", {
+  pattern = "Avante*",
+  callback = function()
+    vim.api.nvim_win_set_hl_ns(0, special_pane_ns)
+  end,
+})
+
 autocmd({ "BufNewFile", "BufRead" }, {
   pattern = "*.mdx",
   callback = function()
     vim.bo.filetype = "markdown.mdx"
   end,
 })
-
--------------------------------------- dap stuff ------------------------------------------

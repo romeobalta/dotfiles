@@ -155,6 +155,8 @@ local activate_mono = function(hl, c)
   hl["@markup.strong"] = { bold = true }
   hl["@markup.italic"] = { italic = true }
   hl["@markup.strikethrough"] = { strikethrough = true }
+
+  hl.NvimTreeNormal = { link = "ColorColumn" }
 end
 
 M.on_highlights = function(hl, c)

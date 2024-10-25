@@ -10,7 +10,7 @@ return {
   {
     "folke/tokyonight.nvim",
     opts = {
-      transparent = true,
+      transparent = false,
       on_colors = tokyodark.on_colors,
       on_highlights = tokyodark.on_highlights,
     },
