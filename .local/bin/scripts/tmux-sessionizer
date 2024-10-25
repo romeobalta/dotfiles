@@ -3,6 +3,8 @@
 # list of directories to search for
 dirs=(
 	~
+	~/personal/baremetal
+	~/personal/tutorials
 )
 
 # check if ~/projects/_archived exists and add it to the list
