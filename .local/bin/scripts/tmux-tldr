@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+selected=$(tldr -l | fzf)
+
+if [[ -z $selected ]]; then
+  exit 0
+fi
+
+exec bash -c "tldr $selected & tmux copy-mode & while [ : ]; do sleep 1; done"

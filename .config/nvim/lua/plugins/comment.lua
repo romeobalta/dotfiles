@@ -10,14 +10,14 @@ return {
     end,
   },
 
-  {
-    "folke/todo-comments.nvim",
-    keys = {
-      { "<leader>st", mode = { "n" }, false },
-      { "<leader>sT", mode = { "n" }, false },
-
-      { "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-      { "<leader>fT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
-    },
-  },
+  -- {
+  --   "folke/todo-comments.nvim",
+  --   keys = {
+  --     { "<leader>st", mode = { "n" }, false },
+  --     { "<leader>sT", mode = { "n" }, false },
+  --
+  --     { "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+  --     { "<leader>fT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
+  --   },
+  -- },
 }

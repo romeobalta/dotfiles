@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+selected=$(curl -s "cht.sh/:list" | fzf)
+if [[ -z $selected ]]; then
+	exit 0
+fi
+
+queryentry="<query>"
+
+# Check if selected ends with "/"
+if [[ $selected == */ ]]; then
+	# Remove trailing "/"
+	selected="${selected%/}"
+
+	# Find sheets
+	selected=$(echo "$selected" | jq -Rr @uri)
+	sheets=$(curl -s "cht.sh/$selected/:list")
+fi
+
+# Check if selected ends with ":list"
+if [[ $selected == *:list ]]; then
+	# Remove ":list"
+	urlselected=$(echo "$selected" | jq -Rr @uri)
+
+	# Find sheets
+	sheets=$(curl -s "cht.sh/$urlselected")
+	selected=${selected/\/:list/}
+fi
+
+# Check if selected ends with :learn
+if [[ ! $selected == *:learn ]]; then
+	# Remove :list from sheets
+	sheets="${sheets/:list$'\n'/}"
+
+	# Append queryentry to the list of sheets
+	sheets=$(echo -e "$sheets\n$queryentry")
+	sheet=$(echo "$sheets" | fzf)
+
+	if [[ -n $sheet ]]; then
+		query="/$sheet"
+	fi
+fi
+
+# If use has selected "[enter query]", prompt the user for a query
+if [[ $sheet == "$queryentry" ]]; then
+	read -rp "Query: " query
+
+	# Replace spaces with '+' for URL encoding
+	query=$(echo "$query" | tr ' ' '+')
+
+	# URL encode
+	query=$(echo "$query" | jq -Rr @uri)
+
+	# Append query to sheet
+	if [[ -n $query ]]; then
+		query="/$query"
+	fi
+fi
+
+bash -c "echo \"cht.sh/$selected$query\""
+
+# tmux neww bash -c "echo \"curl cht.sh/$selected/$query/\" & curl cht.sh/$selected/$query & while [ : ]; do sleep 1; done"
+exec bash -c "curl cht.sh/$selected$query?style=stata-dark && tmux copy-mode & while [ : ]; do sleep 1; done"
