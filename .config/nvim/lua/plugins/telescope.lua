@@ -4,6 +4,7 @@ return {
     -- find
     { "<leader>ff", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
     { "<leader>fr", LazyVim.pick("oldfiles", { cwd = vim.uv.cwd() }), desc = "Recent (cwd)" },
+    { "<leader>fl", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
 
     -- search
     { "<leader><space>", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },

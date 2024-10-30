@@ -1,3 +1,30 @@
+if true then
+  return {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    opts = {
+      model = "gpt-4o-2024-08-06",
+    },
+    keys = {
+      {
+        "<leader>am",
+        function()
+          vim.notify("Using model: " .. require("CopilotChat").config.model, vim.log.levels.INFO)
+        end,
+        desc = "Select Model (CopilotChat)",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>a?",
+        function()
+          return require("CopilotChat").select_model()
+        end,
+        desc = "Select Model (CopilotChat)",
+        mode = { "n", "v" },
+      },
+    },
+  }
+end
+
 return {
   {
     "yetone/avante.nvim",
@@ -5,6 +32,19 @@ return {
     lazy = false,
     version = false, -- set this if you want to always pull the latest change
     opts = {
+      auto_suggestions_provider = "copilot",
+      behaviour = {
+        auto_suggestions = false, -- Experimental stage
+      },
+      hints = {
+        enabled = false,
+      },
+      mappings = {
+        suggestion = {
+          -- accept = "<C-l>",
+          -- dismiss = "<C-h>",
+        },
+      },
       windows = {
         sidebar_header = {
           rounded = false,
