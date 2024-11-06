@@ -25,7 +25,7 @@ opt.showmode = false
 opt.scrolloff = 8
 opt.colorcolumn = "100"
 
--- opt.wrap = true
+opt.wrap = true
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line

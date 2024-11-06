@@ -68,22 +68,31 @@ vim.keymap.set({ "n", "v" }, "<leader>fm", function()
   Util.format({ force = true })
 end, { desc = "Format" })
 
--- Copilot and LuaSnip integration
--- vim.keymap.set("i", "<tab>", function()
---   local copilot_suggestion = require("copilot.suggestion")
---   if require("luasnip").jumpable(1) then
---     require("luasnip").jump(1)
---   elseif copilot_suggestion.is_visible() then
---     require("copilot.suggestion").accept()
---   else
---     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
---   end
--- end, { desc = "LuaSnip jump or Copilot autocomplete or Tab" })
+local copilot_enabled = true
+vim.keymap.set("n", "<leader>at", function()
+  if copilot_enabled then
+    vim.cmd("Copilot disable")
+    copilot_enabled = false
+    print("Copilot disabled")
+  else
+    vim.cmd("Copilot enable")
+    copilot_enabled = true
+    print("Copilot enabled")
+  end
+end)
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+
+vim.keymap.set("n", "<leader>z", function()
+  require("zen-mode").toggle({
+    window = {
+      width = 100, -- width will be 85% of the editor width
+    },
+  })
+end)
 
 if vim.g.vscode then
   local keymap = vim.keymap.set

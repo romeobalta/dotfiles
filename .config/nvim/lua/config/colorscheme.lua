@@ -35,6 +35,8 @@ M.on_colors = function(c)
 end
 
 local activate_mono = function(hl, c)
+  hl.Pmenu = { fg = c.fg, bg = c.bg_dark, blend = 0 }
+
   hl.HarpoonInactive = { fg = c.blue7, bg = c.bg }
   hl.HarpoonNumberInactive = { fg = c.blue, bg = c.bg }
   hl.HarpoonActive = { fg = c.blue, bg = c.bg_dark }
