@@ -59,11 +59,6 @@ vim.keymap.set(
 )
 vim.keymap.set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Do not copy replaced text", silent = true })
 
--- Util mappings
-vim.keymap.set("n", "<C-g>", function()
-  Util.terminal({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false })
-end, { desc = "Lazygit (cwd)" })
-
 vim.keymap.set({ "n", "v" }, "<leader>fm", function()
   Util.format({ force = true })
 end, { desc = "Format" })
@@ -79,7 +74,7 @@ vim.keymap.set("n", "<leader>at", function()
     copilot_enabled = true
     print("Copilot enabled")
   end
-end)
+end, { desc = "Toggle Copilot" })
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 

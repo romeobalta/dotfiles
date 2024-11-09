@@ -4,56 +4,54 @@ return {
     enabled = false,
   },
   {
-    "nvim-pack/nvim-spectre",
-    enabled = false,
-  },
-  {
     "nvim-neo-tree/neo-tree.nvim",
-    enabled = false,
-  },
-  {
-    "folke/persistence.nvim",
     enabled = false,
   },
   {
     "nvimdev/dashboard-nvim",
     enabled = false,
   },
-  -- {
-  --   "folke/flash.nvim",
-  --   keys = {
-  --     { "s", mode = { "n", "x", "o" }, false },
-  --     { "S", mode = { "n", "x", "o" }, false },
-  --     {
-  --       "<leader>s",
-  --       mode = { "n", "x", "o" },
-  --       function()
-  --         require("flash").jump()
-  --       end,
-  --       desc = "Flash",
-  --     },
-  --     {
-  --       "<leader>S",
-  --       mode = { "n", "o", "x" },
-  --       function()
-  --         require("flash").treesitter()
-  --       end,
-  --       desc = "Flash Treesitter",
-  --     },
-  --   },
-  -- },
   {
     "folke/noice.nvim",
-    opts = {
-      presets = {
-        lsp_doc_border = true,
-      },
-    },
+    opts = function(_, opts)
+      table.insert(opts, {
+        filter = {
+          event = "notify",
+          find = "No information available",
+        },
+        opts = { skip = true },
+      })
+
+      opts.views = {
+        vsplit = {
+          size = "20%",
+        },
+      }
+
+      opts.presets.lsp_doc_border = {
+        views = {
+          hover = {
+            border = {
+              style = "single",
+            },
+          },
+        },
+      }
+    end,
+  },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
     keys = {
-      { "<leader>sna", mode = { "n" }, false },
-      { "<leader>snd", mode = { "n" }, false },
-      { "<leader>snh", mode = { "n" }, false },
-      { "<leader>snl", mode = { "n" }, false },
+      {
+        "<C-g>",
+        function()
+          Snacks.lazygit()
+        end,
+        desc = "Lazygit",
+      },
     },
   },
 }

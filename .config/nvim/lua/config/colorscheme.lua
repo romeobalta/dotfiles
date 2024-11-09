@@ -1,40 +1,101 @@
 local M = {}
 
--- colours
-
-local activate_highcontrast = function(c)
-  c.dark_grey = "#30313c"
-  c.base_text = "#abb2bf"
-  c.red = "#ee6d85"
-  c.blue = "#7199ee"
-  c.orange = "#dfae67"
-  c.purple = "#a485dd"
-  c.green = "#98c379"
-end
+---@type Palette
+local original = {
+  bg = "#222436",
+  bg_dark = "#1e2030",
+  bg_highlight = "#2f334d",
+  blue = "#82aaff",
+  blue0 = "#3e68d7",
+  blue1 = "#65bcff",
+  blue2 = "#0db9d7",
+  blue5 = "#89ddff",
+  blue6 = "#b4f9f8",
+  blue7 = "#394b70",
+  comment = "#636da6",
+  cyan = "#86e1fc",
+  dark3 = "#545c7e",
+  dark5 = "#737aa2",
+  fg = "#c8d3f5",
+  fg_dark = "#828bb8",
+  fg_gutter = "#3b4261",
+  green = "#c3e88d",
+  green1 = "#4fd6be",
+  green2 = "#41a6b5",
+  magenta = "#c099ff",
+  magenta2 = "#ff007c",
+  orange = "#ff966c",
+  purple = "#fca7ea",
+  red = "#ff757f",
+  red1 = "#c53b53",
+  teal = "#4fd6be",
+  terminal_black = "#444a73",
+  yellow = "#ffc777",
+  git = {
+    add = "#b8db87",
+    change = "#7ca1f2",
+    delete = "#e26a75",
+  },
+}
 
 local activate_dull = function(c)
-  c.dark_grey = "#30313c"
-  c.base_text = "#cea1ae"
-  c.red = "#f38ba8"
-  c.red_strong = "#f38ba8"
-  c.blue = "#8a9cc2"
-  -- c.orange = "#fab387"
-  c.orange = "#e5b799"
-  c.purple = "#a38ac2"
-  c.green = "#b4cea1"
-end
-
-M.on_colors = function(c)
   c.bg = "#1e1e2e"
   c.bg_dark = "#171823"
 
   c.fg = "#cdd6f4"
   c.fg_dark = "#a0a8cd"
 
+  c.dark_grey = "#30313c"
+  c.base_text = "#cea1ae"
+  c.red = "#f38ba8"
+  c.blue = "#8a9cc2"
+  c.orange = "#e5b799"
+  c.purple = "#a38ac2"
+  c.green = "#b4cea1"
+
+  -- Generated assignments for the remaining colors
+  c.bg_highlight = "#313244"
+  c.fg_gutter = "#45475a"
+  c.comment = "#585b70"
+  c.dark3 = "#6c7086"
+  c.dark5 = "#7f849c"
+
+  c.blue0 = "#74c7ec"
+  c.blue1 = "#89dceb"
+  c.blue2 = "#89dceb"
+  c.blue5 = "#89b4fa"
+  c.blue6 = "#89dceb"
+  c.blue7 = "#313244"
+
+  c.cyan = "#89dceb"
+
+  c.green1 = "#94e2d5"
+  c.green2 = "#94e2d5"
+
+  c.magenta = "#cba6f7"
+  c.magenta2 = "#f5c2e7"
+
+  c.red1 = "#eba0ac"
+
+  c.teal = "#94e2d5"
+
+  c.terminal_black = "#45475a"
+
+  c.yellow = "#f9e2af"
+
+  c.git = {
+    add = "#a6e3a1",
+    change = "#89b4fa",
+    delete = "#f38ba8",
+  }
+end
+
+M.on_colors = function(c)
   activate_dull(c)
 end
 
 local activate_mono = function(hl, c)
+  hl.WinSeparator = { fg = "#2f334d" }
   hl.Pmenu = { fg = c.fg, bg = c.bg_dark, blend = 0 }
 
   hl.HarpoonInactive = { fg = c.blue7, bg = c.bg }

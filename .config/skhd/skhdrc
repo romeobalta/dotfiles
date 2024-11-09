@@ -1,8 +1,8 @@
 :: default
 :: cursor
 
-default < ctrl - 0x1D ; cursor
-cursor < ctrl - 0x1D ; default
+# default < ctrl - 0x1D ; cursor
+# cursor < ctrl - 0x1D ; default
 
 default < ctrl - 1 : open -a /Applications/Alacritty.app/Contents/MacOS/alacritty
 cursor < ctrl - 1 : open -a /Applications/Cursor.app/Contents/MacOS/Cursor
@@ -14,11 +14,3 @@ default, cursor < ctrl - 5 : open -a /Applications/Notion.app/Contents/MacOS/Not
 default, cursor < ctrl - 7 : open -a /System/Applications/Mail.app/Contents/MacOS/Mail
 default, cursor < ctrl - 8 : open -a /Applications/WhatsApp.app/Contents/MacOS/WhatsApp
 default, cursor < ctrl - 9 : open -a /System/Applications/Messages.app/Contents/MacOS/Messages
-
-
-# work < ctrl - 0x1D ; default
-# only work
-# default, work < ctrl - 2 : open -a "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-# TODO: slack & simulator
-# work < ctrl - 3 : open -a /Applications/Xcode-15.0.0.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator
-# work < ctrl - 4 : open -a /Applications/Slack.app/Contents/MacOS/Slack
