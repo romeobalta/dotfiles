@@ -5,6 +5,29 @@ return {
       opts.experimental = {
         ghost_text = false,
       }
+      opts.formatting = {
+        fields = { "abbr", "kind", "menu" },
+        format = function(entry, item)
+          local icons = LazyVim.config.icons.kinds
+          if icons[item.kind] then
+            item.kind = string.rep(" ", 16) .. icons[item.kind] .. " " .. item.kind
+          end
+
+          local widths = {
+            abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
+            menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 40,
+          }
+
+          for key, width in pairs(widths) do
+            if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
+              item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
+            end
+          end
+
+          return item
+        end,
+      }
+
       opts.window = {
         completion = require("cmp").config.window.bordered({
           border = "solid",

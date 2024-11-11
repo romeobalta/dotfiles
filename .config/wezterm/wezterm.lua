@@ -12,8 +12,15 @@ config.window_padding = {
 	bottom = 6,
 }
 config.enable_tab_bar = false
-config.font_size = 18
+config.font = wezterm.font_with_fallback({
+	-- "Berkeley Mono",
+	{ family = "JetBrains Mono" },
+	"nonicon",
+})
+config.font_size = 20
 config.color_scheme = "Tokyo Night"
+-- config.harfbuzz_features = { "ss03" }
+-- config.cell_width = 0.9
 
 -- and finally, return the configuration to wezterm
 return config

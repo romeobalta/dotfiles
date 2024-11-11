@@ -1,92 +1,39 @@
 local M = {}
 
----@type Palette
-local original = {
-  bg = "#222436",
-  bg_dark = "#1e2030",
-  bg_highlight = "#2f334d",
-  blue = "#82aaff",
-  blue0 = "#3e68d7",
-  blue1 = "#65bcff",
-  blue2 = "#0db9d7",
-  blue5 = "#89ddff",
-  blue6 = "#b4f9f8",
-  blue7 = "#394b70",
-  comment = "#636da6",
-  cyan = "#86e1fc",
-  dark3 = "#545c7e",
-  dark5 = "#737aa2",
-  fg = "#c8d3f5",
-  fg_dark = "#828bb8",
-  fg_gutter = "#3b4261",
-  green = "#c3e88d",
-  green1 = "#4fd6be",
-  green2 = "#41a6b5",
-  magenta = "#c099ff",
-  magenta2 = "#ff007c",
-  orange = "#ff966c",
-  purple = "#fca7ea",
-  red = "#ff757f",
-  red1 = "#c53b53",
-  teal = "#4fd6be",
-  terminal_black = "#444a73",
-  yellow = "#ffc777",
-  git = {
-    add = "#b8db87",
-    change = "#7ca1f2",
-    delete = "#e26a75",
-  },
-}
-
 local activate_dull = function(c)
-  c.bg = "#1e1e2e"
-  c.bg_dark = "#171823"
-
-  c.fg = "#cdd6f4"
-  c.fg_dark = "#a0a8cd"
-
-  c.dark_grey = "#30313c"
-  c.base_text = "#cea1ae"
-  c.red = "#f38ba8"
-  c.blue = "#8a9cc2"
-  c.orange = "#e5b799"
-  c.purple = "#a38ac2"
-  c.green = "#b4cea1"
-
-  -- Generated assignments for the remaining colors
-  c.bg_highlight = "#313244"
-  c.fg_gutter = "#45475a"
-  c.comment = "#585b70"
+  c.bg = "#1a1b26"
+  c.bg_dark = "#16161e"
+  c.bg_highlight = "#292e42"
+  c.fg = "#cea1ae"
+  c.fg_dark = "#af8994"
+  c.fg_gutter = "#3b4261"
   c.dark3 = "#6c7086"
   c.dark5 = "#7f849c"
-
-  c.blue0 = "#74c7ec"
-  c.blue1 = "#89dceb"
-  c.blue2 = "#89dceb"
-  c.blue5 = "#89b4fa"
-  c.blue6 = "#89dceb"
-  c.blue7 = "#313244"
-
-  c.cyan = "#89dceb"
-
-  c.green1 = "#94e2d5"
-  c.green2 = "#94e2d5"
-
+  c.comment = "#565f89"
+  c.terminal_black = "#414868"
+  c.blue = "#8a9cc2"
+  c.blue0 = "#3d59a1"
+  c.blue1 = "#7aa2f7"
+  c.blue2 = "#0db9d7"
+  c.blue5 = "#89ddff"
+  c.blue6 = "#b4f9f8"
+  c.blue7 = "#394b70"
+  c.cyan = "#7dcfff"
+  c.green = "#b4cea1"
+  c.green1 = "#addad7"
+  c.green2 = "#71a5b5"
   c.magenta = "#cba6f7"
-  c.magenta2 = "#f5c2e7"
-
-  c.red1 = "#eba0ac"
-
-  c.teal = "#94e2d5"
-
-  c.terminal_black = "#45475a"
-
+  c.magenta2 = "#e91f70"
+  c.purple = "#a38ac2"
   c.yellow = "#f9e2af"
-
+  c.orange = "#e5b799"
+  c.red = "#f38ba8"
+  c.red1 = "#eba0ac"
+  c.teal = "#d0e2e0"
   c.git = {
-    add = "#a6e3a1",
-    change = "#89b4fa",
-    delete = "#f38ba8",
+    add = "#9ece6a",
+    change = "#7aa2f7",
+    delete = "#f7768e",
   }
 end
 
@@ -95,8 +42,70 @@ M.on_colors = function(c)
 end
 
 local activate_mono = function(hl, c)
-  hl.WinSeparator = { fg = "#2f334d" }
+  hl.WinSeparator = { fg = c.fg_gutter }
   hl.Pmenu = { fg = c.fg, bg = c.bg_dark, blend = 0 }
+
+  hl.CmpItemKind = { fg = c.comment }
+  hl.CmpItemKindArray = { fg = c.comment }
+  hl.CmpItemKindBoolean = { fg = c.comment }
+  hl.CmpItemKindClass = { fg = c.comment }
+  hl.CmpItemKindCodeium = { fg = c.comment }
+  hl.CmpItemKindColor = { fg = c.comment }
+  hl.CmpItemKindConstant = { fg = c.comment }
+  hl.CmpItemKindConstructor = { fg = c.comment }
+  hl.CmpItemKindCopilot = { fg = c.comment }
+  hl.CmpItemKindDefault = { fg = c.comment }
+  hl.CmpItemKindEnum = { fg = c.comment }
+  hl.CmpItemKindEnumMember = { fg = c.comment }
+  hl.CmpItemKindEvent = { fg = c.comment }
+  hl.CmpItemKindField = { fg = c.comment }
+  hl.CmpItemKindFile = { fg = c.comment }
+  hl.CmpItemKindFolder = { fg = c.comment }
+  hl.CmpItemKindFunction = { fg = c.comment }
+  hl.CmpItemKindInterface = { fg = c.comment }
+  hl.CmpItemKindKey = { fg = c.comment }
+  hl.CmpItemKindKeyword = { fg = c.comment }
+  hl.CmpItemKindMethod = { fg = c.comment }
+  hl.CmpItemKindModule = { fg = c.comment }
+  hl.CmpItemKindNamespace = { fg = c.comment }
+  hl.CmpItemKindNull = { fg = c.comment }
+  hl.CmpItemKindNumber = { fg = c.comment }
+  hl.CmpItemKindObject = { fg = c.comment }
+  hl.CmpItemKindOperator = { fg = c.comment }
+  hl.CmpItemKindPackage = { fg = c.comment }
+  hl.CmpItemKindProperty = { fg = c.comment }
+  hl.CmpItemKindReference = { fg = c.comment }
+  hl.CmpItemKindSnippet = { fg = c.comment }
+  hl.CmpItemKindString = { fg = c.comment }
+  hl.CmpItemKindStruct = { fg = c.comment }
+  hl.CmpItemKindSupermaven = { fg = c.comment }
+  hl.CmpItemKindTabNine = { fg = c.comment }
+  hl.CmpItemKindText = { fg = c.comment }
+  hl.CmpItemKindTypeParameter = { fg = c.comment }
+  hl.CmpItemKindUnit = { fg = c.comment }
+  hl.CmpItemKindValue = { fg = c.comment }
+  hl.CmpItemKindVariable = { fg = c.comment }
+
+  hl.TelescopeNormal = {
+    bg = c.bg_dark,
+    fg = c.fg_dark,
+  }
+  hl.TelescopeTitle = {
+    bg = c.bg_dark,
+    fg = c.fg_dark,
+  }
+  hl.TelescopeBorder = {
+    bg = c.bg_dark,
+    fg = c.fg_gutter,
+  }
+  hl.TelescopePromptTitle = {
+    bg = c.bg_dark,
+    fg = c.fg_gutter,
+  }
+  hl.TelescopePromptBorder = {
+    bg = c.bg_dark,
+    fg = c.fg_gutter,
+  }
 
   hl.HarpoonInactive = { fg = c.blue7, bg = c.bg }
   hl.HarpoonNumberInactive = { fg = c.blue, bg = c.bg }
@@ -108,13 +117,13 @@ local activate_mono = function(hl, c)
   hl.NvimTreeNormal = { fg = c.fg, bg = c.none }
 
   hl.Boolean = { fg = c.blue }
-  hl.Character = { fg = c.red }
+  hl.Character = { fg = c.yellow }
   hl.Conditional = { fg = c.purple }
   hl.Constant = { fg = c.red }
   hl.Define = { fg = c.purple }
   hl.Delimiter = { fg = c.red }
   hl.Float = { fg = c.blue }
-  hl.Function = { fg = c.base_text, italic = true }
+  hl.Function = { fg = c.fg, italic = true }
   hl.Identifier = { fg = c.red }
   hl.Include = { fg = c.purple }
   hl.Keyword = { fg = c.purple }
@@ -123,8 +132,9 @@ local activate_mono = function(hl, c)
   hl.Number = { fg = c.red }
   hl.Operator = { fg = c.red }
   hl.Parameter = { fg = c.red }
+  hl.Punctuation = { fg = c.red }
   hl.PreProc = { fg = c.blue }
-  hl.Repeat = { fg = c.blue }
+  hl.Repeat = { fg = c.purple }
   hl.Special = { fg = c.purple }
   hl.SpecialChar = { fg = c.red }
   hl.Statement = { fg = c.red }
@@ -135,16 +145,16 @@ local activate_mono = function(hl, c)
   hl.Todo = { fg = c.blue, bg = c.bg_dark }
   hl.Type = { fg = c.blue }
   hl.Typedef = { fg = c.blue }
-  hl.Variable = { fg = c.base_text }
+  hl.Variable = { fg = c.fg }
 
   hl["@annotation"] = { fg = c.red }
   hl["@attribute"] = { fg = c.blue }
   hl["@character"] = { link = "Character" }
   hl["@constant"] = { link = "Constant" }
-  hl["@constant.builtin"] = { fg = c.blue }
+  hl["@constant.builtin"] = { link = "atype" }
   hl["@constant.macro"] = { link = "Macro" }
-  hl["@constructor"] = { fg = c.purple }
-  hl["@definition"] = { sp = c.dark_grey, underline = true }
+  hl["@constructor"] = { link = "Type" }
+  hl["@definition"] = { sp = c.terminal_black, underline = true }
   hl["@error"] = { fg = c.red }
   hl["@function"] = { link = "Function" }
   hl["@function.builtin"] = { link = "Function" }
@@ -152,14 +162,50 @@ local activate_mono = function(hl, c)
   hl["@function.macro"] = { link = "Macro" }
   hl["@function.method.call"] = { link = "Function" }
   hl["@keyword"] = { link = "Keyword" }
-  hl["@keyword.conditional"] = { link = "Conditional" } -- markup
+  hl["@keyword.conditional"] = { link = "Conditional" }
   hl["@keyword.exception"] = { fg = c.red }
   hl["@keyword.exception.typescript"] = { link = "Keyword" }
   hl["@keyword.function"] = { link = "Keyword" }
   hl["@keyword.import"] = { link = "Include" }
   hl["@keyword.operator"] = { link = "Keyword" }
   hl["@keyword.return"] = { link = "Keyword" }
-  hl["@lsp.type.class"] = { link = "Function" }
+  hl["@keyword.repeat"] = { link = "Repeat" }
+  hl["@method"] = { link = "Function" }
+  hl["@module"] = { link = "Type" }
+  hl["@none"] = { fg = c.fg }
+  hl["@number.float"] = { link = "Number" }
+  hl["@operator"] = { link = "Operator" }
+  hl["@property"] = { link = "Variable" }
+  hl["@punctuation"] = { link = "Punctuation" }
+  hl["@punctuation.bracket"] = { link = "Punctuation" }
+  hl["@punctuation.delimiter"] = { link = "Punctuation" }
+  hl["@punctuation.special"] = { link = "Punctuation" }
+  hl["@reference"] = { fg = c.fg }
+  hl["@scope"] = { bold = true }
+  hl["@string"] = { link = "String" }
+  hl["@string.escape"] = { link = "Special" }
+  hl["@string.regex"] = { link = "Special" }
+  hl["@string.regexp"] = { link = "Special" }
+  hl["@string.special.symbol"] = { link = "String" }
+  hl["@string.special.url"] = { fg = c.blue, underline = true }
+  hl["@tag"] = { link = "Tag" }
+  hl["@tag.attribute"] = { link = "Variable" }
+  hl["@tag.delimiter"] = { link = "Delimiter" }
+  hl["@tag.tsx"] = { link = "Tag" }
+  hl["@text"] = { fg = c.fg }
+  hl["@text.emphasis"] = { fg = c.blue }
+  hl["@text.literal"] = { fg = c.blue }
+  hl["@text.strike"] = { fg = c.red, strikethrough = true }
+  hl["@text.strong"] = { bold = true }
+  hl["@text.uri"] = { fg = c.blue, underline = true }
+  hl["@type.builtin"] = { fg = c.blue }
+  hl["@variable"] = { link = "Variable" }
+  hl["@variable.builtin"] = { link = "Type" }
+  hl["@variable.member"] = { link = "Variable" }
+  hl["@variable.member.key"] = { link = "Variable" }
+  hl["@variable.parameter"] = { link = "Parameter" }
+
+  hl["@lsp.type.class"] = { link = "Type" }
   hl["@lsp.type.decorator"] = { link = "Function" }
   hl["@lsp.type.enum"] = { link = "Type" }
   hl["@lsp.type.enumMember"] = { link = "Constant" }
@@ -173,41 +219,8 @@ local activate_mono = function(hl, c)
   hl["@lsp.type.struct"] = { link = "Structure" }
   hl["@lsp.type.type"] = { link = "Type" }
   hl["@lsp.type.typeParamater"] = { link = "TypeDef" }
-  -- hl["@lsp.type.variable"] = { link = "Variable" }
+  hl["@lsp.type.variable"] = { link = "Variable" }
   hl["@lsp.typemod.type.defaultLibrary"] = { link = "Type" }
-  hl["@method"] = { link = "Function" }
-  hl["@module"] = { fg = c.red }
-  hl["@none"] = { fg = c.base_text }
-  hl["@number.float"] = { fg = c.blue }
-  hl["@operator"] = { link = "Operator" }
-  hl["@property"] = { link = "Variable" }
-  hl["@punctuation.bracket"] = { fg = c.red }
-  hl["@punctuation.delimiter"] = { fg = c.red }
-  hl["@punctuation.special"] = { fg = c.red }
-  hl["@reference"] = { fg = c.base_text }
-  hl["@scope"] = { bold = true }
-  hl["@string"] = { link = "String" }
-  hl["@string.escape"] = { link = "Special" }
-  hl["@string.regex"] = { link = "Special" }
-  hl["@string.regexp"] = { link = "Special" }
-  hl["@string.special.symbol"] = { link = "String" }
-  hl["@string.special.url"] = { link = "Special" }
-  hl["@tag"] = { link = "Tag" }
-  hl["@tag.attribute"] = { link = "Variable" }
-  hl["@tag.delimiter"] = { fg = c.red }
-  hl["@tag.tsx"] = { link = "Tag" }
-  hl["@text"] = { fg = c.base_text }
-  hl["@text.emphasis"] = { fg = c.blue }
-  hl["@text.literal"] = { fg = c.blue }
-  hl["@text.strike"] = { fg = c.red, strikethrough = true }
-  hl["@text.strong"] = { bold = true }
-  hl["@text.uri"] = { fg = c.blue, underline = true }
-  hl["@type.builtin"] = { fg = c.blue }
-  hl["@variable"] = { link = "Variable" }
-  hl["@variable.builtin"] = { fg = c.blue }
-  hl["@variable.member"] = { link = "Variable" }
-  hl["@variable.member.key"] = { link = "Variable" }
-  hl["@variable.parameter"] = { link = "Parameter" }
 
   hl["@markup.heading"] = { fg = c.purple }
   hl["@markup.raw"] = { fg = c.blue }
@@ -218,8 +231,6 @@ local activate_mono = function(hl, c)
   hl["@markup.strong"] = { bold = true }
   hl["@markup.italic"] = { italic = true }
   hl["@markup.strikethrough"] = { strikethrough = true }
-
-  hl.NvimTreeNormal = { link = "ColorColumn" }
 end
 
 M.on_highlights = function(hl, c)

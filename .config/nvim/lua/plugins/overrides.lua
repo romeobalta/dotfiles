@@ -14,29 +14,54 @@ return {
   {
     "folke/noice.nvim",
     opts = function(_, opts)
-      table.insert(opts, {
-        filter = {
-          event = "notify",
-          find = "No information available",
-        },
-        opts = { skip = true },
-      })
-
-      opts.views = {
-        vsplit = {
-          size = "20%",
+      opts.routes = {
+        {
+          view = "notify",
+          filter = { event = "msg_showmode" },
         },
       }
 
-      opts.presets.lsp_doc_border = {
-        views = {
-          hover = {
+      opts.lsp = vim.tbl_extend("keep", opts.lsp, {
+        signature = {
+          opts = {},
+        },
+        documentation = {
+          opts = {
+            size = {
+              width = 0.99,
+            },
+            anchor = "NW",
+            relative = "editor",
+            position = {
+              row = "100%",
+              col = 0,
+            },
             border = {
-              style = "single",
+              padding = {
+                top = 1,
+                bottom = 1,
+                left = 2,
+                right = 2,
+              },
+              style = "none",
+            },
+            win_options = {
+              winblend = 0,
+              winhighlight = "Normal:Pmenu",
             },
           },
         },
-      }
+      })
+
+      -- opts.presets.lsp_doc_border = {
+      --   views = {
+      --     hover = {
+      --       border = {
+      --         style = "single",
+      --       },
+      --     },
+      --   },
+      -- }
     end,
   },
   {
