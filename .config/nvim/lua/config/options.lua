@@ -22,7 +22,7 @@ opt.showmode = false
 -- opt.swapfile = false
 -- opt.backup = false
 
-opt.scrolloff = 8
+opt.scrolloff = 24
 opt.colorcolumn = "100"
 
 opt.wrap = true

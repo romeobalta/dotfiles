@@ -7,7 +7,7 @@ return {
       }
       opts.formatting = {
         fields = { "abbr", "kind", "menu" },
-        format = function(entry, item)
+        format = function(_, item)
           local icons = LazyVim.config.icons.kinds
           if icons[item.kind] then
             item.kind = string.rep(" ", 16) .. icons[item.kind] .. " " .. item.kind
@@ -15,7 +15,7 @@ return {
 
           local widths = {
             abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
-            menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 40,
+            menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 20,
           }
 
           for key, width in pairs(widths) do
@@ -30,7 +30,7 @@ return {
 
       opts.window = {
         completion = require("cmp").config.window.bordered({
-          border = "solid",
+          border = "none",
           winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:Visual,Search:None",
         }),
         documentation = require("cmp").config.window.bordered({
