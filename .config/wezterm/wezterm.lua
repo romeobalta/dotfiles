@@ -23,7 +23,7 @@ config.front_end = "OpenGL"
 -- config.freetype_load_flags = "NO_HINTING"
 -- config.freetype_load_target = "Light"
 -- config.freetype_render_target = "HorizontalLcd"
--- config.cell_width = 0.9
+config.cell_width = 0.9
 -- config.harfbuzz_features = { "ss02" }
 
 config.color_scheme = "Tokyo Night"
