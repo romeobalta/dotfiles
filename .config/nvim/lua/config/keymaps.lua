@@ -2,14 +2,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- delete lazyvim keymaps
--- vim.keymap.del("n", "<leader>ft")
--- vim.keymap.del("n", "<leader>fT")
--- vim.keymap.del("n", "<leader>ww")
--- vim.keymap.del("n", "<leader>wd")
--- vim.keymap.del("n", "<leader>w-")
--- vim.keymap.del("n", "<leader>w|")
-
 local Util = require("lazyvim.util")
 
 vim.keymap.set("i", "<C-b>", "<ESC>^i", { desc = "Beginning of line" })
@@ -34,8 +26,8 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "scroll up" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "next search" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "prev search" })
 vim.keymap.set("n", "Q", "<nop>", { desc = "disable ex mode" })
-vim.keymap.set("n", "{", "<C-u>zz", { desc = "scroll up" })
-vim.keymap.set("n", "}", "<C-d>zz", { desc = "scroll down" })
+vim.keymap.set({ "n", "v" }, "{", "<C-u>zz", { desc = "scroll up" })
+vim.keymap.set({ "n", "v" }, "}", "<C-d>zz", { desc = "scroll down" })
 
 -- Visual mode mappings
 vim.keymap.set("v", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
