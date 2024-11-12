@@ -15,7 +15,7 @@ return {
 
           local widths = {
             abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
-            menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 20,
+            menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 40,
           }
 
           for key, width in pairs(widths) do
