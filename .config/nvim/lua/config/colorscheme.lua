@@ -4,8 +4,10 @@ local activate_dull = function(c)
   c.bg = "#1a1b26"
   c.bg_dark = "#16161e"
   c.bg_highlight = "#292e42"
-  c.fg = "#cea1ae"
-  c.fg_dark = "#af8994"
+  c.fg = "#c0caf5"
+  c.fg_dark = "#a9b1d6"
+  c.fg_code = "#cea1ae"
+  c.fg_code_dark = "#af8994"
   c.fg_gutter = "#3b4261"
   c.dark3 = "#6c7086"
   c.dark5 = "#7f849c"
@@ -123,7 +125,7 @@ local activate_mono = function(hl, c)
   hl.Define = { fg = c.purple }
   hl.Delimiter = { fg = c.red }
   hl.Float = { fg = c.blue }
-  hl.Function = { fg = c.fg, italic = true }
+  hl.Function = { fg = c.fg_code, italic = true }
   hl.Identifier = { fg = c.red }
   hl.Include = { fg = c.purple }
   hl.Keyword = { fg = c.purple }
@@ -135,7 +137,7 @@ local activate_mono = function(hl, c)
   hl.Punctuation = { fg = c.red }
   hl.PreProc = { fg = c.blue }
   hl.Repeat = { fg = c.purple }
-  hl.Special = { fg = c.purple }
+  hl.Special = { fg = "#7aa2f7" }
   hl.SpecialChar = { fg = c.red }
   hl.Statement = { fg = c.red }
   hl.StorageClass = { fg = c.blue }
@@ -145,13 +147,13 @@ local activate_mono = function(hl, c)
   hl.Todo = { fg = c.blue, bg = c.bg_dark }
   hl.Type = { fg = c.blue }
   hl.Typedef = { fg = c.blue }
-  hl.Variable = { fg = c.fg }
+  hl.Variable = { fg = c.fg_code }
 
   hl["@annotation"] = { fg = c.red }
   hl["@attribute"] = { fg = c.blue }
   hl["@character"] = { link = "Character" }
   hl["@constant"] = { link = "Constant" }
-  hl["@constant.builtin"] = { link = "atype" }
+  hl["@constant.builtin"] = { link = "Type" }
   hl["@constant.macro"] = { link = "Macro" }
   hl["@constructor"] = { link = "Type" }
   hl["@definition"] = { sp = c.terminal_black, underline = true }
@@ -183,12 +185,13 @@ local activate_mono = function(hl, c)
   hl["@reference"] = { fg = c.fg }
   hl["@scope"] = { bold = true }
   hl["@string"] = { link = "String" }
-  hl["@string.escape"] = { link = "Special" }
+  hl["@string.escape"] = { link = "SpecialChar" }
   hl["@string.regex"] = { link = "Special" }
   hl["@string.regexp"] = { link = "Special" }
   hl["@string.special.symbol"] = { link = "String" }
   hl["@string.special.url"] = { fg = c.blue, underline = true }
   hl["@tag"] = { link = "Tag" }
+  hl["@tag.builtin"] = { link = "Tag" }
   hl["@tag.attribute"] = { link = "Variable" }
   hl["@tag.delimiter"] = { link = "Delimiter" }
   hl["@tag.tsx"] = { link = "Tag" }
