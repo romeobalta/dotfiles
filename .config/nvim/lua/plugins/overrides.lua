@@ -33,7 +33,7 @@ return {
             anchor = "NW",
             relative = "editor",
             position = {
-              row = "100%",
+              row = 0,
               col = 0,
             },
             border = {
@@ -43,25 +43,14 @@ return {
                 left = 2,
                 right = 2,
               },
-              style = "none",
             },
             win_options = {
               winblend = 0,
-              winhighlight = "Normal:Pmenu",
+              winhighlight = "Normal:Pmenu,FloatBorder:SpecialBorder",
             },
           },
         },
       })
-
-      -- opts.presets.lsp_doc_border = {
-      --   views = {
-      --     hover = {
-      --       border = {
-      --         style = "single",
-      --       },
-      --     },
-      --   },
-      -- }
     end,
   },
   {

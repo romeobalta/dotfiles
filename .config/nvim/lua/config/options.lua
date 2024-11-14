@@ -14,6 +14,9 @@ g.copilot_no_maps = true
 opt.laststatus = 3 -- global statusline
 opt.showmode = false
 
+-- opt.tabstop = 8
+-- opt.shiftwidth = 4
+--
 -- opt.relativenumber = false
 
 -- disable nvim intro
@@ -30,3 +33,7 @@ opt.wrap = true
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
+
+g.netrw_browse_split = 0
+g.netrw_banner = 0
+g.netrw_winsize = 25

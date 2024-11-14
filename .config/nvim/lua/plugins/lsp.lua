@@ -15,10 +15,8 @@ return {
     end,
     keys = {},
     opts = {
-      -- codelens = { enabled = true },
       inlay_hints = { enabled = false },
-      -- format = { timeout_ms = 5000 },
-      servers = {
+      serers = {
         mdx_analyzer = {},
       },
     },

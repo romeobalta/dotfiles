@@ -36,6 +36,8 @@ vim.keymap.set("v", "y", "ygv<ESC>", { desc = "Yank then go at the end of the bl
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down", noremap = true })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up", noremap = true })
 
+vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
+
 -- Select (visual block) mode mappings
 vim.keymap.set(
   "x",
@@ -55,16 +57,16 @@ vim.keymap.set({ "n", "v" }, "<leader>fm", function()
   Util.format({ force = true })
 end, { desc = "Format" })
 
-local copilot_enabled = true
 vim.keymap.set("n", "<leader>at", function()
-  if copilot_enabled then
-    vim.cmd("Copilot disable")
-    copilot_enabled = false
-    print("Copilot disabled")
+  local copilot = require("copilot.command")
+  local status = require("copilot.client").is_disabled()
+  local notify = require("snacks.notify")
+  if status then
+    notify.notify("Copilot is being enabled")
+    copilot.enable()
   else
-    vim.cmd("Copilot enable")
-    copilot_enabled = true
-    print("Copilot enabled")
+    notify.notify("Copilot is being disabled")
+    copilot.disable()
   end
 end, { desc = "Toggle Copilot" })
 

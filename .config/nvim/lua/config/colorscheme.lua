@@ -16,8 +16,8 @@ local activate_dull = function(c)
   c.blue = "#8a9cc2"
   c.blue0 = "#3d59a1"
   c.blue1 = "#7aa2f7"
-  c.blue2 = "#0db9d7"
-  c.blue5 = "#89ddff"
+  c.blue2 = "#89ddff"
+  c.blue5 = "#0db9d7"
   c.blue6 = "#b4f9f8"
   c.blue7 = "#394b70"
   c.cyan = "#7dcfff"
@@ -46,6 +46,7 @@ end
 local activate_mono = function(hl, c)
   hl.WinSeparator = { fg = c.fg_gutter }
   hl.Pmenu = { fg = c.fg, bg = c.bg_dark, blend = 0 }
+  hl.SpecialBorder = { fg = c.fg_gutter }
 
   hl.CmpItemKind = { fg = c.comment }
   hl.CmpItemKindArray = { fg = c.comment }
