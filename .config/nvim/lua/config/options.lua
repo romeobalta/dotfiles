@@ -5,6 +5,8 @@
 local opt = vim.opt
 local g = vim.g
 
+-- opt.guicursor = ""
+
 g.mapleader = " "
 g.maplocalleader = " "
 
@@ -14,8 +16,9 @@ g.copilot_no_maps = true
 opt.laststatus = 3 -- global statusline
 opt.showmode = false
 
--- opt.tabstop = 8
--- opt.shiftwidth = 4
+opt.tabstop = 8
+opt.softtabstop = 0
+opt.shiftwidth = 4
 --
 -- opt.relativenumber = false
 
@@ -28,7 +31,7 @@ opt.showmode = false
 opt.scrolloff = 24
 opt.colorcolumn = "100"
 
-opt.wrap = true
+-- opt.wrap = true
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line

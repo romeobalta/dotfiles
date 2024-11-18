@@ -18,7 +18,7 @@ config.font = wezterm.font_with_fallback({
 	{ family = "JetBrains Mono", weight = "DemiBold" },
 	"nonicon",
 })
-config.font_size = 18
+config.font_size = 24
 config.front_end = "OpenGL"
 -- config.freetype_load_flags = "NO_HINTING"
 -- config.freetype_load_target = "Light"

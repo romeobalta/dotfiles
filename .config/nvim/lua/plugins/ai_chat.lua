@@ -14,7 +14,7 @@ if true then
       {
         "<leader>am",
         function()
-          vim.notify("Using model: " .. require("CopilotChat").config.model, vim.log.levels.INFO)
+          require("snacks.notify").info("Using model: " .. require("CopilotChat").config.model)
         end,
         desc = "Select Model (CopilotChat)",
         mode = { "n", "v" },

@@ -37,6 +37,7 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down", noremap 
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up", noremap = true })
 
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>r", vim.cmd.Rex)
 
 -- Select (visual block) mode mappings
 vim.keymap.set(

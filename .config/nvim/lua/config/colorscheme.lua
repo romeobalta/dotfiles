@@ -47,6 +47,9 @@ local activate_mono = function(hl, c)
   hl.WinSeparator = { fg = c.fg_gutter }
   hl.Pmenu = { fg = c.fg, bg = c.bg_dark, blend = 0 }
   hl.SpecialBorder = { fg = c.fg_gutter }
+  hl.CursorLine = { bg = c.bg }
+  hl.IblIndent = { fg = "#1b1d2b" }
+  hl.IblScope = { fg = c.bg_highlight }
 
   hl.CmpItemKind = { fg = c.comment }
   hl.CmpItemKindArray = { fg = c.comment }

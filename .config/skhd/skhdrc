@@ -13,3 +13,6 @@ default < ctrl - 5 : open -a /Applications/Notion.app/Contents/MacOS/Notion
 default < ctrl - 7 : open -a /System/Applications/Mail.app/Contents/MacOS/Mail
 default < ctrl - 8 : open -a /Applications/WhatsApp.app/Contents/MacOS/WhatsApp
 default < ctrl - 9 : open -a /System/Applications/Messages.app/Contents/MacOS/Messages
+
+# ctrl + shift + m
+default < ctrl + shift - 0x2E : sh ~/dotfiles/scripts/toggle-mic.sh
