@@ -8,10 +8,6 @@ return {
     enabled = false,
   },
   {
-    "nvimdev/dashboard-nvim",
-    enabled = false,
-  },
-  {
     "folke/noice.nvim",
     opts = function(_, opts)
       opts.routes = {
