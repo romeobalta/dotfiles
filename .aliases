@@ -25,3 +25,10 @@ alias gitchanges='git --no-pager diff --name-only FETCH_HEAD $(git merge-base FE
 
 # own scripts
 alias mov2gif="~/dotfiles/scripts/convert_mov_to_gif.sh" 
+
+# zig
+alias zb='zig build'
+alias zr='zig run'
+alias zt='zig test'
+alias zbr='zig build run'
+alias zbt='zig build test --summary all'

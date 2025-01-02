@@ -4,6 +4,12 @@ return {
     enabled = false,
   },
   {
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      opts.sections.lualine_z = {}
+    end,
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
     enabled = false,
   },
@@ -63,5 +69,15 @@ return {
         desc = "Lazygit",
       },
     },
+    opts = function(_, opts)
+      opts.zen = {
+        toggles = {
+          dim = false,
+        },
+      }
+      opts.notifier = {
+        top_down = false,
+      }
+    end,
   },
 }

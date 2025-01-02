@@ -1,0 +1,20 @@
+# font
+font-family = Berkeley Mono Variable
+#font-variation = wght=130
+#font-variation-italic = wght=130
+#font-variation-bold = wght=150
+#font-variation-bold-italic = wght=150
+font-size = 20
+font-thicken = true
+# adjust-cell-width = 0
+
+# theme
+theme = tokyonight
+
+# window
+macos-titlebar-style = "hidden"
+window-padding-x = 6
+window-padding-y = 6
+
+# keybind
+keybind = cmd+s>r=reload_config

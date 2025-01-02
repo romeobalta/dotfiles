@@ -146,7 +146,7 @@ local activate_mono = function(hl, c)
   hl.Statement = { fg = c.red }
   hl.StorageClass = { fg = c.blue }
   hl.String = { fg = c.orange }
-  hl.Structure = { fg = c.purple }
+  hl.Structure = { fg = c.blue }
   hl.Tag = { fg = c.red }
   hl.Todo = { fg = c.blue, bg = c.bg_dark }
   hl.Type = { fg = c.blue }
@@ -212,12 +212,15 @@ local activate_mono = function(hl, c)
   hl["@variable.member.key"] = { link = "Variable" }
   hl["@variable.parameter"] = { link = "Parameter" }
 
+  hl["@lsp.type.builtin"] = { link = "Keyword" }
+  hl["@lsp.type.builtin.zig"] = { link = "Keyword" }
   hl["@lsp.type.class"] = { link = "Type" }
   hl["@lsp.type.decorator"] = { link = "Function" }
   hl["@lsp.type.enum"] = { link = "Type" }
   hl["@lsp.type.enumMember"] = { link = "Constant" }
   hl["@lsp.type.function"] = { link = "Function" }
   hl["@lsp.type.interface"] = { link = "Structure" }
+  hl["@lsp.type.keywordLiteral"] = { link = "Keyword" }
   hl["@lsp.type.macro"] = { link = "Macro" }
   hl["@lsp.type.method"] = { link = "Function" }
   hl["@lsp.type.namespace"] = { link = "Type" }

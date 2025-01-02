@@ -77,9 +77,9 @@ vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 
 vim.keymap.set("n", "<leader>z", function()
-  require("zen-mode").toggle({
+  require("snacks").zen.zen({
     window = {
-      width = 100, -- width will be 85% of the editor width
+      width = 130, -- width will be 85% of the editor width
     },
   })
 end)

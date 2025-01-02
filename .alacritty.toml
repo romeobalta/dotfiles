@@ -12,8 +12,10 @@ decorations = "Buttonless"
 # opacity = 0.96
 
 [font]
-normal = { family = "JetBrainsMonoNL Nerd Font", style = "Regular" }
+normal = { family = "Berkeley Mono", style = "Regular" }
+# normal = { family = "JetBrainsMonoNL Nerd Font", style = "Regular" }
 size = 18
+offset = { x = 0, y = 4 }
 
 [colors.cursor]
 cursor = "#f5e0dc"

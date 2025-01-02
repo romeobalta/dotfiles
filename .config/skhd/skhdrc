@@ -4,7 +4,7 @@
 # default < ctrl - 0x1D ; cursor
 # cursor < ctrl - 0x1D ; default
 
-default < ctrl - 1 : open -a /opt/homebrew/bin/wezterm-gui
+default < ctrl - 1 : open -a /Applications/Ghostty.app/Contents/MacOS/ghostty
 default < ctrl - 2 : open -a /Applications/Arc.app/Contents/MacOS/Arc
 default < ctrl - 3 : open -a /Applications/ChatGPT.app/Contents/MacOS/ChatGPT
 default < ctrl - 4 : open -a /Applications/Discord.app/Contents/MacOS/Discord
