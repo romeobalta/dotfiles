@@ -48,49 +48,12 @@ local activate_mono = function(hl, c)
   hl.Pmenu = { fg = c.fg, bg = c.bg_dark, blend = 0 }
   hl.SpecialBorder = { fg = c.fg_gutter }
   hl.CursorLine = { bg = c.bg }
-  hl.IblIndent = { fg = "#1b1d2b" }
-  hl.IblScope = { fg = c.bg_highlight }
+  hl.SnacksIndent = { fg = "#1b1d2b" }
+  hl.SnacksIndentScope = { fg = c.bg_highlight }
 
-  hl.CmpItemKind = { fg = c.comment }
-  hl.CmpItemKindArray = { fg = c.comment }
-  hl.CmpItemKindBoolean = { fg = c.comment }
-  hl.CmpItemKindClass = { fg = c.comment }
-  hl.CmpItemKindCodeium = { fg = c.comment }
-  hl.CmpItemKindColor = { fg = c.comment }
-  hl.CmpItemKindConstant = { fg = c.comment }
-  hl.CmpItemKindConstructor = { fg = c.comment }
-  hl.CmpItemKindCopilot = { fg = c.comment }
-  hl.CmpItemKindDefault = { fg = c.comment }
-  hl.CmpItemKindEnum = { fg = c.comment }
-  hl.CmpItemKindEnumMember = { fg = c.comment }
-  hl.CmpItemKindEvent = { fg = c.comment }
-  hl.CmpItemKindField = { fg = c.comment }
-  hl.CmpItemKindFile = { fg = c.comment }
-  hl.CmpItemKindFolder = { fg = c.comment }
-  hl.CmpItemKindFunction = { fg = c.comment }
-  hl.CmpItemKindInterface = { fg = c.comment }
-  hl.CmpItemKindKey = { fg = c.comment }
-  hl.CmpItemKindKeyword = { fg = c.comment }
-  hl.CmpItemKindMethod = { fg = c.comment }
-  hl.CmpItemKindModule = { fg = c.comment }
-  hl.CmpItemKindNamespace = { fg = c.comment }
-  hl.CmpItemKindNull = { fg = c.comment }
-  hl.CmpItemKindNumber = { fg = c.comment }
-  hl.CmpItemKindObject = { fg = c.comment }
-  hl.CmpItemKindOperator = { fg = c.comment }
-  hl.CmpItemKindPackage = { fg = c.comment }
-  hl.CmpItemKindProperty = { fg = c.comment }
-  hl.CmpItemKindReference = { fg = c.comment }
-  hl.CmpItemKindSnippet = { fg = c.comment }
-  hl.CmpItemKindString = { fg = c.comment }
-  hl.CmpItemKindStruct = { fg = c.comment }
-  hl.CmpItemKindSupermaven = { fg = c.comment }
-  hl.CmpItemKindTabNine = { fg = c.comment }
-  hl.CmpItemKindText = { fg = c.comment }
-  hl.CmpItemKindTypeParameter = { fg = c.comment }
-  hl.CmpItemKindUnit = { fg = c.comment }
-  hl.CmpItemKindValue = { fg = c.comment }
-  hl.CmpItemKindVariable = { fg = c.comment }
+  hl.BlinkCmpMenu = { bg = c.bg_dark }
+  hl.BlinkCmpDoc = { bg = c.bg_dark }
+  hl.BlinkCmpDocSeparator = { bg = c.bg_dark }
 
   hl.TelescopeNormal = {
     bg = c.bg_dark,

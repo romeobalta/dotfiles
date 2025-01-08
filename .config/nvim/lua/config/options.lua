@@ -7,6 +7,7 @@ local g = vim.g
 
 -- opt.guicursor = ""
 
+g.snacks_animate = false
 g.mapleader = " "
 g.maplocalleader = " "
 

@@ -1,5 +1,10 @@
 return {
   {
+
+    "echasnovski/mini.pairs",
+    enabled = false,
+  },
+  {
     "akinsho/bufferline.nvim",
     enabled = false,
   },
@@ -24,28 +29,25 @@ return {
       }
 
       opts.lsp = vim.tbl_extend("keep", opts.lsp, {
-        signature = {
-          opts = {},
-        },
         documentation = {
           opts = {
-            size = {
-              width = 0.99,
-            },
-            anchor = "NW",
-            relative = "editor",
-            position = {
-              row = 0,
-              col = 0,
-            },
-            border = {
-              padding = {
-                top = 1,
-                bottom = 1,
-                left = 2,
-                right = 2,
-              },
-            },
+            -- size = {
+            --   width = 0.99,
+            -- },
+            -- anchor = "NW",
+            -- relative = "editor",
+            -- position = {
+            --   row = 0,
+            --   col = 0,
+            -- },
+            -- border = {
+            --   padding = {
+            --     top = 1,
+            --     bottom = 1,
+            --     left = 2,
+            --     right = 2,
+            --   },
+            -- },
             win_options = {
               winblend = 0,
               winhighlight = "Normal:Pmenu,FloatBorder:SpecialBorder",
