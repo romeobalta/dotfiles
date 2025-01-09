@@ -1,0 +1,18 @@
+{
+  "self": {
+    "prefix": "self",
+    "body": ["const self = @This();"]
+  },
+  "method": {
+    "prefix": "fn",
+    "body": ["fn ${1:name} (self: ${2}${3:Self}) ${4:!void} {", "\t${5}", "}"]
+  },
+  "public method": {
+    "prefix": "pfn",
+    "body": [
+      "pub fn ${1:name} (self: ${2}${3:Self}) ${4:!void} {",
+      "\t${5}",
+      "}"
+    ]
+  }
+}
