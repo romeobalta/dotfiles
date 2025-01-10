@@ -76,7 +76,7 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 
-vim.keymap.set("n", "<leader>z", function()
+vim.keymap.set("n", "<leader>wz", function()
   require("snacks").zen.zen({
     window = {
       width = 130, -- width will be 85% of the editor width

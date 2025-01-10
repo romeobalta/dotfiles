@@ -72,13 +72,13 @@ return {
       },
     },
     opts = function(_, opts)
-      opts.zen = {
-        toggles = {
-          dim = false,
-        },
-      }
       opts.notifier = {
         top_down = false,
+      }
+
+      opts.statuscolumn = {
+        left = { "fold", "git" },
+        right = { "mark", "sign" },
       }
     end,
   },
