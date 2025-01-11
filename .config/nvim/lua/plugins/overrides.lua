@@ -78,7 +78,7 @@ return {
 
       opts.statuscolumn = {
         left = { "fold", "git" },
-        right = { "mark", "sign" },
+        right = { "sign", "mark" },
       }
     end,
   },

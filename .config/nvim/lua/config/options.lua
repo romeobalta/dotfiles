@@ -91,7 +91,9 @@ function HighlightedFoldtext()
 
   local line_count_noun = line_count == 1 and "line" or "lines"
 
+  table.insert(result, { " ", "Folded" })
   table.insert(result, { string.format(" ... %d " .. line_count_noun .. " ", line_count), "FoldedComment" })
+  table.insert(result, { " ", "Folded" })
 
   -- check if the first element in the end_line contains only whitespace in the first position
   -- and Folded in the second position, then remove it
