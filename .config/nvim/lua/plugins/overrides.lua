@@ -20,7 +20,12 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
-      opts.sections.lualine_z = {}
+      -- move some stuff around
+      opts.sections.lualine_b = {}
+      table.insert(opts.sections.lualine_x, 1, vim.deepcopy(opts.sections.lualine_c[2]))
+      table.remove(opts.sections.lualine_c, 2) -- Remove the diagnostics component, which is at index 2
+      opts.sections.lualine_y = { "branch" }
+      opts.sections.lualine_z = { "searchcount", "selectioncount" }
     end,
   },
   {
