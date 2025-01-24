@@ -52,7 +52,7 @@ local activate_mono = function(hl, c)
   hl.SnacksIndentScope = { fg = c.bg_highlight }
 
   hl.Folded = { fg = c.magenta, bg = c.bg }
-  hl.FoldedComment = { fg = c.comment, bg = c.bg_highlight, italic = true }
+  hl.FoldedComment = { fg = c.terminal_black }
 
   hl.BlinkCmpMenu = { bg = c.bg_dark }
   hl.BlinkCmpDoc = { bg = c.bg_dark }

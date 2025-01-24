@@ -1,17 +1,24 @@
 {
+  "Self": {
+    "prefix": "Self",
+    "body": ["const Self = @This();"]
+  },
+
   "self": {
     "prefix": "self",
-    "body": ["const self = @This();"]
+    "body": [""]
   },
+
   "method": {
     "prefix": "fn",
-    "body": ["fn ${1:name} (self: ${2}${3:Self}) ${4:!void} {", "\t${5}", "}"]
+    "body": ["fn ${1:name} (self: ${2}${3:Self}) ${4:!void} {", "\t${0}", "}"]
   },
+
   "public method": {
     "prefix": "pfn",
     "body": [
       "pub fn ${1:name} (self: ${2}${3:Self}) ${4:!void} {",
-      "\t${5}",
+      "\t${0}",
       "}"
     ]
   }

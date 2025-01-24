@@ -6,7 +6,10 @@ font-family = Berkeley Mono Variable
 #font-variation-bold-italic = wght=150
 font-size = 20
 font-thicken = true
-# adjust-cell-width = 0
+# adjust-cell-width = "-10%"
+adjust-cell-height = "20%"
+adjust-cursor-height = "20%"
+adjust-underline-position = "10%"
 
 # theme
 theme = tokyonight

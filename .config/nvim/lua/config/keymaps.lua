@@ -84,6 +84,12 @@ vim.keymap.set("n", "<leader>wz", function()
   })
 end)
 
+vim.keymap.set("n", "zp", function()
+  require("ufo").peekFoldedLinesUnderCursor()
+end)
+-- vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+-- vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+
 if vim.g.vscode then
   local keymap = vim.keymap.set
   local vscode = require("vscode")
