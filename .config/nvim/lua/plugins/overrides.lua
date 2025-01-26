@@ -20,12 +20,18 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
-      -- move some stuff around
-      opts.sections.lualine_b = {}
-      table.insert(opts.sections.lualine_x, 1, vim.deepcopy(opts.sections.lualine_c[2]))
-      table.remove(opts.sections.lualine_c, 2) -- Remove the diagnostics component, which is at index 2
+      opts.sections.lualine_b = {} -- Branc moved to y
       opts.sections.lualine_y = { "branch" }
-      opts.sections.lualine_z = { "searchcount", "selectioncount" }
+
+      local diagnostics = vim.deepcopy(opts.sections.lualine_c[2])
+      diagnostics.color = "DiagnosticsLualine"
+
+      table.insert(opts.sections.lualine_c, diagnostics)
+
+      opts.sections.lualine_z = { "selectioncount", "searchcount" } -- These are most useful here
+
+      table.remove(opts.sections.lualine_c, 2) -- Remove the diagnostics component, which is at index 2
+      table.remove(opts.sections.lualine_x, 3) -- Remove mode stuff
     end,
   },
   {
@@ -176,6 +182,47 @@ return {
         end,
       },
     },
+  },
+
+  {
+    "mfussenegger/nvim-dap",
+    opts = function(_, opts)
+      local dap = require("dap")
+      if not dap.adapters["codelldb"] then
+        require("dap").adapters["codelldb"] = {
+          type = "server",
+          host = "localhost",
+          port = "${port}",
+          executable = {
+            command = "codelldb",
+            args = {
+              "--port",
+              "${port}",
+            },
+          },
+        }
+      end
+      for _, lang in ipairs({ "zig" }) do
+        dap.configurations[lang] = {
+          {
+            type = "codelldb",
+            request = "launch",
+            name = "Launch file",
+            program = function()
+              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            end,
+            cwd = "${workspaceFolder}",
+          },
+          {
+            type = "codelldb",
+            request = "attach",
+            name = "Attach to process",
+            pid = require("dap.utils").pick_process,
+            cwd = "${workspaceFolder}",
+          },
+        }
+      end
+    end,
   },
 
   -- disabled

@@ -51,6 +51,7 @@ local activate_mono = function(hl, c)
   hl.SnacksIndent = { fg = "#1b1d2b" }
   hl.SnacksIndentScope = { fg = c.bg_highlight }
 
+  hl.DiagnosticsLualine = { bg = "#1e2030" }
   hl.Folded = { fg = c.magenta, bg = c.bg }
   hl.FoldedComment = { fg = c.terminal_black }
 
