@@ -93,7 +93,7 @@ return {
       }
 
       opts.statuscolumn = {
-        left = { "fold", "sign" },
+        left = { "sign", "fold" },
         right = { "git", "mark" },
         folds = {
           open = true,
@@ -159,7 +159,7 @@ return {
     end,
     keys = {},
     opts = {
-      -- inlay_hints = { enabled = false },
+      inlay_hints = { enabled = false },
       servers = {
         zls = {
           settings = {
@@ -184,44 +184,57 @@ return {
     },
   },
 
+  -- dap overrides
   {
     "mfussenegger/nvim-dap",
     opts = function(_, opts)
       local dap = require("dap")
-      if not dap.adapters["codelldb"] then
-        require("dap").adapters["codelldb"] = {
-          type = "server",
-          host = "localhost",
-          port = "${port}",
-          executable = {
-            command = "codelldb",
-            args = {
-              "--port",
-              "${port}",
-            },
-          },
-        }
-      end
       for _, lang in ipairs({ "zig" }) do
         dap.configurations[lang] = {
           {
             type = "codelldb",
             request = "launch",
-            name = "Launch file",
+            name = "LLDB: Launch file with args",
             program = function()
-              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+              return require("dap.utils").pick_file({
+                executables = true,
+                path = LazyVim.root(),
+                filter = function(filepath)
+                  -- look only for paths in the cwd with zig-out in them
+                  return vim.fn.match(filepath, "zig-out") ~= -1 and vim.fn.match(filepath, LazyVim.root()) ~= -1
+                end,
+              })
             end,
-            cwd = "${workspaceFolder}",
+            args = function()
+              local args = vim.fn.input("Arguments: ", "", "file") -- Read some args
+              return args == "" and {} or require("dap.utils").splitstr(args)
+            end,
+            cwd = vim.fn.getcwd(),
           },
           {
             type = "codelldb",
             request = "attach",
-            name = "Attach to process",
-            pid = require("dap.utils").pick_process,
-            cwd = "${workspaceFolder}",
+            name = "LLDB: Attach to process",
+            pid = function()
+              return require("dap.utils").pick_process({
+                filter = function(proc)
+                  return vim.fn.match(proc.name, "zig-out") ~= -1
+                end,
+              })
+            end,
+            cwd = vim.fn.getcwd(),
           },
         }
       end
+    end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    opts = function(_, opts)
+      local dap = require("dap")
+      -- remove dapui_config from event_terminated
+      dap.listeners.before.event_terminated["dapui_config"] = function() end
+      dap.listeners.before.event_exited["dapui_config"] = function() end
     end,
   },
 

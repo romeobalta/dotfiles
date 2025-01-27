@@ -30,3 +30,8 @@ autocmd({ "BufNewFile", "BufRead" }, {
     vim.bo.filetype = "markdown.mdx"
   end,
 })
+
+local dap = require("dap")
+-- remove dapui_config from event_terminated
+dap.listeners.before.event_terminated["dapui_config"] = nil
+dap.listeners.before.event_exited["dapui_config"] = nil
