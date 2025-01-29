@@ -86,7 +86,7 @@ local activate_mono = function(hl, c)
   hl.Macro = { fg = c.red }
   hl.Number = { fg = c.red }
   hl.Operator = { fg = c.red }
-  hl.Parameter = { fg = c.red }
+  hl.Parameter = { fg = c.fg_code }
   hl.Punctuation = { fg = c.red }
   hl.PreProc = { fg = c.blue }
   hl.Repeat = { fg = c.purple }
@@ -127,6 +127,7 @@ local activate_mono = function(hl, c)
   hl["@keyword.repeat"] = { link = "Repeat" }
   hl["@method"] = { link = "Function" }
   hl["@module"] = { link = "Type" }
+  hl["@module.builtin"] = { link = "Type" }
   hl["@none"] = { fg = c.fg }
   hl["@number.float"] = { link = "Number" }
   hl["@operator"] = { link = "Operator" }
@@ -180,6 +181,7 @@ local activate_mono = function(hl, c)
   hl["@lsp.type.typeParamater"] = { link = "TypeDef" }
   hl["@lsp.type.variable"] = { link = "Variable" }
   hl["@lsp.typemod.type.defaultLibrary"] = { link = "Type" }
+  hl["@lsp.typemod.variable.global"] = { link = "Type" }
 
   hl["@markup.heading"] = { fg = c.purple }
   hl["@markup.raw"] = { fg = c.blue }

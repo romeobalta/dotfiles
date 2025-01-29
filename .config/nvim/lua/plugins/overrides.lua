@@ -57,23 +57,6 @@ return {
       opts.lsp = vim.tbl_extend("keep", opts.lsp, {
         documentation = {
           opts = {
-            -- size = {
-            --   width = 0.99,
-            -- },
-            -- anchor = "NW",
-            -- relative = "editor",
-            -- position = {
-            --   row = 0,
-            --   col = 0,
-            -- },
-            -- border = {
-            --   padding = {
-            --     top = 1,
-            --     bottom = 1,
-            --     left = 2,
-            --     right = 2,
-            --   },
-            -- },
             win_options = {
               winblend = 0,
               winhighlight = "Normal:Pmenu,FloatBorder:SpecialBorder",
@@ -184,11 +167,12 @@ return {
       setup = {
         -- Disable inlay hints for vtsls
         -- vtsls = function(_, opts)
-        --   LazyVim.lsp.on_attach(function(client, bufnr)
-        --     if client.server_capabilities.inlayHintProvider then
-        --       vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
-        --     end
-        --   end, "vtsls")
+        -- LazyVim.lsp.on_attach(function(client, bufnr)
+        -- if client.server_capabilities.inlayHintProvider then
+        --   vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+        -- end
+        -- client.server_capabilities.semanticTokensProvider = nil
+        -- end, "vtsls")
         -- end,
       },
     },
