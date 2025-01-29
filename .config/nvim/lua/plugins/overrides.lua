@@ -187,14 +187,40 @@ return {
   -- dap overrides
   {
     "mfussenegger/nvim-dap",
+    keys = {
+      { "<leader>dr", false },
+      { "<leader>da", false },
+    },
     opts = function(_, opts)
       local dap = require("dap")
+
+      -- this provider is so we can put launch.json files in .dap.json
+      dap.providers.configs["_.root.launch.json"] = function()
+        local root = LazyVim.root()
+        local path = root .. "/.dap.json"
+        local ok, configs = pcall(require("dap.ext.vscode").getconfigs, path)
+        return ok and configs or {}
+      end
+
+      -- this is a hook that allows as to use string args in .dap.json
+      -- it's useful if you want to read a single input and accept multiple args
+      -- as the config expects a list of args instead of a single string
+      dap.listeners.on_config["_.launch.json"] = function(config)
+        local _config = vim.deepcopy(config)
+        -- if _config has property args and it's a string, split it
+        if _config.args and type(_config.args) == "string" then
+          _config.args = require("dap.utils").splitstr(_config.args)
+        end
+        return _config
+      end
+
+      -- zig defaults
       for _, lang in ipairs({ "zig" }) do
         dap.configurations[lang] = {
           {
             type = "codelldb",
             request = "launch",
-            name = "LLDB: Launch file with args",
+            name = "LLDB: Launch with args",
             program = function()
               return require("dap.utils").pick_file({
                 executables = true,

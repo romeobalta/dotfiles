@@ -46,10 +46,11 @@ end
 local activate_mono = function(hl, c)
   hl.WinSeparator = { fg = c.fg_gutter }
   hl.Pmenu = { fg = c.fg, bg = c.bg_dark, blend = 0 }
-  hl.SpecialBorder = { fg = c.fg_gutter }
+  hl.SpecialBorder = { fg = c.fg_gutter, bg = c.bg }
   hl.CursorLine = { bg = c.bg }
   hl.SnacksIndent = { fg = "#1b1d2b" }
   hl.SnacksIndentScope = { fg = c.bg_highlight }
+  hl.DebugFloat = { fg = c.fg, bg = c.bg }
 
   hl.DiagnosticsLualine = { bg = "#1e2030" }
   hl.Folded = { fg = c.magenta, bg = c.bg }
@@ -58,27 +59,6 @@ local activate_mono = function(hl, c)
   hl.BlinkCmpMenu = { bg = c.bg_dark }
   hl.BlinkCmpDoc = { bg = c.bg_dark }
   hl.BlinkCmpDocSeparator = { bg = c.bg_dark }
-
-  hl.TelescopeNormal = {
-    bg = c.bg_dark,
-    fg = c.fg_dark,
-  }
-  hl.TelescopeTitle = {
-    bg = c.bg_dark,
-    fg = c.fg_dark,
-  }
-  hl.TelescopeBorder = {
-    bg = c.bg_dark,
-    fg = c.fg_gutter,
-  }
-  hl.TelescopePromptTitle = {
-    bg = c.bg_dark,
-    fg = c.fg_gutter,
-  }
-  hl.TelescopePromptBorder = {
-    bg = c.bg_dark,
-    fg = c.fg_gutter,
-  }
 
   hl.HarpoonInactive = { fg = c.blue7, bg = c.bg }
   hl.HarpoonNumberInactive = { fg = c.blue, bg = c.bg }
