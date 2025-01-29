@@ -37,9 +37,19 @@ return {
   {
     "folke/noice.nvim",
     opts = function(_, opts)
+      opts.notify = {
+        view = "mini",
+      }
+
+      opts.messages = {
+        view = "mini",
+        view_error = "mini",
+        view_warn = "mini",
+      }
+
       opts.routes = {
         {
-          view = "notify",
+          view = "mini",
           filter = { event = "msg_showmode" },
         },
       }
@@ -104,7 +114,7 @@ return {
   {
     "saghen/blink.cmp",
     opts = function(_, opts)
-      -- opts.completion.trigger = { show_in_snippet = false }
+      opts.completion.trigger = { show_in_snippet = false }
       opts.completion.ghost_text = {
         enabled = false,
       }
@@ -166,20 +176,20 @@ return {
             zls = {
               enable_build_on_save = true,
               build_on_save_step = "check",
-              enable_inlay_hints = false,
+              -- enable_inlay_hints = false,
             },
           },
         },
       },
       setup = {
         -- Disable inlay hints for vtsls
-        vtsls = function(_, opts)
-          LazyVim.lsp.on_attach(function(client, bufnr)
-            if client.server_capabilities.inlayHintProvider then
-              vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
-            end
-          end, "vtsls")
-        end,
+        -- vtsls = function(_, opts)
+        --   LazyVim.lsp.on_attach(function(client, bufnr)
+        --     if client.server_capabilities.inlayHintProvider then
+        --       vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+        --     end
+        --   end, "vtsls")
+        -- end,
       },
     },
   },

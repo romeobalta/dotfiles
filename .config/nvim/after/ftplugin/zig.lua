@@ -48,14 +48,16 @@ end, {
 -- this is an easy zig build from nvim
 vim.keymap.set("n", "<leader>dm", function()
   -- Run zig build command
+  Snacks.notify.info("Build started", { id = "build_notifier", title = "Zig", icon = "", style = "minimal" })
   vim.system({ "zig", "build", "--color", "on" }, {
     cwd = LazyVim.root(),
   }, function(res)
     vim.schedule(function()
       -- Send status message
       if res.code == 0 then
-        Snacks.notify.info("Build succeeded", { title = "Zig", icon = "" })
+        Snacks.notify.info("Build succeeded", { id = "build_notifier", title = "Zig", icon = "", style = "minimal" })
       else
+        Snacks.notifier.hide("build_notifier")
         open_result_window(res.stdout, res.stderr)
       end
     end)
@@ -69,10 +71,12 @@ vim.keymap.set("n", "<leader>dr", function()
   local args = vim.g.zig_run_args and (" --color on -- " .. vim.g.zig_run_args) or " --color on"
   local command = require("dap.utils").splitstr("zig build run" .. args)
   -- Run zig build run command
+  Snacks.notify.info("Build started", { id = "build_notifier", title = "Zig", icon = "", style = "minimal" })
   vim.system(command, {
     cwd = LazyVim.root(),
   }, function(res)
     vim.schedule(function()
+      Snacks.notifier.hide("build_notifier")
       open_result_window(res.stdout, res.stderr)
     end)
   end)

@@ -1,6 +1,5 @@
 return {
   "lewis6991/gitsigns.nvim",
-
   keys = {
     {
       "]g",
@@ -11,7 +10,6 @@ return {
       end,
       desc = "Goto next hunk",
     },
-
     {
       "[g",
       function()

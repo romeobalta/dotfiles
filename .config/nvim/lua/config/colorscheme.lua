@@ -60,6 +60,8 @@ local activate_mono = function(hl, c)
   hl.BlinkCmpDoc = { bg = c.bg_dark }
   hl.BlinkCmpDocSeparator = { bg = c.bg_dark }
 
+  hl.LspInlayHint = { fg = c.terminal_black, italic = true }
+
   hl.HarpoonInactive = { fg = c.blue7, bg = c.bg }
   hl.HarpoonNumberInactive = { fg = c.blue, bg = c.bg }
   hl.HarpoonActive = { fg = c.blue, bg = c.bg_dark }
