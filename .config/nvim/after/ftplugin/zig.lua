@@ -1,4 +1,4 @@
-local function open_result_window(stdout, stderr)
+local function open_terminal_window(stdout, stderr)
   -- Create a floating window
   local buf = vim.api.nvim_create_buf(false, true)
   local width = math.min(120, math.floor(vim.o.columns * 0.8))
@@ -58,7 +58,7 @@ vim.keymap.set("n", "<leader>dm", function()
         Snacks.notify.info("Build succeeded", { id = "build_notifier", title = "Zig", icon = "", style = "minimal" })
       else
         Snacks.notifier.hide("build_notifier")
-        open_result_window(res.stdout, res.stderr)
+        open_terminal_window(res.stdout, res.stderr)
       end
     end)
   end)
@@ -77,7 +77,7 @@ vim.keymap.set("n", "<leader>dr", function()
   }, function(res)
     vim.schedule(function()
       Snacks.notifier.hide("build_notifier")
-      open_result_window(res.stdout, res.stderr)
+      open_terminal_window(res.stdout, res.stderr)
     end)
   end)
 end, {
