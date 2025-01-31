@@ -3,9 +3,21 @@
 # list of directories to search for
 dirs=(
 	~
+)
+
+# list of extra dirs
+extra_dirs=(
+	# nested dirs
 	~/personal/baremetal
 	~/personal/tutorials
 )
+
+# for each extra dir, check if it exists and add it to the list
+for dir in "${extra_dirs[@]}"; do
+	if [[ -d "$dir" ]]; then
+		dirs+=("$dir")
+	fi
+done
 
 # check if ~/projects/_archived exists and add it to the list
 if [[ -d ~/projects/_archived ]]; then
@@ -22,10 +34,15 @@ if [[ -d ~/work ]]; then
 	dirs+=(~/work)
 fi
 
+# check if ~/soft exists and add it to the list
+if [[ -d ~/soft ]]; then
+	dirs+=(~/soft)
+fi
+
 if [[ $# -eq 1 ]]; then
 	selected=$1
 else
-	selected=$(find ${dirs[@]} -mindepth 1 -maxdepth 1 -type d | fzf)
+	selected=$(find "${dirs[@]}" -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then
@@ -36,17 +53,17 @@ selected_name=$(basename "$selected" | tr . _)
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-	tmux new-session -s $selected_name -c $selected
+	tmux new-session -s "$selected_name" -c "$selected"
 	exit 0
 fi
 
-if ! tmux has-session -t=$selected_name 2>/dev/null; then
-	tmux new-session -ds $selected_name -c $selected
+if ! tmux has-session -t="$selected_name" 2>/dev/null; then
+	tmux new-session -ds "$selected_name" -c "$selected"
 fi
 
 if [[ -z $TMUX ]]; then
-	tmux attach-session -t $selected_name
+	tmux attach-session -t "$selected_name"
 	exit 0
 fi
 
-tmux switch-client -t $selected_name
+tmux switch-client -t "$selected_name"

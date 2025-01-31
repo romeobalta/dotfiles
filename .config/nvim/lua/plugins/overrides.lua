@@ -125,7 +125,7 @@ return {
       { "<leader>/", false },
       { "<leader>fb", false },
 
-      { "<leader><space>", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
+      { "<leader><space>", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
       { "<leader>fs", LazyVim.pick("live_grep"), desc = "Grep (Root Dir)" },
       { "<leader>fS", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
       { "<leader>fl", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
@@ -155,6 +155,8 @@ return {
       inlay_hints = { enabled = false },
       servers = {
         zls = {
+          cmd = { vim.fn.expand("$HOME") .. "/soft/zls/zig-out/bin/zls" },
+
           settings = {
             zls = {
               enable_build_on_save = true,

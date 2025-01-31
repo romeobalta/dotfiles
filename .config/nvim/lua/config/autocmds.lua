@@ -35,3 +35,6 @@ local dap = require("dap")
 -- remove dapui_config from event_terminated
 dap.listeners.before.event_terminated["dapui_config"] = nil
 dap.listeners.before.event_exited["dapui_config"] = nil
+
+-- some zig fixes
+vim.api.nvim_set_hl(0, "@lsp.type.string.zig", {})
