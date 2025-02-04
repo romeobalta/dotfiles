@@ -1,7 +1,9 @@
 local tokyodark = require("config.colorscheme")
 
 return {
+  -----------------------
   -- theme
+  -----------------------
   {
     "LazyVim/LazyVim",
     opts = {
@@ -17,6 +19,9 @@ return {
     },
   },
 
+  -----------------------
+  -- ui
+  -----------------------
   {
     "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
@@ -109,6 +114,10 @@ return {
       opts.keymap.preset = "super-tab"
     end,
   },
+
+  -----------------------
+  -- editor
+  -----------------------
   {
     "echasnovski/mini.comment",
     lazy = false,
@@ -161,26 +170,16 @@ return {
             zls = {
               enable_build_on_save = true,
               build_on_save_step = "check",
-              -- enable_inlay_hints = false,
             },
           },
         },
       },
-      setup = {
-        -- Disable inlay hints for vtsls
-        -- vtsls = function(_, opts)
-        -- LazyVim.lsp.on_attach(function(client, bufnr)
-        -- if client.server_capabilities.inlayHintProvider then
-        --   vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
-        -- end
-        -- client.server_capabilities.semanticTokensProvider = nil
-        -- end, "vtsls")
-        -- end,
-      },
     },
   },
 
+  -----------------------
   -- dap overrides
+  -----------------------
   {
     "mfussenegger/nvim-dap",
     keys = {
@@ -201,10 +200,13 @@ return {
       -- this is a hook that allows as to use string args in .dap.json
       -- it's useful if you want to read a single input and accept multiple args
       -- as the config expects a list of args instead of a single string
+      ---@class config
+      ---@field args string|string[]
       dap.listeners.on_config["_.launch.json"] = function(config)
         local _config = vim.deepcopy(config)
         -- if _config has property args and it's a string, split it
         if _config.args and type(_config.args) == "string" then
+          ---@diagnostic disable-next-line: param-type-mismatch
           _config.args = require("dap.utils").splitstr(_config.args)
         end
         return _config
@@ -260,7 +262,9 @@ return {
     end,
   },
 
+  -----------------------
   -- disabled
+  -----------------------
   {
     "akinsho/bufferline.nvim",
     enabled = false,

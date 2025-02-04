@@ -47,8 +47,12 @@ end, {
 
 -- this is an easy zig build from nvim
 vim.keymap.set("n", "<leader>dm", function()
-  -- Run zig build command
-  Snacks.notify.info("Build started", { id = "build_notifier", title = "Zig", icon = "", style = "minimal" })
+  Snacks.notify.info("Building...", {
+    id = "build_notifier",
+    title = "Zig",
+    style = "minimal",
+    timeout = false,
+  })
   vim.system({ "zig", "build", "--color", "on" }, {
     cwd = LazyVim.root(),
   }, function(res)

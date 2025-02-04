@@ -2,7 +2,7 @@ local M = {}
 
 local activate_dull = function(c)
   c.bg = "#1a1b26"
-  c.bg_dark = "#16161e"
+  c.bg_dark = "#0e0e16"
   c.bg_highlight = "#292e42"
   c.fg = "#c0caf5"
   c.fg_dark = "#a9b1d6"
