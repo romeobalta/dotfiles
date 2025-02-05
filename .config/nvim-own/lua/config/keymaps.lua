@@ -34,16 +34,16 @@ map("v", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Mov
 map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
 map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
 map(
-        "x",
-        "j",
-        'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
-        { desc = "Move down", expr = true, silent = true }
+    "x",
+    "j",
+    'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
+    { desc = "Move down", expr = true, silent = true }
 )
 map(
-        "x",
-        "k",
-        'v:count || mode(1)[0:1] == "no" ? "k" : "gk"',
-        { desc = "Move up", expr = true, silent = true }
+    "x",
+    "k",
+    'v:count || mode(1)[0:1] == "no" ? "k" : "gk"',
+    { desc = "Move up", expr = true, silent = true }
 )
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -72,7 +72,7 @@ map("i", ".", ".<c-g>u")
 map("i", ";", ";<c-g>u")
 
 -- better indenting reselect after indent
-map("v", "<", "<gv") 
+map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- commenting
@@ -90,59 +90,18 @@ map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 
-
-map("s", "<Tab>", function()
-    return vim.snippet.active({ direction = 1 }) and "<cmd>lua vim.snippet.jump(1)<cr>" or "<Tab>"
-end, { expr = true, desc = "Jump Next" })
-map({ "i", "s" }, "<S-Tab>", function()
-    return vim.snippet.active({ direction = -1 }) and "<cmd>lua vim.snippet.jump(-1)<cr>" or "<S-Tab>"
-end, { expr = true, desc = "Jump Previous" })
-
 ------------------------------
 ---These should move
 ------------------------------
 
--- LSP
--- diagnostic
-local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
-end
-map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
-map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
-map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
-map({ "n", "v" }, "<leader>fm", function()
-    Util.format({ force = true })
-end, { desc = "Format" })
-
-map("n", "<leader>at", function()
-	local copilot = require("copilot.command")
-	local status = require("copilot.client").is_disabled()
-	local notify = require("snacks.notify")
-	if status then
-		notify.notify("Copilot is being enabled")
-		copilot.enable()
-	else
-		notify.notify("Copilot is being disabled")
-		copilot.disable()
-	end
-end, { desc = "Toggle Copilot" })
-
 map("n", "<leader>wz", function()
-	require("snacks").zen.zen({
-		window = {
-			width = 130, -- width will be 85% of the editor width
-		},
-	})
+    require("snacks").zen.zen({
+        window = {
+            width = 130, -- width will be 85% of the editor width
+        },
+    })
 end)
 
 map("n", "zp", function()
-	require("ufo").peekFoldedLinesUnderCursor()
+    require("ufo").peekFoldedLinesUnderCursor()
 end)

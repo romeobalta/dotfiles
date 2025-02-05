@@ -161,6 +161,23 @@ return {
                 desc = "Select Model (CopilotChat)",
                 mode = { "n", "v" },
             },
+            {
+                "<leader>at",
+                function()
+                    local copilot = require("copilot.command")
+                    local status = require("copilot.client").is_disabled()
+                    local notify = require("snacks.notify")
+                    if status then
+                        notify.notify("Copilot is being enabled")
+                        copilot.enable()
+                    else
+                        notify.notify("Copilot is being disabled")
+                        copilot.disable()
+                    end
+                end,
+                desc = "Toggle Copilot",
+            }
+
         },
         config = function(_, opts)
             local chat = require("CopilotChat")
