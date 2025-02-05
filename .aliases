@@ -18,9 +18,6 @@ alias dcd='docker compose down'
 
 alias nosleep='caffeinate -disu &'
 
-alias vim='nvim'
-alias vi='nvim'
-
 alias gitchanges='git --no-pager diff --name-only FETCH_HEAD $(git merge-base FETCH_HEAD master)'
 
 # own scripts
@@ -32,3 +29,8 @@ alias zr='zig run'
 alias zt='zig test'
 alias zbr='zig build run'
 alias zbt='zig build test --summary all'
+
+# nvim
+alias vim='nvim'
+alias nvim-own='NVIM_APPNAME="nvim-own" nvim'
+
