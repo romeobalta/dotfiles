@@ -8,6 +8,8 @@ map("n", "Q", "<nop>", { desc = "disable ex mode" })
 map("v", "y", "ygv<ESC>", { desc = "Yank then go at the end of the block", noremap = true })
 map("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Do not copy replaced text", silent = true })
 
+map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+
 -----------------------
 -- Netrw
 -----------------------
