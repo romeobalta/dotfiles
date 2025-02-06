@@ -194,7 +194,7 @@ function M.on_attach(_, buffer)
 
 		if has and cond then
 			local opts = Keys.opts(keys)
-			opts.cond = nil
+			opts.cond = nil 
 			opts.has = nil
 			opts.silent = opts.silent ~= false
 			opts.buffer = buffer

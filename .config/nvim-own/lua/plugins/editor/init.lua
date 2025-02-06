@@ -203,28 +203,43 @@ return {
 		opts = {
 			keywords = {
 				FIX = {
-					icon = "E ", -- icon used for the sign, and in search results
+					icon = "!", -- icon used for the sign, and in search results
 					color = "error", -- can be a hex color, or a named color (see below)
 					alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
 					-- signs = false, -- configure signs for some keywords individually
 				},
-				TODO = { icon = "W ", color = "warning" },
-				HACK = { icon = "W ", color = "warning" },
-				WARN = { icon = "W ", color = "warning", alt = { "WARNING", "XXX" } },
-				PERF = { icon = "H ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-				NOTE = { icon = "H ", color = "hint", alt = { "INFO" } },
-				TEST = { icon = "T ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+				TODO = { icon = "!", color = "warning" },
+				HACK = { icon = "!", color = "warning" },
+				WARN = { icon = "!", color = "warning", alt = { "WARNING", "XXX" } },
+				PERF = { icon = "!", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+				NOTE = { icon = "!", color = "hint", alt = { "INFO" } },
+				TEST = { icon = "!", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
 			},
 		},
-        -- stylua: ignore
-        keys = {
-            { "]t",         function() require("todo-comments").jump_next() end,              desc = "Next Todo Comment" },
-            { "[t",         function() require("todo-comments").jump_prev() end,              desc = "Previous Todo Comment" },
-            { "<leader>xt", "<cmd>Trouble todo toggle<cr>",                                   desc = "Todo (Trouble)" },
-            { "<leader>xT", "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-            { "<leader>st", "<cmd>TodoTelescope<cr>",                                         desc = "Todo" },
-            { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",                 desc = "Todo/Fix/Fixme" },
-        },
+		keys = {
+			{
+				"]t",
+				function()
+					require("todo-comments").jump_next()
+				end,
+				desc = "Next Todo Comment",
+			},
+			{
+				"[t",
+				function()
+					require("todo-comments").jump_prev()
+				end,
+				desc = "Previous Todo Comment",
+			},
+			{ "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
+			{
+				"<leader>xT",
+				"<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>",
+				desc = "Todo/Fix/Fixme (Trouble)",
+			},
+			{ "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+			{ "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
+		},
 	},
 
 	{
@@ -331,18 +346,11 @@ return {
 			end
 
 			-- add ai_accept to <Tab> key
-			if opts.keymap.preset == "super-tab" then -- super-tab
-				opts.keymap["<Tab>"] = {
-					require("blink.cmp.keymap.presets")["super-tab"]["<Tab>"][1],
-					cmp.map({ "snippet_forward", "ai_accept" }),
-					"fallback",
-				}
-			else -- other presets
-				opts.keymap["<Tab>"] = {
-					cmp.map({ "snippet_forward", "ai_accept" }),
-					"fallback",
-				}
-			end
+			opts.keymap["<Tab>"] = {
+				require("blink.cmp.keymap.presets")["super-tab"]["<Tab>"][1],
+				cmp.map({ "snippet_forward", "ai_accept" }),
+				"fallback",
+			}
 
 			-- Unset custom prop to pass blink.cmp validation
 			opts.sources.compat = nil
@@ -398,6 +406,30 @@ return {
 		config = function(_, opts)
 			mini.pairs(opts)
 		end,
+	},
+
+	{
+		"echasnovski/mini.comment",
+		event = "VeryLazy",
+		opts = {
+			options = {
+				custom_commentstring = function()
+					return require("ts_context_commentstring.internal").calculate_commentstring()
+						or vim.bo.commentstring
+				end,
+			},
+			mappings = {
+				comment_line = "<leader>/",
+				comment_visual = "<leader>/",
+			},
+		},
+	},
+	{
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		lazy = true,
+		opts = {
+			enable_autocmd = false,
+		},
 	},
 
 	-- comments

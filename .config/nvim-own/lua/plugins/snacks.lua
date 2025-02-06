@@ -40,14 +40,6 @@ return {
             rename = { enabled = true },
             scope = { enabled = true },
             scroll = { enabled = true },
-            statuscolumn = {
-                enabled = true,
-                left = { "sign", "fold" },
-                right = {"git"},
-                folds = {
-                    git_hl = true,
-                },
-            },
             words = { enabled = true },
         },
         keys = {

@@ -8,11 +8,11 @@ M.icons = {
         octo = "",
     },
     dap = {
-        Stopped             = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
-        Breakpoint          = "B ",
-        BreakpointCondition = "C ",
-        BreakpointRejected  = { "R ", "DiagnosticError" },
-        LogPoint            = "L ",
+        Stopped             = { ">", "DiagnosticWarn", "DapStoppedLine" },
+        Breakpoint          = "B",
+        BreakpointCondition = "C",
+        BreakpointRejected  = { "R", "DiagnosticError" },
+        LogPoint            = "L",
     },
     diagnostics = {
         Error = "E ",

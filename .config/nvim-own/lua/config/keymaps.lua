@@ -33,18 +33,8 @@ map("v", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move 
 map("v", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
 map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
 map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-map(
-    "x",
-    "j",
-    'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
-    { desc = "Move down", expr = true, silent = true }
-)
-map(
-    "x",
-    "k",
-    'v:count || mode(1)[0:1] == "no" ? "k" : "gk"',
-    { desc = "Move up", expr = true, silent = true }
-)
+map("x", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true, silent = true })
+map("x", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true, silent = true })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
@@ -95,13 +85,17 @@ map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 ------------------------------
 
 map("n", "<leader>wz", function()
-    require("snacks").zen.zen({
-        window = {
-            width = 130, -- width will be 85% of the editor width
-        },
-    })
+	require("snacks").zen.zen({
+		window = {
+			width = 130, -- width will be 85% of the editor width
+		},
+	})
 end)
 
 map("n", "zp", function()
-    require("ufo").peekFoldedLinesUnderCursor()
+	require("ufo").peekFoldedLinesUnderCursor()
+end)
+
+map("n", "<leader>xk", function()
+	print(vim.g.statuline_winid)
 end)
