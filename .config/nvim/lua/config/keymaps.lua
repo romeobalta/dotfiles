@@ -12,6 +12,10 @@ vim.keymap.set("i", "jk", "<ESC>", { desc = "Escape insert mode", nowait = true 
 vim.keymap.set("n", "<Esc>", ":noh <CR>", { desc = "Clear highlights", silent = true })
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Window left" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window right" })
+vim.keymap.set("n", "<leader>w<up>", "<C-w>k", { desc = "Window up" })
+vim.keymap.set("n", "<leader>w<down>", "<C-w>j", { desc = "Window down" })
+vim.keymap.set("n", "<leader>w<left>", "<C-w>h", { desc = "Window left" })
+vim.keymap.set("n", "<leader>w<right>", "<C-w>l", { desc = "Window right" })
 vim.keymap.set("n", "<C-s>", "<ESC><cmd> w<CR>", { desc = "Exit insert mode and save", noremap = true })
 vim.keymap.set("n", "<C-c>", "<cmd> %y+ <CR>", { desc = "Copy whole file" })
 

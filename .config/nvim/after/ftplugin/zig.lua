@@ -1,21 +1,36 @@
-local function open_terminal_window(stdout, stderr)
-  -- Create a floating window
-  local buf = vim.api.nvim_create_buf(false, true)
-  local width = math.min(120, math.floor(vim.o.columns * 0.8))
-  local height = math.min(20, math.floor(vim.o.lines * 0.8))
+local function close_terminal_window()
+  -- check if vim.g.build_notifier is set
+  -- if is set, close the buffer inside it and close the window
+  if vim.g.build_notifier then
+    vim.api.nvim_win_close(vim.g.build_notifier, true)
+    vim.g.build_notifier = nil
+  end
+end
 
-  local win = vim.api.nvim_open_win(buf, true, {
-    relative = "editor",
-    width = width,
+local function open_terminal_window(stdout, stderr)
+  local buf = vim.api.nvim_create_buf(false, true)
+  local height = math.min(10, math.floor(vim.o.lines * 0.8))
+
+  -- If we close the window, we need to set the global variable to nil
+  vim.api.nvim_create_autocmd({ "BufHidden" }, {
+    buffer = buf,
+    callback = function()
+      vim.g.build_notifier = nil
+    end,
+  })
+
+  -- Close the terminal window if it's already open
+  close_terminal_window()
+
+  vim.g.build_notifier = vim.api.nvim_open_win(buf, true, {
+    split = "below",
+    -- width = width,
     height = height,
-    col = math.floor((vim.o.columns - width)),
-    row = math.floor((vim.o.lines - height)),
     style = "minimal",
-    border = "rounded",
   })
 
   vim.api.nvim_set_option_value("winhighlight", "Normal:DebugFloat,FloatBorder:DebugFloat", {
-    win = win,
+    win = vim.g.build_notifier,
   })
 
   -- Create terminal
@@ -51,17 +66,22 @@ vim.keymap.set("n", "<leader>dm", function()
     id = "build_notifier",
     title = "Zig",
     style = "minimal",
-    timeout = false,
+    timeout = 0,
   })
+
+  close_terminal_window()
+
   vim.system({ "zig", "build", "--color", "on" }, {
     cwd = LazyVim.root(),
   }, function(res)
     vim.schedule(function()
       -- Send status message
       if res.code == 0 then
+        Snacks.notifier.hide("build_notifier")
         Snacks.notify.info("Build succeeded", { id = "build_notifier", title = "Zig", icon = "", style = "minimal" })
       else
         Snacks.notifier.hide("build_notifier")
+        Snacks.notify.error("Build failed", { id = "build_notifier", title = "Zig", icon = "", style = "minimal" })
         open_terminal_window(res.stdout, res.stderr)
       end
     end)
@@ -74,6 +94,9 @@ end, {
 vim.keymap.set("n", "<leader>dr", function()
   local args = vim.g.zig_run_args and (" --color on -- " .. vim.g.zig_run_args) or " --color on"
   local command = require("dap.utils").splitstr("zig build run" .. args)
+
+  close_terminal_window()
+
   -- Run zig build run command
   Snacks.notify.info("Build started", { id = "build_notifier", title = "Zig", icon = "", style = "minimal" })
   vim.system(command, {

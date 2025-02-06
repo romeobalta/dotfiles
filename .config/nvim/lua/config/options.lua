@@ -5,6 +5,7 @@
 local opt = vim.opt
 local g = vim.g
 
+-- g.lazyvim_picker = "snacks"
 opt.guicursor = ""
 
 g.snacks_animate = false
@@ -18,10 +19,8 @@ opt.laststatus = 3 -- global statusline
 opt.showmode = false
 
 opt.tabstop = 8
-opt.softtabstop = 0
+opt.softtabstop = 8
 opt.shiftwidth = 4
---
--- opt.relativenumber = false
 
 -- disable nvim intro
 -- opt.shortmess:append("sI")

@@ -42,10 +42,6 @@ return {
   {
     "folke/noice.nvim",
     opts = function(_, opts)
-      opts.notify = {
-        view = "mini",
-      }
-
       opts.messages = {
         view = "mini",
         view_error = "mini",

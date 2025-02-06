@@ -1,6 +1,6 @@
 local M = {}
 
-local activate_dull = function(c)
+local dull_colors = function(c)
   c.bg = "#1a1b26"
   c.bg_dark = "#0e0e16"
   c.bg_highlight = "#292e42"
@@ -40,7 +40,7 @@ local activate_dull = function(c)
 end
 
 M.on_colors = function(c)
-  activate_dull(c)
+  dull_colors(c)
 end
 
 local activate_mono = function(hl, c)
