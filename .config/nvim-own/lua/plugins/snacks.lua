@@ -15,7 +15,7 @@ return {
                     pick = function(cmd, opts)
                         return fzf_open(cmd, opts)()
                     end,
-                    header = [[ HI! ]],
+                    header = [[ ]],
                     keys = {
                         { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
                         { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
@@ -42,10 +42,9 @@ return {
             scroll = { enabled = true },
             statuscolumn = {
                 enabled = true,
-                left = { "sign", "fold", "git" },
-                right = {},
+                left = { "sign", "fold" },
+                right = {"git"},
                 folds = {
-                    open = true,
                     git_hl = true,
                 },
             },

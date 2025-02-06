@@ -8,13 +8,7 @@ g.netrw_winsize = 25
 g.mapleader = " "
 g.maplocalleader = " "
 
-g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
-
 g.snacks_animate = false
-
--- TODO: might not need this
-g.root_lsp_ignore = { "copilot" }
-
 g.copilot_no_maps = true -- no copilot maps
 
 opt.guicursor = ""
@@ -23,7 +17,6 @@ opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clip
 opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 2
 opt.confirm = true
-opt.cursorline = true
 opt.expandtab = true
 opt.fillchars = {
   foldopen = "",

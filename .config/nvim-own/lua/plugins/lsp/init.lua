@@ -8,14 +8,6 @@ return {
 			{ "williamboman/mason-lspconfig.nvim", config = function() end },
 		},
 		opts = function()
-			-- In case we want something more icony
-			local diagnostics_icons = {
-				Error = " ",
-				Warn = " ",
-				Hint = " ",
-				Info = " ",
-			}
-
 			---@class PluginLspOpts
 			local ret = {
 				-- options for vim.diagnostic.config()
