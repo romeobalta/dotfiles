@@ -1,4 +1,6 @@
----@class snacks.statuscolumn_own
+local Snacks = require("snacks")
+
+---@class snacks.statuscolumn
 ---@overload fun(): string
 local M = setmetatable({}, {
 	__call = function(t)
@@ -17,16 +19,19 @@ local LINE_NR = "%=%{%(&number || &relativenumber) && v:virtnum == 0 ? ("
 	.. (vim.fn.has("nvim-0.11") == 1 and '"%l"' or 'v:relnum == 0 ? (&number ? "%l" : "%r") : (&relativenumber ? "%r" : "%l")')
 	.. ') : ""%} '
 
----@class snacks.statuscolumn_own.Config
+---@alias snacks.statuscolumn.Component "mark"|"sign"|"fold"|"git"
+---@alias snacks.statuscolumn.Components snacks.statuscolumn.Component[]|fun(win:number,buf:number,lnum:number):snacks.statuscolumn.Component[]
+
+---@class snacks.statuscolumn.Config
 ---@field left snacks.statuscolumn.Components
 ---@field right snacks.statuscolumn.Components
 ---@field enabled? boolean
 local defaults = {
-	left = { "sign", "fold" },
+	left = { "fold", "sign" },
 	right = { "git" },
 	folds = {
 		open = false, -- show open fold icons
-		git_hl = true, -- use Git Signs hl for fold icons
+		git_hl = false, -- use Git Signs hl for fold icons
 	},
 	git = {
 		-- patterns to match Git signs
@@ -38,6 +43,8 @@ local defaults = {
 local config = Snacks.config.get("statuscolumn", defaults)
 
 ---@private
+---@alias snacks.statuscolumn.Sign.type "mark"|"sign"|"fold"|"git"
+---@alias snacks.statuscolumn.Sign {name:string, text:string, texthl:string, priority:number, type:snacks.statuscolumn.Sign.type}
 
 -- Cache for signs per buffer and line
 ---@type table<number,table<number,snacks.statuscolumn.Sign[]>>
@@ -81,6 +88,20 @@ function M.buf_signs(buf)
 	-- Get regular signs
 	---@type table<number, snacks.statuscolumn.Sign[]>
 	local signs = {}
+
+	if vim.fn.has("nvim-0.10") == 0 then
+		-- Only needed for Neovim <0.10
+		-- Newer versions include legacy signs in nvim_buf_get_extmarks
+		for _, sign in ipairs(vim.fn.sign_getplaced(buf, { group = "*" })[1].signs) do
+			local ret = vim.fn.sign_getdefined(sign.name)[1] --[[@as snacks.statuscolumn.Sign]]
+			if ret then
+				ret.priority = sign.priority
+				ret.type = M.is_git_sign(sign.name) and "git" or "sign"
+				signs[sign.lnum] = signs[sign.lnum] or {}
+				table.insert(signs[sign.lnum], ret)
+			end
+		end
+	end
 
 	-- Get extmark signs
 	local extmarks = vim.api.nvim_buf_get_extmarks(buf, -1, 0, -1, { details = true, type = "sign" })
@@ -145,14 +166,14 @@ end
 ---@param sign? snacks.statuscolumn.Sign
 function M.icon(sign)
 	if not sign then
-		return " "
+		return "  "
 	end
 	local key = (sign.text or "") .. (sign.texthl or "")
 	if icon_cache[key] then
 		return icon_cache[key]
 	end
-	local text = vim.fn.strcharpart(sign.text or "", 0, 1) ---@type string
-	text = text .. string.rep(" ", 1 - vim.fn.strchars(text))
+	local text = vim.fn.strcharpart(sign.text or "", 0, 2) ---@type string
+	text = text .. string.rep(" ", 2 - vim.fn.strchars(text))
 	icon_cache[key] = sign.texthl and ("%#" .. sign.texthl .. "#" .. text .. "%*") or text
 	return icon_cache[key]
 end
@@ -193,8 +214,8 @@ function M._get()
 			local right_c = type(config.right) == "function" and config.right(win, buf, vim.v.lnum) or config.right --[[@as snacks.statuscolumn.Component[] ]]
 			local left, right = find(left_c), find(right_c)
 
-			local git = signs_by_type.git
 			if config.folds.git_hl then
+				local git = signs_by_type.git
 				if git and left and left.type == "fold" then
 					left.texthl = git.texthl
 				end
@@ -202,16 +223,16 @@ function M._get()
 					right.texthl = git.texthl
 				end
 			end
-			components[1] = left and M.icon(left) or " " -- left
-			-- components[2] = git and ("%#" .. git.texthl .. "Gutter#" .. components[2] .. "%*") or components[2] -- middle
-			-- components[3] = is_file and (right and M.icon(right) or " ") or "" -- right
+			components[1] = left and M.icon(left) or "  " -- left
+			-- components[3] = is_file and (right and M.icon(right) or "  ") or "" -- right
 		else
-			components[1] = " "
-			-- components[3] = is_file and " " or ""
+			components[1] = "  "
+			-- components[3] = is_file and "  " or ""
 		end
 	end
 
-	return table.concat(components, "")
+	local ret = table.concat(components, "")
+	return "%@v:lua.require'snacks.statuscolumn'.click_fold@" .. ret .. "%T"
 end
 
 function M.get()
@@ -231,12 +252,20 @@ end
 
 ---@private
 function M.health()
-	local ready = vim.o.statuscolumn:find("snacks.statuscolumn_own", 1, true)
+	local ready = vim.o.statuscolumn:find("snacks.statuscolumn", 1, true)
 	if config.enabled and not ready then
 		Snacks.health.warn(("is not configured\n- `vim.o.statuscolumn = %q`"):format(vim.o.statuscolumn))
 	elseif not config.enabled and ready then
 		Snacks.health.ok(("is manually configured\n- `vim.o.statuscolumn = %q`"):format(vim.o.statuscolumn))
 	end
+end
+
+function M.click_fold()
+	local pos = vim.fn.getmousepos()
+	vim.api.nvim_win_set_cursor(pos.winid, { pos.line, 1 })
+	vim.api.nvim_win_call(pos.winid, function()
+		vim.cmd("normal! za")
+	end)
 end
 
 return M

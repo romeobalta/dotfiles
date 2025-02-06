@@ -1,152 +1,95 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
+local map = vim.keymap.set
 
-local Util = require("lazyvim.util")
+map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+map("i", "jk", "<ESC>", { desc = "Escape insert mode", nowait = true })
+map("n", "<Esc>", ":noh <CR>", { desc = "Clear highlights", silent = true })
+map("n", "<C-c>", "<cmd> %y+ <CR>", { desc = "Copy whole file" })
+map("n", "Q", "<nop>", { desc = "disable ex mode" })
+map("v", "y", "ygv<ESC>", { desc = "Yank then go at the end of the block", noremap = true })
+map("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Do not copy replaced text", silent = true })
 
-vim.keymap.set("i", "<C-b>", "<ESC>^i", { desc = "Beginning of line" })
-vim.keymap.set("i", "<C-e>", "<End>", { desc = "End of line" })
-vim.keymap.set("i", "jk", "<ESC>", { desc = "Escape insert mode", nowait = true })
+map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
--- Normal mode mappings
-vim.keymap.set("n", "<Esc>", ":noh <CR>", { desc = "Clear highlights", silent = true })
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Window left" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window right" })
-vim.keymap.set("n", "<leader>w<up>", "<C-w>k", { desc = "Window up" })
-vim.keymap.set("n", "<leader>w<down>", "<C-w>j", { desc = "Window down" })
-vim.keymap.set("n", "<leader>w<left>", "<C-w>h", { desc = "Window left" })
-vim.keymap.set("n", "<leader>w<right>", "<C-w>l", { desc = "Window right" })
-vim.keymap.set("n", "<C-s>", "<ESC><cmd> w<CR>", { desc = "Exit insert mode and save", noremap = true })
-vim.keymap.set("n", "<C-c>", "<cmd> %y+ <CR>", { desc = "Copy whole file" })
+-----------------------
+-- Netrw
+-----------------------
+map("n", "<leader>e", vim.cmd.Ex)
+map("n", "<leader>r", vim.cmd.Rex)
 
--- Movement mappings that handle wrapped lines
-vim.keymap.set("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
-vim.keymap.set("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-vim.keymap.set("n", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-vim.keymap.set("n", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
+-----------------------
+-- Window mappings
+-----------------------
+map("n", "<C-h>", "<C-w>h", { desc = "Window left" })
+map("n", "<C-l>", "<C-w>l", { desc = "Window right" })
+map("n", "<C-j>", "<C-w>j", { desc = "Window down" })
+map("n", "<C-k>", "<C-w>k", { desc = "Window up" })
 
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "scroll down" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "scroll up" })
-vim.keymap.set("n", "n", "nzzzv", { desc = "next search" })
-vim.keymap.set("n", "N", "Nzzzv", { desc = "prev search" })
-vim.keymap.set("n", "Q", "<nop>", { desc = "disable ex mode" })
-vim.keymap.set({ "n", "v" }, "{", "<C-u>zz", { desc = "scroll up" })
-vim.keymap.set({ "n", "v" }, "}", "<C-d>zz", { desc = "scroll down" })
+-----------------------
+-- Movement mappings
+-----------------------
+map({ "n", "v" }, "{", "<C-u>zz", { desc = "scroll up" })
+map({ "n", "v" }, "}", "<C-d>zz", { desc = "scroll down" })
+map("n", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
+map("n", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
+map("v", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
+map("v", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
+map("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
+map("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
+map("x", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true, silent = true })
+map("x", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true, silent = true })
 
--- Visual mode mappings
-vim.keymap.set("v", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-vim.keymap.set("v", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
-vim.keymap.set("v", "y", "ygv<ESC>", { desc = "Yank then go at the end of the block", noremap = true })
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down", noremap = true })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up", noremap = true })
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
+map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
+map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
+map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search Result" })
+map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
+map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
-vim.keymap.set("n", "<leader>r", vim.cmd.Rex)
+-- Move lines up and down
+map("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
+map("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
+map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
+map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
+map("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
+map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
--- Select (visual block) mode mappings
-vim.keymap.set(
-  "x",
-  "j",
-  'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
-  { desc = "Move down", expr = true, silent = true }
-)
-vim.keymap.set(
-  "x",
-  "k",
-  'v:count || mode(1)[0:1] == "no" ? "k" : "gk"',
-  { desc = "Move up", expr = true, silent = true }
-)
-vim.keymap.set("x", "p", 'p:let @+=@0<CR>:let @"=@0<CR>', { desc = "Do not copy replaced text", silent = true })
+-----------------------
+-- Util
+-----------------------
 
-vim.keymap.set({ "n", "v" }, "<leader>fm", function()
-  Util.format({ force = true })
-end, { desc = "Format" })
+-- Add undo break-points
+map("i", ",", ",<c-g>u")
+map("i", ".", ".<c-g>u")
+map("i", ";", ";<c-g>u")
 
-vim.keymap.set("n", "<leader>at", function()
-  local copilot = require("copilot.command")
-  local status = require("copilot.client").is_disabled()
-  local notify = require("snacks.notify")
-  if status then
-    notify.notify("Copilot is being enabled")
-    copilot.enable()
-  else
-    notify.notify("Copilot is being disabled")
-    copilot.disable()
-  end
-end, { desc = "Toggle Copilot" })
+-- better indenting reselect after indent
+map("v", "<", "<gv")
+map("v", ">", ">gv")
 
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+-- commenting
+map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
+map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
-vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+-- lazy
+map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
-vim.keymap.set("n", "<leader>wz", function()
-  require("snacks").zen.zen({
-    window = {
-      width = 130, -- width will be 85% of the editor width
-    },
-  })
+-- quickfix list
+map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
+map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
+
+-- highlights under cursor
+map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
+
+------------------------------
+---These should move
+------------------------------
+
+map("n", "<leader>wz", function()
+	require("snacks").zen.zen({
+		window = {
+			width = 130, -- width will be 85% of the editor width
+		},
+	})
 end)
-
-vim.keymap.set("n", "zp", function()
-  require("ufo").peekFoldedLinesUnderCursor()
-end)
--- vim.keymap.set("n", "zR", require("ufo").openAllFolds)
--- vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-
-if vim.g.vscode then
-  local keymap = vim.keymap.set
-  local vscode = require("vscode")
-
-  -- general keymaps
-  keymap(
-    { "n", "x" },
-    "<leader>gt",
-    "<cmd>lua require('vscode').action('workbench.action.terminal.toggleTerminal')<CR>"
-  )
-  keymap({ "n", "x" }, "<leader>gb", "<cmd>lua require('vscode').action('editor.debug.action.toggleBreakpoint')<CR>")
-
-  keymap({ "n", "x" }, "<leader>ca", "<cmd>lua require('vscode').action('editor.action.quickFix')<CR>")
-  keymap({ "n", "x" }, "<leader>cA", "<cmd>lua require('vscode').action('editor.action.sourceAction')<CR>")
-  keymap({ "n", "x" }, "<leader>cr", "<cmd>lua require('vscode').action('editor.action.rename')<CR>")
-  keymap({ "n", "x" }, "<leader>cR", function()
-    vscode.action("editor.action.refactor")
-  end)
-  keymap({ "n", "x" }, "<leader>rf", function()
-    vscode.with_insert(function()
-      vscode.action("editor.action.refactor")
-    end)
-  end)
-
-  keymap({ "n", "v" }, "<leader>cn", "<cmd>lua require('vscode').action('notifications.clearAll')<CR>")
-
-  keymap({ "n", "v" }, "<leader>ff", "<cmd>lua require('vscode').action('workbench.action.quickOpen')<CR>")
-  keymap({ "n", "v" }, "<leader>cp", "<cmd>lua require('vscode').action('workbench.action.showCommands')<CR>")
-  keymap({ "n", "v" }, "<leader>pr", "<cmd>lua require('vscode').action('code-runner.run')<CR>")
-  keymap({ "n", "v" }, "<leader>fm", "<cmd>lua require('vscode').action('editor.action.formatDocument')<CR>")
-
-  -- harpoon keymaps
-  keymap({ "n", "v" }, "<leader>ma", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>")
-  keymap({ "n", "v" }, "<leader>fb", "<cmd>lua require('vscode').action('vscode-harpoon.editorQuickPick')<CR>")
-  keymap({ "n", "v" }, "<leader>me", "<cmd>lua require('vscode').action('vscode-harpoon.editEditors')<CR>")
-  keymap({ "n", "v" }, "<leader>1", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor1')<CR>")
-  keymap({ "n", "v" }, "<leader>2", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor2')<CR>")
-  keymap({ "n", "v" }, "<leader>3", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor3')<CR>")
-  keymap({ "n", "v" }, "<leader>4", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor4')<CR>")
-  keymap({ "n", "v" }, "<leader>5", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor5')<CR>")
-  keymap({ "n", "v" }, "<leader>6", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor6')<CR>")
-  keymap({ "n", "v" }, "<leader>7", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor7')<CR>")
-  keymap({ "n", "v" }, "<leader>8", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor8')<CR>")
-  keymap({ "n", "v" }, "<leader>9", "<cmd>lua require('vscode').action('vscode-harpoon.gotoEditor9')<CR>")
-
-  -- project manager keymaps
-  keymap({ "n", "v" }, "<leader>pa", "<cmd>lua require('vscode').action('projectManager.saveProject')<CR>")
-  keymap({ "n", "v" }, "<leader>po", "<cmd>lua require('vscode').action('projectManager.listProjects')<CR>")
-  keymap({ "n", "v" }, "<leader>pe", "<cmd>lua require('vscode').action('projectManager.editProjects')<CR>")
-
-  keymap({ "n" }, "]d", "<cmd>lua require('vscode').action('editor.action.marker.next')<CR>")
-  keymap({ "n" }, "[d", "<cmd>lua require('vscode').action('editor.action.marker.prev')<CR>")
-
-  keymap({ "n" }, "]g", "<cmd>lua require('vscode').action('workbench.action.editor.nextChange')<CR>")
-  keymap({ "n" }, "[g", "<cmd>lua require('vscode').action('workbench.action.editor.previousChange')<CR>")
-end

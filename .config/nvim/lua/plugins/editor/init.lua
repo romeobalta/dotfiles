@@ -526,6 +526,15 @@ return {
 			{ "kevinhwang91/promise-async" },
 		},
 		event = "VeryLazy",
+		keys = {
+			{
+				"zp",
+				function()
+					require("ufo").peekFoldedLinesUnderCursor()
+				end,
+				desc = "Fold peek",
+			},
+		},
 		opts = function()
 			local ufo = require("plugins.editor.ufo")
 

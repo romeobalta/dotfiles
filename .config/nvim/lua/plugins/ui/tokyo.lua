@@ -39,6 +39,45 @@ function M.dull_colors(c)
 	}
 end
 
+function M.old_colors(c)
+	c.bg = "#1a1b26"
+	c.bg_dark = "#0e0e16"
+	c.bg_highlight = "#292e42"
+	c.fg = "#c0caf5"
+	c.fg_dark = "#a9b1d6"
+	c.fg_code = "#cea1ae"
+	c.fg_code_dark = "#af8994"
+	c.fg_gutter = "#3b4261"
+	c.dark3 = "#6c7086"
+	c.dark5 = "#7f849c"
+	c.comment = "#565f89"
+	c.terminal_black = "#414868"
+	c.blue = "#8a9cc2"
+	c.blue0 = "#3d59a1"
+	c.blue1 = "#7aa2f7"
+	c.blue2 = "#89ddff"
+	c.blue5 = "#0db9d7"
+	c.blue6 = "#b4f9f8"
+	c.blue7 = "#394b70"
+	c.cyan = "#7dcfff"
+	c.green = "#b4cea1"
+	c.green1 = "#addad7"
+	c.green2 = "#71a5b5"
+	c.magenta = "#cba6f7"
+	c.magenta2 = "#e91f70"
+	c.purple = "#a38ac2"
+	c.yellow = "#f9e2af"
+	c.orange = "#e5b799"
+	c.red = "#f38ba8"
+	c.red1 = "#eba0ac"
+	c.teal = "#d0e2e0"
+	c.git = {
+		add = "#9ece6a",
+		change = "#7aa2f7",
+		delete = "#f7768e",
+	}
+end
+
 function M.mono_highlights(hl, c)
 	hl.WinSeparator = { fg = c.fg_gutter }
 	hl.Pmenu = { fg = c.fg, bg = c.bg_dark, blend = 0 }

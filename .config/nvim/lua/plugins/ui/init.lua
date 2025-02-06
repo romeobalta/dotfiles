@@ -14,6 +14,7 @@ return {
 			vim.cmd("colorscheme tokyonight")
 		end,
 	},
+	{ import = "plugins.ui.colordev" },
 
 	{
 		dir = "~/personal/kyotonight.nvim",
