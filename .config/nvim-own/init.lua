@@ -23,7 +23,6 @@ require("config.options")
 require("config.autocmds")
 require("config.keymaps")
 
-
 -- Setup lazy.nvim
 require("lazy").setup({
     spec = {

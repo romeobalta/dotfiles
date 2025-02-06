@@ -315,7 +315,6 @@ return {
 
     {
         "folke/todo-comments.nvim",
-        optional = true,
         -- stylua: ignore
         keys = {
             { "<leader>st", function() require("todo-comments.fzf").todo() end,                                          desc = "Todo" },

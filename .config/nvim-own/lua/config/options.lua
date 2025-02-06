@@ -78,7 +78,7 @@ opt.winminwidth = 5
 opt.smoothscroll = true
 opt.foldmethod = "expr"
 opt.foldtext = ""
-opt.foldexpr = "v:lua.require'config.util'.foldexpr()"
+opt.foldexpr = "v:lua.require'util'.foldexpr()"
 opt.foldlevel = 99
 opt.wrap = false
 
