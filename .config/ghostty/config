@@ -4,10 +4,10 @@ font-size = 20
 font-thicken = true
 adjust-cell-height = "20%"
 adjust-cursor-height = "20%"
-adjust-underline-position = "10%"
+adjust-underline-position = "25%"
 
 # theme
-theme = tokyonight
+theme = kyotonight
 
 # window
 macos-titlebar-style = "hidden"

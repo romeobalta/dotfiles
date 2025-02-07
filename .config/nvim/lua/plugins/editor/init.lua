@@ -168,8 +168,8 @@ return {
 				function()
 					if require("trouble").is_open() then
 						require("trouble").prev({ skip_groups = true, jump = true })
-					else
-						local ok, err = pcall(vim.cmd.cprev)
+                            else
+                        local ok, err = pcall(vim.cmd.cprev)
 						if not ok then
 							vim.notify(err, vim.log.levels.ERROR)
 						end
@@ -211,7 +211,7 @@ return {
 				TODO = { icon = "!", color = "warning" },
 				HACK = { icon = "!", color = "warning" },
 				WARN = { icon = "!", color = "warning", alt = { "WARNING", "XXX" } },
-				PERF = { icon = "!", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+				PERF = { icon = "!", color = "hint", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
 				NOTE = { icon = "!", color = "hint", alt = { "INFO" } },
 				TEST = { icon = "!", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
 			},
@@ -573,6 +573,49 @@ return {
 		config = function()
 			vim.g.undotree_SplitWidth = 50
 			vim.g.undotree_SetFocusWhenToggle = 1
+		end,
+	},
+
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		opts = {
+			menu = {
+				width = vim.api.nvim_win_get_width(0) - 4,
+			},
+			settings = {
+				save_on_toggle = true,
+			},
+		},
+		keys = function()
+			local keys = {
+				{
+					"<leader>ma",
+					function()
+						require("harpoon"):list():add()
+					end,
+					desc = "Harpoon File",
+				},
+				{
+					"<leader>fb",
+					function()
+						local harpoon = require("harpoon")
+						harpoon.ui:toggle_quick_menu(harpoon:list())
+					end,
+					desc = "Harpoon Quick Menu",
+				},
+			}
+
+			for i = 1, 5 do
+				table.insert(keys, {
+					"<leader>" .. i,
+					function()
+						require("harpoon"):list():select(i)
+					end,
+					desc = "Harpoon to File " .. i,
+				})
+			end
+			return keys
 		end,
 	},
 

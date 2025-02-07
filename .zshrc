@@ -117,7 +117,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-TERM=xterm
+TERM=xterm-ghostty
 
 source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 SPACESHIP_PROMPT_SEPARATE_LINE=true

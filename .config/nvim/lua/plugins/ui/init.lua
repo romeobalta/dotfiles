@@ -1,24 +1,9 @@
 local statusline = require("plugins.ui.statusline")
-local tokyo = require("plugins.ui.tokyo")
 
 return {
 	-- theme
 	{
-		"folke/tokyonight.nvim",
-		opts = {
-			transparent = false,
-			on_colors = tokyo.dull_colors,
-			on_highlights = tokyo.mono_highlights,
-		},
-		init = function()
-			vim.cmd("colorscheme tokyonight")
-		end,
-	},
-	{ import = "plugins.ui.colordev" },
-
-	{
 		dir = "~/personal/kyotonight.nvim",
-		enabled = false,
 		init = function()
 			vim.cmd("colorscheme kyotonight")
 		end,
@@ -49,7 +34,7 @@ return {
 
 			local opts = {
 				options = {
-					theme = "auto",
+					theme = Util.has("kyotonight.nvim") and require("lualine.themes.kyotonight") or "auto",
 					component_separators = { left = "", right = "" },
 					section_separators = { left = "", right = "" },
 					globalstatus = vim.o.laststatus == 3,
