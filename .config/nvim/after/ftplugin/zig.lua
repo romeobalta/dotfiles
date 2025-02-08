@@ -52,7 +52,7 @@ local function open_terminal_window(stdout, stderr)
 end
 
 local function show_loading_notification(message)
-	local spinner = { "⠄", "⠆", "⠇", "⠋", "⠙", "⠸", "⠰", "⠠", "⠰", "⠸", "⠙", "⠋", "⠇", "⠆" }
+	local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
 	local interval = 80
 	local timer = vim.uv.new_timer()
 
@@ -62,13 +62,18 @@ local function show_loading_notification(message)
 
 	local start_time = vim.uv.hrtime()
 
-	timer:start(interval, interval, vim.schedule_wrap(function()
-		local index = (math.floor((vim.uv.hrtime() - start_time) / (1e6 * interval)) % #spinner) + 1
-		Snacks.notify.info(spinner[index] .. " " .. (message or "Building") .. " ...", {
-			id = "build_notifier",
-			title = "Zig",
-		})
-	end))
+	timer:start(
+		interval,
+		interval,
+		vim.schedule_wrap(function()
+			local index = (math.floor((vim.uv.hrtime() - start_time) / (1e6 * interval)) % #spinner) + 1
+			Snacks.notify.info((message or "Building"), {
+				id = "build_notifier",
+				title = "Zig",
+				icon = spinner[index],
+			})
+		end)
+	)
 
 	return timer
 end
@@ -99,11 +104,13 @@ vim.keymap.set("n", "<leader>dm", function()
 
 			-- Send status message
 			if res.code == 0 then
-				Snacks.notifier.hide("build_notifier")
-				Snacks.notify.success("Build succeeded", { id = "build_notifier", title = "Zig", icon = "" })
+				if Snacks.notify.success then
+					Snacks.notify.success("Build succeeded", { id = "build_notifier", title = "Zig" })
+				else
+					Snacks.notify.info("Build succeeded", { id = "build_notifier", title = "Zig", icon = "" })
+				end
 			else
-				Snacks.notifier.hide("build_notifier")
-				Snacks.notify.error("Build failed", { id = "build_notifier", title = "Zig", icon = "" })
+				Snacks.notify.error("Build failed", { id = "build_notifier", title = "Zig" })
 				open_terminal_window(res.stdout, res.stderr)
 			end
 		end)
@@ -119,7 +126,7 @@ vim.keymap.set("n", "<leader>dr", function()
 
 	close_terminal_window()
 
-	local timer = show_loading_notification("Running")
+	local timer = show_loading_notification("Building and running")
 
 	vim.system(command, {
 		cwd = Util.root(),
