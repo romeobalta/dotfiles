@@ -17,12 +17,13 @@ local N = setmetatable({}, {
 	end,
 })
 
+-- stylua: ignore
 local success_hl = {
-	title = "SnacksNotifierTitleSuccess",
-	icon = "SnacksNotifierIconSuccess",
-	border = "SnacksNotifierBorderSuccess",
-	footer = "SnacksNotifierSuccess",
-	msg = "SnacksNotifierSuccess",
+	title   = "SnacksNotifierTitleSuccess",
+	icon    = "SnacksNotifierIconSuccess",
+	border  = "SnacksNotifierBorderSuccess",
+	footer  = "SnacksNotifierSuccess",
+	msg     = "SnacksNotifierSuccess",
 }
 
 ---@param msg string|string[]

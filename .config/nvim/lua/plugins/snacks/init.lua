@@ -17,7 +17,7 @@ return {
 					pick = function(cmd, opts)
 						return fzf_open(cmd, opts)()
 					end,
-					header = [[ ]],
+					header = [[ Hello! ]],
 					keys = {
 						{
 							icon = " ",
@@ -99,8 +99,7 @@ return {
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "VeryLazy",
 				callback = function()
-
-                    helpers.setup()
+					helpers.setup()
 
 					Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
 					Snacks.toggle.zen():map("<leader>uz")
