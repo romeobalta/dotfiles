@@ -168,8 +168,8 @@ return {
 				function()
 					if require("trouble").is_open() then
 						require("trouble").prev({ skip_groups = true, jump = true })
-                            else
-                        local ok, err = pcall(vim.cmd.cprev)
+					else
+						local ok, err = pcall(vim.cmd.cprev)
 						if not ok then
 							vim.notify(err, vim.log.levels.ERROR)
 						end
@@ -302,13 +302,24 @@ return {
 					auto_show_delay_ms = 200,
 				},
 				ghost_text = {
-					enabled = false,
+					enabled = true,
 				},
 				trigger = {
 					show_in_snippet = false,
 				},
+				list = {
+					selection = {
+						preselect = false,
+						auto_insert = false,
+					},
+				},
 			},
-			signature = { enabled = true },
+			signature = {
+				enabled = true,
+				window = {
+					show_documentation = true,
+				},
+			},
 
 			sources = {
 				-- adding any nvim-cmp sources here will enable them
