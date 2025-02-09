@@ -1,4 +1,4 @@
-local helpers = require("plugins.snacks.helpers")
+local snacks_extensions = require("plugins.snacks.extensions")
 
 return {
 	{ "nvim-lua/plenary.nvim", lazy = true },
@@ -56,7 +56,7 @@ return {
 					min = 10,
 					max = 0.4,
 				},
-				style = helpers.minimal_improved,
+				style = snacks_extensions.minimal_improved,
 			},
 			notify = { enabled = true },
 			quickfile = { enabled = true },
@@ -99,7 +99,7 @@ return {
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "VeryLazy",
 				callback = function()
-					helpers.setup()
+					snacks_extensions.setup()
 
 					Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
 					Snacks.toggle.zen():map("<leader>uz")

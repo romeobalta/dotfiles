@@ -92,10 +92,7 @@ function M.get()
 		},
 		{
 			"<leader>cr",
-			function()
-				local inc_rename = require("inc_rename")
-				return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand("<cword>")
-			end,
+			vim.lsp.buf.rename,
 			expr = true,
 			desc = "Rename (inc-rename.nvim)",
 			has = "rename",
@@ -194,7 +191,7 @@ function M.on_attach(_, buffer)
 
 		if has and cond then
 			local opts = Keys.opts(keys)
-			opts.cond = nil 
+			opts.cond = nil
 			opts.has = nil
 			opts.silent = opts.silent ~= false
 			opts.buffer = buffer

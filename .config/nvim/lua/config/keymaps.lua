@@ -13,8 +13,8 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 -----------------------
 -- Netrw
 -----------------------
-map("n", "<leader>e", vim.cmd.Ex)
-map("n", "<leader>r", vim.cmd.Rex)
+-- map("n", "<leader>e", vim.cmd.Ex)
+-- map("n", "<leader>r", vim.cmd.Rex)
 
 -----------------------
 -- Window mappings
@@ -23,6 +23,12 @@ map("n", "<C-h>", "<C-w>h", { desc = "Window left" })
 map("n", "<C-l>", "<C-w>l", { desc = "Window right" })
 map("n", "<C-j>", "<C-w>j", { desc = "Window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Window up" })
+
+map("n", "<leader>xk", function()
+	local statuscolumn = require("plugins.snacks.statuscolumn")
+
+	statuscolumn.print_cache()
+end)
 
 -----------------------
 -- Movement mappings

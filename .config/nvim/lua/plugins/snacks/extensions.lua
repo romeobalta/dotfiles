@@ -33,7 +33,7 @@ function N.success(msg, opts)
 		msg,
 		vim.tbl_extend("force", opts or {}, {
 			hl = success_hl,
-			icon = "",
+			icon = "",
 		})
 	)
 end
@@ -48,12 +48,9 @@ function M.minimal_improved(buf, notif, ctx)
 	local hl_msg = ctx.hl.icon == success_hl.icon and success_hl.msg or ctx.hl.msg
 	ctx.opts.wo.winhighlight = whl:gsub(ctx.hl.msg, hl_msg .. "Minimal")
 
-	local lines = vim.split(notif.msg, "\n")
-	lines[1] = lines[1] .. "   "
-
-	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(notif.msg, "\n"))
 	vim.api.nvim_buf_set_extmark(buf, ctx.ns, 0, 0, {
-		virt_text = { { notif.icon, ctx.hl.icon } },
+		virt_text = { { " " .. notif.icon, ctx.hl.icon } },
 		virt_text_pos = "right_align",
 	})
 end

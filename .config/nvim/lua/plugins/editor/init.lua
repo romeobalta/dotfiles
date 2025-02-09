@@ -1,5 +1,6 @@
 local cmp = require("plugins.editor.cmp")
 local mini = require("plugins.editor.mini")
+local util = require("plugins.editor.util")
 
 return {
 	{
@@ -74,19 +75,19 @@ return {
 		event = "LazyFile",
 		opts = {
 			signs = {
-				add = { text = "▎" },
-				change = { text = "▎" },
-				delete = { text = "" },
-				topdelete = { text = "" },
-				changedelete = { text = "▎" },
-				untracked = { text = "▎" },
+				add = { text = "▏" },
+				change = { text = "▏" },
+				delete = { text = "▁" },
+				topdelete = { text = "▁" },
+				changedelete = { text = "▏" },
+				untracked = { text = "▏" },
 			},
 			signs_staged = {
-				add = { text = "▎" },
-				change = { text = "▎" },
-				delete = { text = "" },
-				topdelete = { text = "" },
-				changedelete = { text = "▎" },
+				add = { text = "▏" },
+				change = { text = "▏" },
+				delete = { text = "▁" },
+				topdelete = { text = "▁" },
+				changedelete = { text = "▏" },
 			},
 			on_attach = function(buffer)
 				local gs = package.loaded.gitsigns
@@ -526,12 +527,6 @@ return {
 	},
 
 	{
-		"smjonas/inc-rename.nvim",
-		cmd = "IncRename",
-		opts = {},
-	},
-
-	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = {
 			{ "kevinhwang91/promise-async" },
@@ -547,10 +542,8 @@ return {
 			},
 		},
 		opts = function()
-			local ufo = require("plugins.editor.ufo")
-
 			return {
-				fold_virt_text_handler = ufo.handler,
+				fold_virt_text_handler = util.ufo_fold_text,
 				provider_selector = function()
 					return { "lsp", "indent" }
 				end,
@@ -628,6 +621,53 @@ return {
 			end
 			return keys
 		end,
+		config = function(_, opts)
+			local harpoon = require("harpoon")
+			local extensions = require("harpoon.extensions")
+
+			harpoon.setup(opts)
+
+			harpoon:extend(extensions.builtins.navigate_with_number())
+			harpoon:extend(util.harpoon_navigate_in_windows())
+		end,
+	},
+
+	{
+		"stevearc/oil.nvim",
+		---@module 'oil'
+		---@type oil.SetupOpts
+		opts = {
+			keymaps = {
+				["<C-v>"] = { "actions.select", opts = { vertical = true } },
+				["<C-s>"] = { "actions.select", opts = { horizontal = true } },
+				["<C-h>"] = false,
+				["<C-l>"] = false,
+			},
+			view_options = {
+				show_hidden = true,
+			},
+			win_options = {
+				winbar = "%!v:lua.require('plugins.editor.util').oil_get_winbar()",
+			},
+		},
+		keys = {
+			{
+				"<leader>e",
+				function()
+					util.oil_Ex()
+				end,
+				desc = "Oil: Ex",
+			},
+			{
+				"<leader>r",
+				function()
+					util.oil_Rex()
+				end,
+				desc = "Oil: Rex",
+			},
+		},
+		dependencies = { { "echasnovski/mini.icons", opts = {} } },
+		lazy = false,
 	},
 
 	{
