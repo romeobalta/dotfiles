@@ -1,8 +1,324 @@
-local cmp = require("plugins.editor.cmp")
 local mini = require("plugins.editor.mini")
-local util = require("plugins.editor.util")
+local extensions = require("plugins.editor.extensions")
 
 return {
+	-- fzf-lua
+	{
+		"ibhagwan/fzf-lua",
+		cmd = "FzfLua",
+		opts = function(_, opts)
+			local fzf = require("fzf-lua")
+			local config = fzf.config
+			local actions = fzf.actions
+
+			-- Quickfix
+			config.defaults.keymap.fzf["ctrl-q"] = "select-all+accept"
+			config.defaults.keymap.fzf["ctrl-u"] = "half-page-up"
+			config.defaults.keymap.fzf["ctrl-d"] = "half-page-down"
+			config.defaults.keymap.fzf["ctrl-x"] = "jump"
+			config.defaults.keymap.fzf["ctrl-f"] = "preview-page-down"
+			config.defaults.keymap.fzf["ctrl-b"] = "preview-page-up"
+			config.defaults.keymap.builtin["<c-f>"] = "preview-page-down"
+			config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
+
+			-- Trouble
+			if Util.has("trouble.nvim") then
+				config.defaults.actions.files["ctrl-t"] = require("trouble.sources.fzf").actions.open
+			end
+
+			-- Toggle root dir / cwd
+			config.defaults.actions.files["ctrl-r"] = function(_, ctx)
+				local o = vim.deepcopy(ctx.__call_opts)
+				o.root = o.root == false
+				o.cwd = nil
+				o.buf = ctx.__CTX.bufnr
+				fzf_open(ctx.__INFO.cmd, o)
+			end
+			config.defaults.actions.files["alt-c"] = config.defaults.actions.files["ctrl-r"]
+			config.set_action_helpstr(config.defaults.actions.files["ctrl-r"], "toggle-root-dir")
+
+			local img_previewer ---@type string[]?
+			for _, v in ipairs({
+				{ cmd = "ueberzug", args = {} },
+				{ cmd = "chafa", args = { "{file}", "--format=symbols" } },
+				{ cmd = "viu", args = { "-b" } },
+			}) do
+				if vim.fn.executable(v.cmd) == 1 then
+					img_previewer = vim.list_extend({ v.cmd }, v.args)
+					break
+				end
+			end
+
+			return {
+				"default-title",
+				fzf_colors = true,
+				fzf_opts = {
+					["--no-scrollbar"] = true,
+					["--layout"] = "default",
+				},
+				defaults = {
+					-- formatter = "path.filename_first",
+					formatter = "path.dirname_first",
+				},
+				previewers = {
+					builtin = {
+						extensions = {
+							["png"] = img_previewer,
+							["jpg"] = img_previewer,
+							["jpeg"] = img_previewer,
+							["gif"] = img_previewer,
+							["webp"] = img_previewer,
+						},
+						ueberzug_scaler = "fit_contain",
+					},
+				},
+				-- Custom LazyVim option to configure vim.ui.select
+				ui_select = function(fzf_opts, items)
+					return vim.tbl_deep_extend("force", fzf_opts, {
+						prompt = " ",
+						winopts = {
+							title = " " .. vim.trim((fzf_opts.prompt or "Select"):gsub("%s*:%s*$", "")) .. " ",
+							title_pos = "center",
+						},
+					}, fzf_opts.kind == "codeaction" and {
+						winopts = {
+							layout = "vertical",
+							-- height is number of items minus 15 lines for the preview, with a max of 80% screen height
+							height = math.floor(math.min(vim.o.lines * 0.8 - 16, #items + 2) + 0.5) + 16,
+							width = 0.5,
+							preview = not vim.tbl_isempty(Util.lsp.get_clients({ bufnr = 0, name = "vtsls" })) and {
+								layout = "vertical",
+								vertical = "down:15,border-top",
+								hidden = "hidden",
+							} or {
+								layout = "vertical",
+								vertical = "down:15,border-top",
+							},
+						},
+					} or {
+						winopts = {
+							width = 0.5,
+							-- height is number of items, with a max of 80% screen height
+							height = math.floor(math.min(vim.o.lines * 0.8, #items + 2) + 0.5),
+						},
+					})
+				end,
+				winopts = {
+					width = 0.8,
+					height = 0.8,
+					row = 0.5,
+					col = 0.5,
+					preview = {
+						scrollchars = { "┃", "" },
+					},
+				},
+				files = {
+					cwd_prompt = false,
+					actions = {
+						["alt-i"] = { actions.toggle_ignore },
+						["alt-h"] = { actions.toggle_hidden },
+					},
+				},
+				grep = {
+					hidden = true,
+					actions = {
+						["alt-i"] = { actions.toggle_ignore },
+						["alt-h"] = { actions.toggle_hidden },
+					},
+				},
+				lsp = {
+					symbols = {
+						symbol_hl = function(s)
+							return "TroubleIcon" .. s
+						end,
+						symbol_fmt = function(s)
+							return s:lower() .. "\t"
+						end,
+						child_prefix = false,
+					},
+					code_actions = {
+						previewer = vim.fn.executable("delta") == 1 and "codeaction_native" or nil,
+					},
+				},
+			}
+		end,
+		config = function(_, opts)
+			if opts[1] == "default-title" then
+				-- use the same prompt for all pickers for profile `default-title` and
+				-- profiles that use `default-title` as base profile
+				local function fix(t)
+					t.prompt = t.prompt ~= nil and " " or nil
+					for _, v in pairs(t) do
+						if type(v) == "table" then
+							fix(v)
+						end
+					end
+					return t
+				end
+				opts = vim.tbl_deep_extend("force", fix(require("fzf-lua.profiles.default-title")), opts)
+				opts[1] = nil
+			end
+			require("fzf-lua").setup(opts)
+		end,
+		init = function()
+			Util.on_very_lazy(function()
+				vim.ui.select = function(...)
+					require("lazy").load({ plugins = { "fzf-lua" } })
+					local opts = Util.opts("fzf-lua") or {}
+					require("fzf-lua").register_ui_select(opts.ui_select or nil)
+					return vim.ui.select(...)
+				end
+			end)
+		end,
+		keys = {
+			{
+				"<c-j>",
+				"<c-j>",
+				ft = "fzf",
+				mode = "t",
+				nowait = true,
+			},
+			{
+				"<c-k>",
+				"<c-k>",
+				ft = "fzf",
+				mode = "t",
+				nowait = true,
+			},
+			{ "<leader>:", "<cmd>FzfLua command_history<cr>", desc = "Command History" },
+			-- find
+			{ "<leader>fl", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
+			{ "<leader><space>", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
+			{
+				"<leader>fc",
+				fzf_open("files", { cwd = vim.fn.stdpath("config") }),
+				desc = "Find Config File",
+			},
+			{
+				"<leader>ff",
+				fzf_open("files"),
+				desc = "Find Files (Root Dir)",
+			},
+			{
+				"<leader>fF",
+				fzf_open("files", { root = false }),
+				desc = "Find Files (cwd)",
+			},
+			{
+				"<leader>fg",
+				"<cmd>FzfLua git_files<cr>",
+				desc = "Find Files (git-files)",
+			},
+			{ "<leader>fr", "<cmd>FzfLua oldfiles<cr>", desc = "Recent" },
+			{ "<leader>fR", fzf_open("oldfiles", { cwd = vim.uv.cwd() }), desc = "Recent (cwd)" },
+			-- git
+			{ "<leader>gc", "<cmd>FzfLua git_commits<CR>", desc = "Commits" },
+			{ "<leader>gs", "<cmd>FzfLua git_status<CR>", desc = "Status" },
+			-- search
+			{ '<leader>s"', "<cmd>FzfLua registers<cr>", desc = "Registers" },
+			{ "<leader>sa", "<cmd>FzfLua autocmds<cr>", desc = "Auto Commands" },
+			{ "<leader>sb", "<cmd>FzfLua grep_curbuf<cr>", desc = "Buffer" },
+			{ "<leader>sc", "<cmd>FzfLua command_history<cr>", desc = "Command History" },
+			{ "<leader>sC", "<cmd>FzfLua commands<cr>", desc = "Commands" },
+			{
+				"<leader>sd",
+				"<cmd>FzfLua diagnostics_document<cr>",
+				desc = "Document Diagnostics",
+			},
+			{
+				"<leader>sD",
+				"<cmd>FzfLua diagnostics_workspace<cr>",
+				desc = "Workspace Diagnostics",
+			},
+			{ "<leader>fs", fzf_open("live_grep"), desc = "Grep (Root Dir)" },
+			{ "<leader>fS", fzf_open("live_grep", { root = false }), desc = "Grep (cwd)" },
+			{ "<leader>sh", "<cmd>FzfLua help_tags<cr>", desc = "Help Pages" },
+			{
+				"<leader>sH",
+				"<cmd>FzfLua highlights<cr>",
+				desc = "Search Highlight Groups",
+			},
+			{ "<leader>sj", "<cmd>FzfLua jumps<cr>", desc = "Jumplist" },
+			{ "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Key Maps" },
+			{ "<leader>sl", "<cmd>FzfLua loclist<cr>", desc = "Location List" },
+			{ "<leader>sM", "<cmd>FzfLua man_pages<cr>", desc = "Man Pages" },
+			{ "<leader>sm", "<cmd>FzfLua marks<cr>", desc = "Jump to Mark" },
+			{ "<leader>sR", "<cmd>FzfLua resume<cr>", desc = "Resume" },
+			{ "<leader>sq", "<cmd>FzfLua quickfix<cr>", desc = "Quickfix List" },
+			{ "<leader>sw", fzf_open("grep_cword"), desc = "Word (Root Dir)" },
+			{ "<leader>sW", fzf_open("grep_cword", { root = false }), desc = "Word (cwd)" },
+			{
+				"<leader>sw",
+				fzf_open("grep_visual"),
+				mode = "v",
+				desc = "Selection (Root Dir)",
+			},
+			{
+				"<leader>sW",
+				fzf_open("grep_visual", { root = false }),
+				mode = "v",
+				desc = "Selection (cwd)",
+			},
+			{
+				"<leader>uC",
+				fzf_open("colorschemes"),
+				desc = "Colorscheme with Preview",
+			},
+			{
+				"<leader>ss",
+				function()
+					require("fzf-lua").lsp_document_symbols({
+						regex_filter = extensions.fzf_symbols_filter,
+					})
+				end,
+				desc = "Goto Symbol",
+			},
+			{
+				"<leader>sS",
+				function()
+					require("fzf-lua").lsp_live_workspace_symbols({
+						regex_filter = extensions.fzf_symbols_filter,
+					})
+				end,
+				desc = "Goto Symbol (Workspace)",
+			},
+		},
+	},
+	{
+		"neovim/nvim-lspconfig",
+		opts = function()
+			local Keys = require("plugins.lsp.keymaps").get()
+            -- stylua: ignore
+            vim.list_extend(Keys, {
+                { "gd", "<cmd>FzfLua lsp_definitions     jump_to_single_result=true ignore_current_line=true<cr>", desc = "Goto Definition",       has = "definition" },
+                { "gr", "<cmd>FzfLua lsp_references      jump_to_single_result=true ignore_current_line=true<cr>", desc = "References",            nowait = true },
+                { "gI", "<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<cr>", desc = "Goto Implementation" },
+                { "gy", "<cmd>FzfLua lsp_typedefs        jump_to_single_result=true ignore_current_line=true<cr>", desc = "Goto T[y]pe Definition" },
+            })
+		end,
+	},
+	{
+		"folke/todo-comments.nvim",
+		keys = {
+			{
+				"<leader>st",
+				function()
+					require("todo-comments.fzf").todo()
+				end,
+				desc = "Todo",
+			},
+			{
+				"<leader>sT",
+				function()
+					require("todo-comments.fzf").todo({ keywords = { "TODO", "FIX", "FIXME" } })
+				end,
+				desc = "Todo/Fix/Fixme",
+			},
+		},
+	},
+
+	-- which-key
+	-- show the keys popup
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
@@ -70,6 +386,7 @@ return {
 		end,
 	},
 
+	-- gitsigns
 	{
 		"lewis6991/gitsigns.nvim",
 		event = "LazyFile",
@@ -142,6 +459,7 @@ return {
 		end,
 	},
 
+	-- trouble
 	-- better diagnostics list and others
 	{
 		"folke/trouble.nvim",
@@ -195,6 +513,7 @@ return {
 		},
 	},
 
+	-- todo-comments
 	-- Finds and lists all of the TODO, HACK, BUG, etc comment
 	-- in your project and loads them into a browsable list.
 	{
@@ -243,6 +562,8 @@ return {
 		},
 	},
 
+	-- persistance.nvim
+	-- session management
 	{
 		"folke/persistence.nvim",
 		event = "BufReadPre",
@@ -256,6 +577,7 @@ return {
         },
 	},
 
+	-- completion plugin
 	{
 		"saghen/blink.cmp",
 		version = "*",
@@ -280,7 +602,7 @@ return {
 		opts = {
 			snippets = {
 				expand = function(snippet)
-					return cmp.expand(snippet)
+					return Util.cmp.expand(snippet)
 				end,
 			},
 			appearance = {
@@ -338,7 +660,6 @@ return {
 			},
 
 			keymap = {
-				preset = "super-tab",
 				["<C-y>"] = { "select_and_accept" },
 			},
 		},
@@ -360,7 +681,7 @@ return {
 			-- add ai_accept to <Tab> key
 			opts.keymap["<Tab>"] = {
 				require("blink.cmp.keymap.presets")["super-tab"]["<Tab>"][1],
-				cmp.map({ "snippet_forward", "ai_accept" }),
+				Util.cmp.map({ "snippet_forward", "ai_accept" }),
 				"fallback",
 			}
 
@@ -399,12 +720,14 @@ return {
 		end,
 	},
 
-	-- auto pairs
+	-- mini
+	-- mini.pairs
+	-- auto pair brackets and quotes
 	{
 		"echasnovski/mini.pairs",
 		event = "VeryLazy",
 		opts = {
-			modes = { insert = true, command = true, terminal = false },
+			modes = { insert = true, command = false, terminal = false },
 			-- skip autopair when next character is one of these
 			skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
 			-- skip autopair when the cursor is inside these treesitter nodes
@@ -419,7 +742,8 @@ return {
 			mini.pairs(opts)
 		end,
 	},
-
+	-- mini.comment
+	-- toggle comment in normal and visual mode
 	{
 		"echasnovski/mini.comment",
 		event = "VeryLazy",
@@ -443,15 +767,14 @@ return {
 			enable_autocmd = false,
 		},
 	},
-
-	-- comments
+	-- ts-comments
 	{
 		"folke/ts-comments.nvim",
 		event = "VeryLazy",
 		opts = {},
 	},
-
-	-- Better text-objects
+	-- mini.ai
+	-- Better a and i motions
 	{
 		"echasnovski/mini.ai",
 		event = "VeryLazy",
@@ -493,7 +816,8 @@ return {
 			end)
 		end,
 	},
-
+	-- mini.surround
+	-- add and remove surrounding brackets and quotes
 	{
 		"echasnovski/mini.surround",
 		keys = function(_, keys)
@@ -526,44 +850,7 @@ return {
 		},
 	},
 
-	{
-		"kevinhwang91/nvim-ufo",
-		dependencies = {
-			{ "kevinhwang91/promise-async" },
-		},
-		event = "VeryLazy",
-		keys = {
-			{
-				"zp",
-				function()
-					require("ufo").peekFoldedLinesUnderCursor()
-				end,
-				desc = "Fold peek",
-			},
-		},
-		opts = function()
-			return {
-				fold_virt_text_handler = util.ufo_fold_text,
-				provider_selector = function()
-					return { "lsp", "indent" }
-				end,
-				preview = {
-					win_config = {
-						border = { "", "", "", "", "", "", "", "" },
-						winhighlight = "Normal:Pmenu",
-						winblend = 0,
-					},
-					mappings = {
-						scrollU = "<C-u>",
-						scrollD = "<C-d>",
-						jumpTop = "[",
-						jumpBot = "]",
-					},
-				},
-			}
-		end,
-	},
-
+	-- undotree
 	{
 		"mbbill/undotree",
 		keys = {
@@ -580,6 +867,7 @@ return {
 		end,
 	},
 
+	-- harpoon
 	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
@@ -623,15 +911,16 @@ return {
 		end,
 		config = function(_, opts)
 			local harpoon = require("harpoon")
-			local extensions = require("harpoon.extensions")
+			local harpoon_extensions = require("harpoon.extensions")
 
 			harpoon.setup(opts)
 
-			harpoon:extend(extensions.builtins.navigate_with_number())
-			harpoon:extend(util.harpoon_navigate_in_windows())
+			harpoon:extend(harpoon_extensions.builtins.navigate_with_number())
+			harpoon:extend(harpoon_extensions.harpoon_navigate_in_windows())
 		end,
 	},
 
+	-- oil.nvim
 	{
 		"stevearc/oil.nvim",
 		---@module 'oil'
@@ -647,21 +936,21 @@ return {
 				show_hidden = true,
 			},
 			win_options = {
-				winbar = "%!v:lua.require('plugins.editor.util').oil_get_winbar()",
+				winbar = "%!v:lua.require('plugins.editor.extensions').oil_get_winbar()",
 			},
 		},
 		keys = {
 			{
 				"<leader>e",
 				function()
-					util.oil_Ex()
+					extensions.oil_Ex()
 				end,
 				desc = "Oil: Ex",
 			},
 			{
 				"<leader>r",
 				function()
-					util.oil_Rex()
+					extensions.oil_Rex()
 				end,
 				desc = "Oil: Rex",
 			},
@@ -670,6 +959,400 @@ return {
 		lazy = false,
 	},
 
+	-- debug adapter
+	{
+		"mfussenegger/nvim-dap",
+		desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
+
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			-- virtual text for the debugger
+			{
+				"theHamsta/nvim-dap-virtual-text",
+				opts = {},
+			},
+			"nvim-neotest/nvim-nio",
+		},
+
+		keys = {
+			{
+				"<leader>dB",
+				function()
+					require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+				end,
+				desc = "Breakpoint Condition",
+			},
+			{
+				"<leader>db",
+				function()
+					require("dap").toggle_breakpoint()
+				end,
+				desc = "Toggle Breakpoint",
+			},
+			{
+				"<leader>dc",
+				function()
+					require("dap").continue()
+				end,
+				desc = "Run/Continue",
+			},
+			{
+				"<leader>dC",
+				function()
+					require("dap").run_to_cursor()
+				end,
+				desc = "Run to Cursor",
+			},
+			{
+				"<leader>dg",
+				function()
+					require("dap").goto_()
+				end,
+				desc = "Go to Line (No Execute)",
+			},
+			{
+				"<leader>di",
+				function()
+					require("dap").step_into()
+				end,
+				desc = "Step Into",
+			},
+			{
+				"<leader>dj",
+				function()
+					require("dap").down()
+				end,
+				desc = "Down",
+			},
+			{
+				"<leader>dk",
+				function()
+					require("dap").up()
+				end,
+				desc = "Up",
+			},
+			{
+				"<leader>dl",
+				function()
+					require("dap").run_last()
+				end,
+				desc = "Run Last",
+			},
+			{
+				"<leader>do",
+				function()
+					require("dap").step_over()
+				end,
+				desc = "Step Over",
+			},
+			{
+				"<leader>dO",
+				function()
+					require("dap").step_out()
+				end,
+				desc = "Step Out",
+			},
+			{
+				"<leader>dP",
+				function()
+					require("dap").pause()
+				end,
+				desc = "Pause",
+			},
+			{
+				"<leader>ds",
+				function()
+					require("dap").session()
+				end,
+				desc = "Session",
+			},
+			{
+				"<leader>dt",
+				function()
+					require("dap").terminate()
+				end,
+				desc = "Terminate",
+			},
+			{
+				"<leader>dw",
+				function()
+					require("dap.ui.widgets").hover()
+				end,
+				desc = "Widgets",
+			},
+			{
+				"<leader>td",
+				function()
+					require("neotest").run.run({ strategy = "dap" })
+				end,
+				desc = "Debug Nearest",
+			},
+		},
+		opts = function(_, opts)
+			local dap = require("dap")
+
+			-- this provider is so we can put launch.json files in .dap.json
+			dap.providers.configs["_.root.dap.json"] = function()
+				local root = Util.root()
+				local path = root .. "/.dap.json"
+				local ok, configs = pcall(require("dap.ext.vscode").getconfigs, path)
+				return ok and configs or {}
+			end
+
+			-- this is a hook that allows as to use string args in .dap.json
+			-- it's useful if you want to read a single input and accept multiple args
+			-- as the config expects a list of args instead of a single string
+			---@class config
+			---@field args string|string[]
+			dap.listeners.on_config["_.root.dap.json"] = function(config)
+				local _config = vim.deepcopy(config)
+				-- if _config has property args and it's a string, split it
+				if _config.args and type(_config.args) == "string" then
+					---@diagnostic disable-next-line: param-type-mismatch
+					_config.args = require("dap.utils").splitstr(_config.args)
+				end
+				return _config
+			end
+
+			-- zig defaults
+			for _, lang in ipairs({ "zig" }) do
+				dap.configurations[lang] = {
+					{
+						type = "codelldb",
+						request = "launch",
+						name = "LLDB: Launch with args",
+						program = function()
+							return require("dap.utils").pick_file({
+								executables = true,
+								path = Util.root(),
+								filter = function(filepath)
+									-- look only for paths in the cwd with zig-out in them
+									return vim.fn.match(filepath, "zig-out") ~= -1
+										and vim.fn.match(filepath, Util.root()) ~= -1
+								end,
+							})
+						end,
+						args = function()
+							local args = vim.fn.input("Arguments: ", "", "file") -- Read some args
+							return args == "" and {} or require("dap.utils").splitstr(args)
+						end,
+						cwd = vim.fn.getcwd(),
+					},
+					{
+						type = "codelldb",
+						request = "attach",
+						name = "LLDB: Attach to process",
+						pid = function()
+							return require("dap.utils").pick_process({
+								filter = function(proc)
+									return vim.fn.match(proc.name, "zig-out") ~= -1
+								end,
+							})
+						end,
+						cwd = vim.fn.getcwd(),
+					},
+				}
+			end
+		end,
+		config = function()
+			-- load mason-nvim-dap here, after all adapters have been setup
+			if Util.has("mason-nvim-dap.nvim") then
+				require("mason-nvim-dap").setup(Util.opts("mason-nvim-dap.nvim"))
+			end
+
+			vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+
+			for name, sign in pairs(require("config").icons.dap) do
+				sign = type(sign) == "table" and sign or { sign }
+				vim.fn.sign_define(
+					"Dap" .. name,
+					{ text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+				)
+			end
+
+			-- setup dap config by VsCode launch.json file
+			local vscode = require("dap.ext.vscode")
+			local json = require("plenary.json")
+			vscode.json_decode = function(str)
+				return vim.json.decode(json.json_strip_comments(str))
+			end
+		end,
+	},
+	-- fancy UI for the debugger
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "nvim-neotest/nvim-nio" },
+        -- stylua: ignore
+        keys = {
+            { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
+            { "<leader>de", function() require("dapui").eval() end,     desc = "Eval",  mode = { "n", "v" } },
+        },
+		opts = {},
+		config = function(_, opts)
+			local dap = require("dap")
+			local dapui = require("dapui")
+			dapui.setup(opts)
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				dapui.open({})
+			end
+		end,
+	},
+	-- mason.nvim integration
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		dependencies = "mason.nvim",
+		cmd = { "DapInstall", "DapUninstall" },
+		opts = {
+			-- Makes a best effort to setup the various debuggers with
+			-- reasonable debug configurations
+			automatic_installation = true,
+
+			-- You can provide additional configuration to the handlers,
+			-- see mason-nvim-dap README for more information
+			handlers = {},
+
+			-- You'll need to check that you have the required things installed
+			-- online, please don't ask me how to install them :)
+			ensure_installed = {
+				-- Update this to ensure that you have the debuggers for the langs you want
+			},
+		},
+		-- mason-nvim-dap is loaded when nvim-dap loads
+		config = function() end,
+	},
+
+	-- Treesitter is a new parser generator tool that we can
+	-- use in Neovim to power faster and more accurate
+	-- syntax highlighting.
+	{
+		"nvim-treesitter/nvim-treesitter",
+		version = false, -- last release is way too old and doesn't work on Windows
+		build = ":TSUpdate",
+		event = { "LazyFile", "VeryLazy" },
+		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
+		init = function(plugin)
+			-- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
+			-- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
+			-- no longer trigger the **nvim-treesitter** module to be loaded in time.
+			-- Luckily, the only things that those plugins need are the custom queries, which we make available
+			-- during startup.
+			require("lazy.core.loader").add_to_rtp(plugin)
+			require("nvim-treesitter.query_predicates")
+		end,
+		cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+		opts_extend = { "ensure_installed" },
+		---@type TSConfig
+		---@diagnostic disable-next-line: missing-fields
+		opts = {
+			highlight = { enable = true },
+			indent = { enable = true },
+			ensure_installed = {
+				"bash",
+				"c",
+				"diff",
+				"html",
+				"javascript",
+				"jsdoc",
+				"json",
+				"jsonc",
+				"lua",
+				"luadoc",
+				"luap",
+				"markdown",
+				"markdown_inline",
+				"printf",
+				"python",
+				"query",
+				"regex",
+				"toml",
+				"tsx",
+				"typescript",
+				"vim",
+				"vimdoc",
+				"xml",
+				"yaml",
+				"zig",
+			},
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					init_selection = "<C-space>",
+					node_incremental = "<C-space>",
+					scope_incremental = false,
+					node_decremental = "<bs>",
+				},
+			},
+			textobjects = {
+				move = {
+					enable = true,
+					goto_next_start = {
+						["]f"] = "@function.outer",
+						["]c"] = "@class.outer",
+						["]a"] = "@parameter.inner",
+					},
+					goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+					goto_previous_start = {
+						["[f"] = "@function.outer",
+						["[c"] = "@class.outer",
+						["[a"] = "@parameter.inner",
+					},
+					goto_previous_end = {
+						["[F"] = "@function.outer",
+						["[C"] = "@class.outer",
+						["[A"] = "@parameter.inner",
+					},
+				},
+			},
+		},
+		---@param opts TSConfig
+		config = function(_, opts)
+			if type(opts.ensure_installed) == "table" then
+				opts.ensure_installed = Util.dedup(opts.ensure_installed)
+			end
+			require("nvim-treesitter.configs").setup(opts)
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		event = "VeryLazy",
+		enabled = true,
+		config = function()
+			-- If treesitter is already loaded, we need to run config again for textobjects
+			if Util.is_loaded("nvim-treesitter") then
+				local opts = Util.opts("nvim-treesitter")
+				require("nvim-treesitter.configs").setup({ textobjects = opts.textobjects })
+			end
+
+			-- When in diff mode, we want to use the default
+			-- vim text objects c & C instead of the treesitter ones.
+			local move = require("nvim-treesitter.textobjects.move") ---@type table<string,fun(...)>
+			local configs = require("nvim-treesitter.configs")
+			for name, fn in pairs(move) do
+				if name:find("goto") == 1 then
+					move[name] = function(q, ...)
+						if vim.wo.diff then
+							local config = configs.get_module("textobjects.move")[name] ---@type table<string,string>
+							for key, query in pairs(config or {}) do
+								if q == query and key:find("[%]%[][cC]") then
+									vim.cmd("normal! " .. key)
+									return
+								end
+							end
+						end
+						return fn(q, ...)
+					end
+				end
+			end
+		end,
+	},
+	-- Automatically add closing tags for HTML and JSX
+	{
+		"windwp/nvim-ts-autotag",
+		event = "LazyFile",
+		opts = {},
+	},
+
+	-- lazydev
 	{
 		"folke/lazydev.nvim",
 		ft = "lua",

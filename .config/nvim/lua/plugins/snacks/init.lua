@@ -1,8 +1,10 @@
-local snacks_extensions = require("plugins.snacks.extensions")
+local extensions = require("plugins.snacks.extensions")
 
 return {
+    -- plenary
 	{ "nvim-lua/plenary.nvim", lazy = true },
 
+    -- snacks
 	{
 		"folke/snacks.nvim",
 		priority = 1000,
@@ -50,13 +52,13 @@ return {
 			lazygit = { enabled = true },
 			notifier = {
 				enabled = true,
-				-- top_down = false,
+				top_down = false,
 				timeout = 5000,
 				width = {
-					min = 10,
+					min = 20,
 					max = 0.4,
 				},
-				style = snacks_extensions.minimal_improved,
+				style = extensions.minimal_improved,
 			},
 			notify = { enabled = true },
 			quickfile = { enabled = true },
@@ -99,7 +101,7 @@ return {
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "VeryLazy",
 				callback = function()
-					snacks_extensions.setup()
+					extensions.setup()
 
 					Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
 					Snacks.toggle.zen():map("<leader>uz")

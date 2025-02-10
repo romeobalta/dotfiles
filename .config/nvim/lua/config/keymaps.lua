@@ -25,7 +25,7 @@ map("n", "<C-j>", "<C-w>j", { desc = "Window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Window up" })
 
 map("n", "<leader>xk", function()
-	local statuscolumn = require("plugins.snacks.statuscolumn")
+	local statuscolumn = require("plugins.ui.statuscolumn")
 
 	statuscolumn.print_cache()
 end)
@@ -81,8 +81,20 @@ map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- quickfix list
-map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
-map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
+map("n", "<leader>k", function()
+	local ok, _ = pcall(vim.api.nvim_command, "cprev")
+
+	if not ok then
+		Snacks.notify.error("No previous quickfix")
+	end
+end, { desc = "Previous Quickfix" })
+map("n", "<leader>j", function()
+	local ok, _ = pcall(vim.api.nvim_command, "cnext")
+
+	if not ok then
+		Snacks.notify.error("No next quickfix")
+	end
+end, { desc = "Next Quickfix" })
 
 -- highlights under cursor
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })

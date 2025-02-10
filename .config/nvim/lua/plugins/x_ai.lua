@@ -40,33 +40,13 @@ return {
 	{
 		"zbirenbaum/copilot.lua",
 		opts = function()
-			require("plugins.editor.cmp").actions.ai_accept = function()
+			Util.cmp.actions.ai_accept = function()
 				if require("copilot.suggestion").is_visible() then
 					Util.create_undo()
 					require("copilot.suggestion").accept()
 					return true
 				end
 			end
-		end,
-	},
-
-	-- lualine
-	{
-		"nvim-lualine/lualine.nvim",
-		event = "VeryLazy",
-		opts = function(_, opts)
-			table.insert(
-				opts.sections.lualine_x,
-				2,
-				Util.lualine_status(require("config").icons.kinds.Copilot, function()
-					local clients = package.loaded["copilot"] and Util.lsp.get_clients({ name = "copilot", bufnr = 0 })
-						or {}
-					if #clients > 0 then
-						local status = require("copilot.api").status.data.status
-						return (status == "InProgress" and "pending") or (status == "Warning" and "error") or "ok"
-					end
-				end)
-			)
 		end,
 	},
 

@@ -110,7 +110,7 @@ return {
 					if
 						vim.api.nvim_buf_is_valid(buffer)
 						and vim.bo[buffer].buftype == ""
-						and not vim.tbl_contains(opts.inlay_hints.exclude, vim.bo[buffer].filetype)
+						and not vim.tbl_contains(opts.inlay_hints.exclude or {}, vim.bo[buffer].filetype)
 					then
 						vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
 					end
@@ -207,6 +207,7 @@ return {
 		end,
 	},
 
+    -- mason
 	-- cmdline tools and lsp servers
 	{
 		"williamboman/mason.nvim",
@@ -245,6 +246,7 @@ return {
 		end,
 	},
 
+    -- nvim-lint
 	{
 		"mfussenegger/nvim-lint",
 		event = "LazyFile",
@@ -328,6 +330,8 @@ return {
 		end,
 	},
 
+    -- conform
+    -- formatting
 	{
 		"stevearc/conform.nvim",
 		dependencies = { "mason.nvim" },
@@ -400,22 +404,12 @@ return {
 		end,
 	},
 
+    -- neotest
 	{
 		"nvim-neotest/neotest",
 		dependencies = { "nvim-neotest/nvim-nio" },
 		opts = {
-			-- Can be a list of adapters like what neotest expects,
-			-- or a list of adapter names,
-			-- or a table of adapter names, mapped to adapter configs.
-			-- The adapter will then be automatically loaded with the config.
 			adapters = {},
-			-- Example for loading neotest-golang with a custom config
-			-- adapters = {
-			--   ["neotest-golang"] = {
-			--     go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
-			--     dap_go_enabled = true,
-			--   },
-			-- },
 			status = { virtual_text = true },
 			output = { open_on_run = true },
 			quickfix = {
@@ -433,7 +427,6 @@ return {
 			vim.diagnostic.config({
 				virtual_text = {
 					format = function(diagnostic)
-						-- Replace newline and tab characters with space for more compact diagnostics
 						local message =
 							diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
 						return message
@@ -571,12 +564,13 @@ return {
 		},
 	},
 
-	{ import = "plugins.lsp.eslint" },
-	{ import = "plugins.lsp.clang" },
-	{ import = "plugins.lsp.typescript" },
-	{ import = "plugins.lsp.zig" },
-	{ import = "plugins.lsp.json" },
-	{ import = "plugins.lsp.markdown" },
-	{ import = "plugins.lsp.yaml" },
-	{ import = "plugins.lsp.tailwind" },
+    -- server
+	{ import = "plugins.lsp.servers.eslint" },
+	{ import = "plugins.lsp.servers.clang" },
+	{ import = "plugins.lsp.servers.typescript" },
+	{ import = "plugins.lsp.servers.zig" },
+	{ import = "plugins.lsp.servers.json" },
+	{ import = "plugins.lsp.servers.markdown" },
+	{ import = "plugins.lsp.servers.yaml" },
+	{ import = "plugins.lsp.servers.tailwind" },
 }

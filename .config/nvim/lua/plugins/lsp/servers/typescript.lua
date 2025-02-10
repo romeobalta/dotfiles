@@ -167,9 +167,17 @@ return {
 							end)
 						end
 					end, "vtsls")
+
 					-- copy typescript settings to javascript
 					opts.settings.javascript =
 						vim.tbl_deep_extend("force", {}, opts.settings.typescript, opts.settings.javascript or {})
+
+					-- disable formatting for vtsls, we use eslint for that
+					---@param client vim.lsp.Client
+					opts.on_init = function(client)
+						client.server_capabilities.documentFormattingProvider = false
+						client.server_capabilities.documentRangeFormattingProvider = false
+					end
 				end,
 			},
 		},

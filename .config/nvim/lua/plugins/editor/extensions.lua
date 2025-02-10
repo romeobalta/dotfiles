@@ -1,12 +1,12 @@
----@class own.editor.util
+---@class editor.extensions
 ---@field oil_restore_points RestorePoints
 local M = {
 	oil_restore_points = {},
 }
 
----@alias RestorePoints table<number, own.editor.util.RestorePoint|nil>
+---@alias RestorePoints table<number, editor.extensions.RestorePoint|nil>
 
----@class own.editor.util.RestorePoint
+---@class editor.extensions.RestorePoint
 ---@field filename string
 ---@field row number
 ---@field col number
@@ -101,17 +101,17 @@ function M.oil_Rex()
 
 	if M.oil_restore_points[win] == nil then
 		Snacks.notify.warn("No restore point found")
-        return
+		return
 	end
 
 	local buf_name = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
 
 	if buf_name:sub(1, 4) ~= "oil:" then
 		Snacks.notify.warn("Not an oil buffer")
-        return
+		return
 	end
 
-	---@type own.editor.util.RestorePoint
+	---@type editor.extensions.RestorePoint
 	local restore_point = M.oil_restore_points[win]
 	local bufnr = vim.fn.bufnr(to_exact_name(restore_point.filename))
 
@@ -173,6 +173,83 @@ function M.harpoon_navigate_in_windows()
 			end
 		end,
 	}
+end
+
+local kind_filter = {
+	default = {
+		"Class",
+		"Constant",
+		"Constructor",
+		"Enum",
+		"Field",
+		"Function",
+		"Interface",
+		"Method",
+		"Module",
+		"Namespace",
+		"Package",
+		"Property",
+		"Struct",
+		"Trait",
+		"Variable",
+	},
+	markdown = false,
+	help = false,
+	-- you can specify a different filter for each filetype
+	lua = {
+		"Class",
+		"Constant",
+		"Constructor",
+		"Enum",
+		"Field",
+		"Function",
+		"Interface",
+		"Method",
+		"Module",
+		"Namespace",
+		-- "Package", -- remove package since luals uses it for control flow structures
+		"Property",
+		"Struct",
+		"Trait",
+		"Variable",
+	},
+}
+
+function _G.fzf_open(command, opts)
+	return function()
+		opts = opts or {}
+		if opts.cmd == nil and command == "git_files" and opts.show_untracked then
+			opts.cmd = "git ls-files --exclude-standard --cached --others"
+		end
+		return require("fzf-lua")[command](opts)
+	end
+end
+
+function M.fzf_symbols_filter(entry, ctx)
+	local function get_kind_filter(buf)
+		buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
+		local ft = vim.bo[buf].filetype
+
+		if kind_filter == false then
+			return
+		end
+
+		if kind_filter[ft] == false then
+			return
+		end
+
+		if type(kind_filter[ft]) == "table" then
+			return kind_filter[ft]
+		end
+	end
+
+	if ctx.symbols_filter == nil then
+		ctx.symbols_filter = get_kind_filter(ctx.bufnr) or false
+	end
+	if ctx.symbols_filter == false then
+		return true
+	end
+	return vim.tbl_contains(ctx.symbols_filter, entry.kind)
 end
 
 return M
