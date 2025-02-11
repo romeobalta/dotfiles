@@ -4,11 +4,8 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="spaceship"
+export SPACESHIP_CONFIG="$HOME/.config/spaceship.zsh"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -119,9 +116,6 @@ source $ZSH/oh-my-zsh.sh
 
 TERM=xterm-ghostty
 
-source "$HOME/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
-SPACESHIP_PROMPT_SEPARATE_LINE=true
-
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
@@ -130,11 +124,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source ~/.aliases
-source ~/.fn
-source ~/.spaceship_profile
-source ~/.devvars
-source ~/.binds
+source ~/.aliases.zsh
+source ~/.fn.zsh
+source ~/.path.zsh
+source ~/.binds.zsh
 
 # source ~/.zshrc_custom only if it exists
 [ -f ~/.zshrc_custom ] && source ~/.zshrc_custom
@@ -143,13 +136,37 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH="$HOME/.local/bin/scripts:$PATH"
 
-
 # bun completions
 [ -s "/Users/romeo/.bun/_bun" ] && source "/Users/romeo/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+  --highlight-line \
+  --info=default \
+  --ansi \
+  --no-bold \
+  --layout=default \
+  --border=none \
+  --color=bg+:#283457 \
+  --color=bg:#1a1b26 \
+  --color=border:#3b4261 \
+  --color=fg:#8a9cc2 \
+  --color=gutter:#1a1b26 \
+  --color=header:#8a9cc2 \
+  --color=hl+:#7aa2f7 \
+  --color=hl:#7aa2f7 \
+  --color=info:#3b4261 \
+  --color=marker:#283457 \
+  --color=pointer:#283457 \
+  --color=prompt:#7aa2f7 \
+  --color=query:#8a9cc2:regular \
+  --color=scrollbar:#3b4261 \
+  --color=separator:#3b4261 \
+  --color=spinner:#283457 \
+"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
