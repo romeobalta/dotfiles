@@ -7,9 +7,12 @@ local function close_terminal_window()
 	end
 end
 
-local function open_terminal_window(stdout, stderr)
+---Open a terminal window with the given stdout and stderr
+---@param cmd string The command to run
+---@param args string[] The arguments to pass to the command
+local function run_in_terminal_window(cmd, args)
 	local buf = vim.api.nvim_create_buf(false, true)
-	local height = math.min(10, math.floor(vim.o.lines * 0.8))
+	local height = math.min(15, math.floor(vim.o.lines * 0.8))
 
 	-- If we close the window, we need to set the global variable to nil
 	vim.api.nvim_create_autocmd({ "BufHidden" }, {
@@ -36,13 +39,43 @@ local function open_terminal_window(stdout, stderr)
 	-- Create terminal
 	local chan = vim.api.nvim_open_term(buf, {})
 
-	-- Send command output
-	if stdout and stdout ~= "" then
-		vim.api.nvim_chan_send(chan, stdout)
-	end
+	local stdout = vim.uv.new_pipe()
+	local stderr = vim.uv.new_pipe()
 
-	if stderr and stderr ~= "" then
-		vim.api.nvim_chan_send(chan, stderr)
+	---@diagnostic disable-next-line: missing-fields
+	local handle = vim.uv.spawn(cmd, {
+		args = args,
+		cwd = Util.root(),
+		stdio = { nil, stdout, stderr },
+	}, function(code)
+		vim.schedule(function()
+			if code == 0 then
+				close_terminal_window()
+				Snacks.notify.success("Build successful")
+			end
+		end)
+	end)
+
+	if stdout and stderr then
+		stdout:read_start(function(err, data)
+			assert(not err, err)
+			if data then
+				vim.schedule(function()
+					vim.api.nvim_chan_send(chan, data)
+				end)
+			end
+		end)
+
+		stderr:read_start(function(err, data)
+			assert(not err, err)
+			if data then
+				vim.schedule(function()
+					vim.api.nvim_chan_send(chan, data)
+				end)
+			end
+		end)
+	else
+		handle:kill(-1)
 	end
 
 	-- Add keymapping to close the window
@@ -51,96 +84,30 @@ local function open_terminal_window(stdout, stderr)
 	vim.api.nvim_buf_set_keymap(buf, "n", "<CR>", ":close<CR>", { noremap = true, silent = true })
 end
 
-local function show_loading_notification(message)
-	local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-	local interval = 80
-	local timer = vim.uv.new_timer()
-
-	if not timer then
-		return nil
-	end
-
-	local start_time = vim.uv.hrtime()
-
-	timer:start(
-		interval,
-		interval,
-		vim.schedule_wrap(function()
-			local index = (math.floor((vim.uv.hrtime() - start_time) / (1e6 * interval)) % #spinner) + 1
-			Snacks.notify.info((message or "Building"), {
-				id = "build_notifier",
-				title = "Zig",
-				icon = spinner[index],
-			})
-		end)
-	)
-
-	return timer
-end
-
 -- this is to set args to be passed to zig run instead of asking each time
 vim.keymap.set("n", "<leader>da", function()
 	local args = vim.fn.input("Run args: ")
 	-- save args in a global variable
 	vim.g.zig_run_args = args
 end, {
-	desc = "zig: set run args",
+	desc = "zig: Set run args",
 })
 
 -- this is an easy zig build from nvim
 vim.keymap.set("n", "<leader>dm", function()
 	close_terminal_window()
-
-	local timer = show_loading_notification()
-
-	vim.system({ "zig", "build", "--color", "on" }, {
-		cwd = Util.root(),
-	}, function(res)
-		vim.schedule(function()
-			if timer ~= nil then
-				timer:stop()
-				timer:close()
-			end
-
-			-- Send status message
-			if res.code == 0 then
-				if Snacks.notify.success then
-					Snacks.notify.success("Build succeeded", { id = "build_notifier", title = "Zig" })
-				else
-					Snacks.notify.info("Build succeeded", { id = "build_notifier", title = "Zig", icon = "" })
-				end
-			else
-				Snacks.notify.error("Build failed", { id = "build_notifier", title = "Zig" })
-				open_terminal_window(res.stdout, res.stderr)
-			end
-		end)
-	end)
+	run_in_terminal_window("zig", { "build", "--color", "on" })
 end, {
-	desc = "zig: build",
+	desc = "zig: Build",
 })
 
 -- this is an easy zig build run from nvim
 vim.keymap.set("n", "<leader>dr", function()
-	local args = vim.g.zig_run_args and (" --color on -- " .. vim.g.zig_run_args) or " --color on"
-	local command = require("dap.utils").splitstr("zig build run" .. args)
+	local args_str = vim.g.zig_run_args and (" --color on -- " .. vim.g.zig_run_args) or " --color on"
+	local args = require("dap.utils").splitstr("build run " .. args_str)
 
 	close_terminal_window()
-
-	local timer = show_loading_notification("Building and running")
-
-	vim.system(command, {
-		cwd = Util.root(),
-	}, function(res)
-		if timer ~= nil then
-			timer:stop()
-			timer:close()
-		end
-
-		vim.schedule(function()
-			Snacks.notifier.hide("build_notifier")
-			open_terminal_window(res.stdout, res.stderr)
-		end)
-	end)
+	run_in_terminal_window("zig", args)
 end, {
-	desc = "zig: build run",
+	desc = "zig: Build run (with args)",
 })

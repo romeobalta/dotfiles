@@ -36,7 +36,7 @@ return {
 		},
 	},
 
-	-- add ai_accept action
+	-- hook into cmp and lsp
 	{
 		"zbirenbaum/copilot.lua",
 		opts = function()
@@ -47,6 +47,8 @@ return {
 					return true
 				end
 			end
+
+			Util.lsp.register_client("copilot", "")
 		end,
 	},
 

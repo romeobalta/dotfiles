@@ -81,6 +81,7 @@ return {
 			},
 			setup = {
 				clangd = function(_, opts)
+					Util.lsp.register_client("clangd", require("mini.icons").get("filetype", "c"))
 					local clangd_ext_opts = Util.opts("clangd_extensions.nvim")
 					require("clangd_extensions").setup(
 						vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts })

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ~/.config/fzf.zsh
+
 selected=$(tldr -l | fzf)
 
 if [[ -z $selected ]]; then

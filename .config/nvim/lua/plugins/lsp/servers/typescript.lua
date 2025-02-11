@@ -117,6 +117,8 @@ return {
 					return true
 				end,
 				vtsls = function(_, opts)
+					Util.lsp.register_client("vtsls", require("mini.icons").get("filetype", "typescript"))
+
 					Util.lsp.on_attach(function(client, buffer)
 						client.commands["_typescript.moveToFileRefactoring"] = function(command, ctx)
 							---@type string, string, lsp.Range

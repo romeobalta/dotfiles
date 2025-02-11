@@ -19,6 +19,11 @@ return {
 					},
 				},
 			},
+			setup = {
+				zls = function()
+					Util.lsp.register_client("zls", require("mini.icons").get("filetype", "zig"))
+				end,
+			},
 		},
 	},
 
@@ -93,10 +98,10 @@ return {
 		opts = {
 			adapters = {
 				["neotest-zig"] = {
-                    dap = {
-                        adapter = "codelldb",
-                    }
-                },
+					dap = {
+						adapter = "codelldb",
+					},
+				},
 			},
 		},
 	},

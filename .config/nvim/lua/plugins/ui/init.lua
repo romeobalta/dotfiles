@@ -19,9 +19,15 @@ return {
 	-- noice
 	-- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
 	{
+        enabled = false,
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
+            lsp = {
+                signature = {
+                    enabled = false,
+                },
+            },
 			cmdline = {
 				view = "cmdline",
 			},

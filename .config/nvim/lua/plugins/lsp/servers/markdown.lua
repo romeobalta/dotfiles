@@ -53,6 +53,11 @@ return {
 			servers = {
 				marksman = {},
 			},
+			setup = {
+				marksman = function()
+					Util.lsp.register_client("marksman", "")
+				end,
+			},
 		},
 	},
 

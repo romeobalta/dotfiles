@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ~/.config/fzf.zsh
+
 # list of directories to search for
 dirs=(
 	~

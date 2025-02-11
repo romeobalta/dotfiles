@@ -96,6 +96,8 @@ return {
 			-- setup autoformat
 			Util.format.register(Util.lsp.formatter())
 
+			Util.lsp.register_client("lua_ls", require("mini.icons").get("filetype", "lua"))
+
 			-- setup keymaps
 			Util.lsp.on_attach(function(client, buffer)
 				require("plugins.lsp.keymaps").on_attach(client, buffer)

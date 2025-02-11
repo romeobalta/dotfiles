@@ -17,6 +17,41 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 -- map("n", "<leader>r", vim.cmd.Rex)
 
 -----------------------
+-- File utilities
+-----------------------
+map("n", "<leader>fu", "", { desc = "File utilities" })
+
+---Return current buffer path using filename modifier.
+---@param mod string See |filename-modifiers|
+local function get_location(mod)
+	local location = ""
+
+	if vim.bo.filetype == "oil" then
+		local ok, oil = pcall(require, "oil")
+		if ok then
+			local bufnr = vim.api.nvim_get_current_buf()
+			local dir = oil.get_current_dir(bufnr)
+			if dir then
+				location = dir
+			end
+		end
+	else
+		location = vim.api.nvim_buf_get_name(0)
+	end
+
+	return vim.fn.fnamemodify(location, mod)
+end
+
+-- Copy relative and full file path to clipboard
+map("n", "<leader>fur", function()
+	vim.fn.setreg("+", get_location(":."))
+end, { desc = "Copy relative file path" })
+
+map("n", "<leader>ful", function()
+	vim.fn.setreg("+", get_location(":~"))
+end, { desc = "Copy full file path" })
+
+-----------------------
 -- Window mappings
 -----------------------
 map("n", "<C-h>", "<C-w>h", { desc = "Window left" })
@@ -24,11 +59,10 @@ map("n", "<C-l>", "<C-w>l", { desc = "Window right" })
 map("n", "<C-j>", "<C-w>j", { desc = "Window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Window up" })
 
-map("n", "<leader>xk", function()
-	local statuscolumn = require("plugins.ui.statuscolumn")
-
-	statuscolumn.print_cache()
-end)
+map("n", "<M->>", "<C-W>5>", { desc = "Increase window height" })
+map("n", "<M-<>", "<C-W>5<", { desc = "Increase window height" })
+map("n", "<M-+>", "<C-W>+", { desc = "Increase window height" })
+map("n", "<M-->", "<C-W>-", { desc = "Increase window height" })
 
 -----------------------
 -- Movement mappings
@@ -105,6 +139,7 @@ map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 ------------------------------
 
 map("n", "<leader>wz", function()
+	---@diagnostic disable-next-line: missing-fields
 	require("snacks").zen.zen({
 		window = {
 			width = 130, -- width will be 85% of the editor width

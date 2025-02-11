@@ -1,24 +1,12 @@
 local M = {}
 
 M.icons = {
-    misc = {
-        dots = "󰇘",
-    },
-    ft = {
-        octo = "",
-    },
     dap = {
         Stopped             = { ">", "DiagnosticWarn", "DapStoppedLine" },
         Breakpoint          = "B",
         BreakpointCondition = "C",
         BreakpointRejected  = { "R", "DiagnosticError" },
         LogPoint            = "L",
-    },
-    diagnostics = {
-        Error = "E ",
-        Warn  = "W ",
-        Hint  = "H ",
-        Info  = "I ",
     },
     git = {
         added    = "+",

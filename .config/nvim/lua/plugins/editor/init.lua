@@ -85,13 +85,13 @@ return {
 							layout = "vertical",
 							-- height is number of items minus 15 lines for the preview, with a max of 80% screen height
 							height = math.floor(math.min(vim.o.lines * 0.8 - 16, #items + 2) + 0.5) + 16,
-							width = 0.5,
+							width = 0.8,
 							preview = not vim.tbl_isempty(Util.lsp.get_clients({ bufnr = 0, name = "vtsls" })) and {
-								layout = "vertical",
+								layout = "flex",
 								vertical = "down:15,border-top",
 								hidden = "hidden",
 							} or {
-								layout = "vertical",
+								layout = "flex",
 								vertical = "down:15,border-top",
 							},
 						},
@@ -290,10 +290,10 @@ return {
 			local Keys = require("plugins.lsp.keymaps").get()
             -- stylua: ignore
             vim.list_extend(Keys, {
-                { "gd", "<cmd>FzfLua lsp_definitions     jump_to_single_result=true ignore_current_line=true<cr>", desc = "Goto Definition",       has = "definition" },
-                { "gr", "<cmd>FzfLua lsp_references      jump_to_single_result=true ignore_current_line=true<cr>", desc = "References",            nowait = true },
-                { "gI", "<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<cr>", desc = "Goto Implementation" },
-                { "gy", "<cmd>FzfLua lsp_typedefs        jump_to_single_result=true ignore_current_line=true<cr>", desc = "Goto T[y]pe Definition" },
+                { "gd", "<cmd>FzfLua lsp_definitions     jump1=true ignore_current_line=true<cr>", desc = "Goto Definition",       has = "definition" },
+                { "gr", "<cmd>FzfLua lsp_references      jump1=true ignore_current_line=true<cr>", desc = "References",            nowait = true },
+                { "gI", "<cmd>FzfLua lsp_implementations jump1=true ignore_current_line=true<cr>", desc = "Goto Implementation" },
+                { "gy", "<cmd>FzfLua lsp_typedefs        jump1=true ignore_current_line=true<cr>", desc = "Goto T[y]pe Definition" },
             })
 		end,
 	},
@@ -557,8 +557,6 @@ return {
 				"<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>",
 				desc = "Todo/Fix/Fixme (Trouble)",
 			},
-			{ "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-			{ "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
 		},
 	},
 
@@ -788,8 +786,7 @@ return {
 						i = { "@block.inner", "@conditional.inner", "@loop.inner" },
 					}),
 					f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
-					c = ai.gen_spec.treesitter({ a = "@comment.outer", i = "@comment.outer" }), -- comment
-					s = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
+					c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
 					t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
 					d = { "%f[%d]%d+" }, -- digits
 					e = { -- Word with case
@@ -916,7 +913,7 @@ return {
 			harpoon.setup(opts)
 
 			harpoon:extend(harpoon_extensions.builtins.navigate_with_number())
-			harpoon:extend(harpoon_extensions.harpoon_navigate_in_windows())
+			harpoon:extend(extensions.harpoon_navigate_in_windows())
 		end,
 	},
 
@@ -934,9 +931,6 @@ return {
 			},
 			view_options = {
 				show_hidden = true,
-			},
-			win_options = {
-				winbar = "%!v:lua.require('plugins.editor.extensions').oil_get_winbar()",
 			},
 		},
 		keys = {

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ~/.config/fzf.zsh
+
 selected=$(curl -s "cht.sh/:list" | fzf)
 if [[ -z $selected ]]; then
 	exit 0

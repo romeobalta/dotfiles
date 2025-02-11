@@ -59,6 +59,9 @@ return {
 					max = 0.4,
 				},
 				style = extensions.minimal_improved,
+                margin = {
+                    bottom = 1,
+                }
 			},
 			notify = { enabled = true },
 			quickfile = { enabled = true },

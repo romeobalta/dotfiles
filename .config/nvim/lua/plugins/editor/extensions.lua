@@ -43,17 +43,6 @@ function M.ufo_fold_text(virtText, lnum, endLnum, width, truncate)
 	return newVirtText
 end
 
-function M.oil_get_winbar()
-	local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
-	local dir = require("oil").get_current_dir(bufnr)
-	if dir then
-		return vim.fn.fnamemodify(dir, ":~")
-	else
-		-- If there is no current directory (e.g. over ssh), just show the buffer name
-		return vim.api.nvim_buf_get_name(0)
-	end
-end
-
 -- the follwing code is some harpoon code repurposed to mimick the :Rex command for oil.nvim
 local Path = require("plenary.path")
 local function normalize_path(buf_name, root)
@@ -162,7 +151,10 @@ function M.harpoon_navigate_in_windows()
 			local bufnr = vim.fn.bufnr(to_exact_name(ev.item.value))
 
 			if bufnr == -1 then
-				return
+				bufnr = vim.fn.bufnr(to_exact_name(vim.fn.fnamemodify(ev.item.value, ":~")))
+				if bufnr == -1 then
+					return
+				end
 			end
 
 			for _, win in ipairs(vim.api.nvim_list_wins()) do
