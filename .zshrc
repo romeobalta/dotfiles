@@ -124,10 +124,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-source ~/.aliases.zsh
-source ~/.fn.zsh
-source ~/.path.zsh
-source ~/.binds.zsh
+source ~/.config/aliases.zsh
+source ~/.config/binds.zsh
+source ~/.config/fn.zsh
+source ~/.config/path.zsh
 
 # source ~/.zshrc_custom only if it exists
 [ -f ~/.zshrc_custom ] && source ~/.zshrc_custom
