@@ -12,11 +12,6 @@ return {
 					},
 				},
 			},
-			setup = {
-				eslint = function()
-					Util.lsp.register_client("eslint", "󰱺")
-				end,
-			},
 		},
 	},
 }

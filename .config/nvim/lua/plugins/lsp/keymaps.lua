@@ -14,6 +14,74 @@ function M.diagnostic_goto(next, severity)
 	end
 end
 
+---@param id number
+---@param name string
+function M.restart_lsp(id, name)
+	local configs = require("lspconfig.configs")
+	local client = vim.lsp.get_client_by_id(id)
+
+	if client and configs[name] then
+		local buffers = vim.lsp.get_buffers_by_client_id(id)
+		client.stop()
+
+		local timer = assert(vim.uv.new_timer())
+
+		timer:start(
+			500,
+			100,
+			vim.schedule_wrap(function()
+				if client and client.is_stopped() then
+					for _, buf in pairs(buffers) do
+						require("lspconfig.configs")[name].launch(buf)
+					end
+					client = nil
+				end
+
+				if client == nil and not timer:is_closing() then
+					timer:close()
+				end
+			end)
+		)
+	end
+end
+
+function M.pick_lsp()
+	local fzf_lua = require("fzf-lua")
+	local icons = require("config").icons.lsp
+	local t = {}
+
+	local clients = {}
+
+	for _, client in ipairs(Util.lsp.get_clients({ bufnr = 0 })) do
+		local icon = icons[client.name] or " "
+		local client_name_aligned = client.name .. string.rep(" ", 12 - #tostring(client.name))
+		clients[client.id] = client.name
+		table.insert(t, icon .. client_name_aligned .. " - ID: " .. client.id)
+	end
+
+	fzf_lua.fzf_exec(t, {
+		prompt = "LSP> ",
+		winopts = { height = 0.3, width = 0.3 },
+		fn_transform = function(x)
+			return fzf_lua.utils.ansi_codes.magenta(x)
+		end,
+		actions = {
+			["default"] = function(selected)
+				for _, client in ipairs(selected) do
+					local id = tonumber(client:match("ID: (%d+)")) or -1
+					M.restart_lsp(id, clients[id])
+				end
+			end,
+			["ctrl-r"] = function(selected)
+				for _, client in ipairs(selected) do
+					local id = tonumber(client:match("ID: (%d+)")) or -1
+					M.restart_lsp(id, clients[id])
+				end
+			end,
+		},
+	})
+end
+
 ---@return LazyKeysLspSpec[]
 function M.get()
 	if M._keys then
@@ -125,6 +193,7 @@ function M.get()
 				return Snacks.words.is_enabled()
 			end,
 		},
+		{ "<leader>cx", M.pick_lsp, desc = "LSP Actions" },
 		{ "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
 		{ "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
 		{ "[d", M.diagnostic_goto(false), desc = "Prev Diagnostic" },

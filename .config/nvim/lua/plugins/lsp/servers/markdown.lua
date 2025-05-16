@@ -35,7 +35,7 @@ return {
 	},
 
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
 		opts = { ensure_installed = { "markdownlint-cli2", "markdown-toc" } },
 	},
 
@@ -52,11 +52,6 @@ return {
 		opts = {
 			servers = {
 				marksman = {},
-			},
-			setup = {
-				marksman = function()
-					Util.lsp.register_client("marksman", "")
-				end,
 			},
 		},
 	},

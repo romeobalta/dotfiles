@@ -1,5 +1,6 @@
 local M = {}
 
+-- stylua: ignore
 M.icons = {
     dap = {
         Stopped             = { ">", "DiagnosticWarn", "DapStoppedLine" },
@@ -12,6 +13,19 @@ M.icons = {
         added    = "+",
         modified = "~",
         removed  = "-",
+    },
+    lsp = {
+        default       = " ",
+        biome         = "󰯯 ",
+        copilot       = " ",
+        lua_ls        = "󰢱 ",
+        clangd        = "󰢱 ",
+        eslint        = "󰱺 ",
+        jsonls        = " ",
+        marksman      = " ",
+        tailwindcss   = "󱏿 ",
+        vtsls         = "󰛦 ",
+        zls           = " ",
     },
     kinds = {
         Array         = " ",

@@ -1,16 +1,17 @@
 local extensions = require("plugins.snacks.extensions")
 
 return {
-    -- plenary
+	-- plenary
 	{ "nvim-lua/plenary.nvim", lazy = true },
 
-    -- snacks
+	-- snacks
 	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
 		---@type snacks.Config
 		opts = {
+            image = { enabled = true },
 			bigfile = { enabled = true },
 			bufdelete = { enabled = true },
 			debug = { enabled = true },
@@ -59,9 +60,9 @@ return {
 					max = 0.4,
 				},
 				style = extensions.minimal_improved,
-                margin = {
-                    bottom = 1,
-                }
+				margin = {
+					bottom = 1,
+				},
 			},
 			notify = { enabled = true },
 			quickfile = { enabled = true },

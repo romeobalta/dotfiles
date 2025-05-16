@@ -98,11 +98,12 @@ M.section_lsp = function(args)
 	end
 
 	local t = {}
+	local icons = require("config").icons.lsp
 
 	for _, client in ipairs(Util.lsp.get_clients({ bufnr = 0 })) do
-		local icon = Util.lsp.icons[client.name] or "+"
+		local icon = icons[client.name] or " "
 		if icon ~= nil then
-			table.insert(t, icon .. " ")
+			table.insert(t, icon)
 		end
 	end
 
@@ -150,7 +151,7 @@ M.section_fileinfo = function(args)
 	local size = H.get_filesize()
 
 	local fileinfo = string.format("%s %s[%s] %s", filetype, encoding, format, size)
-    return "%#MiniStatuslineTitle#File: %#MiniStatuslineDevinfo#" .. fileinfo;
+	return "%#MiniStatuslineTitle#File: %#MiniStatuslineDevinfo#" .. fileinfo
 end
 
 ---@param args __statusline_args

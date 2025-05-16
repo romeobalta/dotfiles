@@ -2,20 +2,7 @@
 --- URL: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/lsp.lua
 
 ---@class lazyvim.util.lsp
----@field icons table<string, string>
-local M = {
-	icons = {},
-}
-
----@class util.lsp.ClientIcon
----@field name string
----@field icon string
-
----@param name string
----@param icon string
-function M.register_client(name, icon)
-    M.icons[name] = icon
-end
+local M = {}
 
 ---@alias lsp.Client.filter {id?: number, bufnr?: number, name?: string, method?: string, filter?:fun(client: lsp.Client):boolean}
 
@@ -216,8 +203,10 @@ function M.format(opts)
 	-- since it has better format diffing
 	if ok then
 		opts.formatters = {}
+		Snacks.notify.info("Formatting with conform :")
 		conform.format(opts)
 	else
+		Snacks.notify.info("Formatting with the lsp :", opts)
 		vim.lsp.buf.format(opts)
 	end
 end

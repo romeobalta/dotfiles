@@ -15,4 +15,4 @@ default < ctrl - 8 : open -a /Applications/WhatsApp.app/Contents/MacOS/WhatsApp
 default < ctrl - 9 : open -a /System/Applications/Messages.app/Contents/MacOS/Messages
 
 # ctrl + shift + m
-default < ctrl + shift - 0x2E : sh ~/dotfiles/scripts/toggle-mic.sh
+# default < ctrl + shift - 0x2E : sh ~/dotfiles/scripts/toggle-mic.sh

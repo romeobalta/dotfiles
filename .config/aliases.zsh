@@ -9,7 +9,7 @@ alias gs='git status'
 alias gc='git commit'
 alias gcm='git commit -m'
 alias gb='git branch'
-alias ll='ls -al'
+alias ll='ls -alh'
 alias dotfiles='cd $HOME/dotfiles'
 
 alias soundrestart='sudo launchctl stop com.apple.audio.coreaudiod && sudo launchctl start com.apple.audio.coreaudiod'

@@ -34,11 +34,6 @@ return {
 					},
 				},
 			},
-			setup = {
-				jsonls = function()
-					Util.lsp.register_client("jsonls", require("mini.icons").get("filetype", "json"))
-				end,
-			},
 		},
 	},
 }

@@ -9,7 +9,9 @@ return {
 		opts = {
 			servers = {
 				zls = {
+                    mason = false,
 					cmd = { vim.fn.expand("$HOME") .. "/soft/zls/zig-out/bin/zls" },
+                    -- cmd = { "zls" },
 
 					settings = {
 						zls = {
@@ -19,11 +21,6 @@ return {
 					},
 				},
 			},
-			setup = {
-				zls = function()
-					Util.lsp.register_client("zls", require("mini.icons").get("filetype", "zig"))
-				end,
-			},
 		},
 	},
 
@@ -31,7 +28,7 @@ return {
 		"mfussenegger/nvim-dap",
 		dependencies = {
 			-- Ensure C/C++ debugger is installed
-			"williamboman/mason.nvim",
+			"mason-org/mason.nvim",
 			opts = { ensure_installed = { "codelldb" } },
 		},
 		opts = function()

@@ -14,7 +14,6 @@ return {
 			},
 			setup = {
 				tailwindcss = function(_, opts)
-					Util.lsp.register_client("tailwindcss", "󱏿")
 					local tw = Util.lsp.get_raw_config("tailwindcss")
 					opts.filetypes = opts.filetypes or {}
 

@@ -7,6 +7,7 @@ local function pick(kind)
 			return
 		end
 		require("CopilotChat.integrations.fzflua").pick(items)
+		-- require("CopilotChat").select_prompt({ })
 	end
 end
 
@@ -47,8 +48,6 @@ return {
 					return true
 				end
 			end
-
-			Util.lsp.register_client("copilot", "")
 		end,
 	},
 
@@ -148,10 +147,10 @@ return {
 					local status = require("copilot.client").is_disabled()
 					local notify = require("snacks.notify")
 					if status then
-						notify.notify("Copilot is being enabled")
+						notify.notify("Copilot is being enabled .")
 						copilot.enable()
 					else
-						notify.notify("Copilot is being disabled")
+						notify.notify("Copilot is being disabled .")
 						copilot.disable()
 					end
 				end,

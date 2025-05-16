@@ -117,8 +117,6 @@ return {
 					return true
 				end,
 				vtsls = function(_, opts)
-					Util.lsp.register_client("vtsls", require("mini.icons").get("filetype", "typescript"))
-
 					Util.lsp.on_attach(function(client, buffer)
 						client.commands["_typescript.moveToFileRefactoring"] = function(command, ctx)
 							---@type string, string, lsp.Range
@@ -176,10 +174,10 @@ return {
 
 					-- disable formatting for vtsls, we use eslint for that
 					---@param client vim.lsp.Client
-					opts.on_init = function(client)
-						client.server_capabilities.documentFormattingProvider = false
-						client.server_capabilities.documentRangeFormattingProvider = false
-					end
+					-- opts.on_init = function(client)
+					-- 	client.server_capabilities.documentFormattingProvider = false
+					-- 	client.server_capabilities.documentRangeFormattingProvider = false
+					-- end
 				end,
 			},
 		},
@@ -189,7 +187,7 @@ return {
 		"mfussenegger/nvim-dap",
 		dependencies = {
 			{
-				"williamboman/mason.nvim",
+				"mason-org/mason.nvim",
 				opts = function(_, opts)
 					opts.ensure_installed = opts.ensure_installed or {}
 					table.insert(opts.ensure_installed, "js-debug-adapter")
@@ -232,23 +230,54 @@ return {
 			local vscode = require("dap.ext.vscode")
 			vscode.type_to_filetypes["node"] = js_filetypes
 			vscode.type_to_filetypes["pwa-node"] = js_filetypes
+			vscode.type_to_filetypes["chrome"] = js_filetypes
+			vscode.type_to_filetypes["pwa-chrome"] = js_filetypes
 
 			for _, language in ipairs(js_filetypes) do
 				if not dap.configurations[language] then
 					dap.configurations[language] = {
+						-- {
+						-- type = "pwa-node",
+						-- request = "launch",
+						-- name = "node.js: launch file",
+						-- cwd = "${workspaceFolder}",
+						-- NOTE: you would need to have tsx installed globally
+						-- runtimeExecutable = "tsx",
+						-- args = { "${file}" },
+						-- sourceMaps = true,
+						-- protocol = "inspector",
+						-- skipFiles = { "<node_internals>/**", "node_modules/**" },
+						-- resolveSourceMapLocations = {
+						-- 	"${workspaceFolder}/**",
+						-- 	"!**/node_modules/**",
+						-- },
+						-- },
+						-- {
+						-- 	type = "pwa-node",
+						-- 	name = "attach",
+						-- 	request = "attach",
+						-- 	processId = require("dap.utils").pick_process,
+						-- 	cwd = "${workspaceFolder}",
+						-- 	skipFiles = { "<node_internals>/**", "**/node_modules/**" },
+						-- },
 						{
 							type = "pwa-node",
-							request = "launch",
-							name = "Launch file",
-							program = "${file}",
+							name = "attach to server",
+							request = "attach",
 							cwd = "${workspaceFolder}",
+							port = 9230,
+							skipFiles = { "<node_internals>/**", "**/node_modules/**" },
 						},
 						{
-							type = "pwa-node",
-							request = "attach",
-							name = "Attach",
-							processId = require("dap.utils").pick_process,
-							cwd = "${workspaceFolder}",
+							name = "launch chrome",
+							type = "chrome",
+							request = "launch",
+							url = "http://localhost:3000",
+							webRoot = "${workspaceFolder}",
+							sourceMaps = true, -- https://github.com/vercel/next.js/issues/56702#issuecomment-1913443304
+							sourceMapPathOverrides = {
+								["webpack://_N_E/*"] = "${webRoot}/*",
+							},
 						},
 					}
 				end

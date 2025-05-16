@@ -642,12 +642,15 @@ return {
 				},
 			},
 
+			cmdline = {
+				sources = {},
+			},
+
 			sources = {
 				-- adding any nvim-cmp sources here will enable them
 				-- with blink.compat
 				compat = {},
 				default = { "lsp", "path", "snippets", "buffer", "lazydev" },
-				cmdline = {},
 				providers = {
 					lazydev = {
 						name = "LazyDev",
@@ -1203,7 +1206,13 @@ return {
 
 			-- You can provide additional configuration to the handlers,
 			-- see mason-nvim-dap README for more information
-			handlers = {},
+			handlers = {
+				chrome = function(config)
+					config.configurations = {}
+
+					require("mason-nvim-dap").default_setup(config)
+				end,
+			},
 
 			-- You'll need to check that you have the required things installed
 			-- online, please don't ask me how to install them :)
@@ -1337,6 +1346,25 @@ return {
 					end
 				end
 			end
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		event = "LazyFile",
+		opts = function()
+			local tsc = require("treesitter-context")
+			Snacks.toggle({
+				name = "Treesitter Context",
+				get = tsc.enabled,
+				set = function(state)
+					if state then
+						tsc.enable()
+					else
+						tsc.disable()
+					end
+				end,
+			}):map("<leader>ut")
+			return { mode = "cursor", max_lines = 3 }
 		end,
 	},
 	-- Automatically add closing tags for HTML and JSX
