@@ -1110,46 +1110,6 @@ return {
 				end
 				return _config
 			end
-
-			-- zig defaults
-			for _, lang in ipairs({ "zig" }) do
-				dap.configurations[lang] = {
-					{
-						type = "codelldb",
-						request = "launch",
-						name = "LLDB: Launch with args",
-						program = function()
-							return require("dap.utils").pick_file({
-								executables = true,
-								path = Util.root(),
-								filter = function(filepath)
-									-- look only for paths in the cwd with zig-out in them
-									return vim.fn.match(filepath, "zig-out") ~= -1
-										and vim.fn.match(filepath, Util.root()) ~= -1
-								end,
-							})
-						end,
-						args = function()
-							local args = vim.fn.input("Arguments: ", "", "file") -- Read some args
-							return args == "" and {} or require("dap.utils").splitstr(args)
-						end,
-						cwd = vim.fn.getcwd(),
-					},
-					{
-						type = "codelldb",
-						request = "attach",
-						name = "LLDB: Attach to process",
-						pid = function()
-							return require("dap.utils").pick_process({
-								filter = function(proc)
-									return vim.fn.match(proc.name, "zig-out") ~= -1
-								end,
-							})
-						end,
-						cwd = vim.fn.getcwd(),
-					},
-				}
-			end
 		end,
 		config = function()
 			-- load mason-nvim-dap here, after all adapters have been setup
@@ -1208,6 +1168,11 @@ return {
 			-- see mason-nvim-dap README for more information
 			handlers = {
 				chrome = function(config)
+					config.configurations = {}
+
+					require("mason-nvim-dap").default_setup(config)
+				end,
+				codelldb = function(config)
 					config.configurations = {}
 
 					require("mason-nvim-dap").default_setup(config)
