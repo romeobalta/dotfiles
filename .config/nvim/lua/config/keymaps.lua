@@ -134,6 +134,12 @@ end, { desc = "Next Quickfix" })
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 map("n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 
+-- toggle wrap
+map("n", "<leader>uw", function()
+	local wrap = vim.wo.wrap
+	vim.wo.wrap = not wrap
+end, { desc = "Inspect Tree" })
+
 ------------------------------
 ---These should move
 ------------------------------
