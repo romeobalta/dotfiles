@@ -21,6 +21,7 @@ M.icons = {
         lua_ls        = "󰢱 ",
         clangd        = "󰢱 ",
         eslint        = "󰱺 ",
+        oxlint        = " ",
         jsonls        = " ",
         marksman      = " ",
         tailwindcss   = "󱏿 ",

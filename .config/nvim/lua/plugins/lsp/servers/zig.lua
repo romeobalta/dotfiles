@@ -9,12 +9,12 @@ return {
 		opts = {
 			servers = {
 				zls = {
-                    mason = false,
-					cmd = { vim.fn.expand("$HOME") .. "/soft/zls/zig-out/bin/zls" },
-                    -- cmd = { "zls" },
+					mason = false,
+					cmd = { "zls" },
 
 					settings = {
 						zls = {
+							semantic_tokens = "partial",
 							enable_build_on_save = true,
 							build_on_save_step = "check",
 						},

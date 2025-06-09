@@ -26,8 +26,3 @@ source ~/.config/fn.zsh
 source ~/.config/path.zsh
 source ~/.config/fzf.zsh
 [ -s ~/.zshrc_custom ] && source ~/.zshrc_custom # source ~/.zshrc_custom only if it exists
-
-# Programs and other stuff
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi

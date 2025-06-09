@@ -273,6 +273,10 @@ return {
 			events = { "BufWritePost", "BufReadPost", "InsertLeave" },
 			linters_by_ft = {
 				fish = { "fish" },
+				-- javascript = { "oxlint" },
+				-- typescript = { "oxlint" },
+				-- javascriptreact = { "oxlint" },
+				-- typescriptreact = { "oxlint" },
 				-- ["*"] = { "typos" },
 			},
 			---@type table<string,table>
@@ -584,6 +588,7 @@ return {
 
 	-- server
 	{ import = "plugins.lsp.servers.eslint" },
+	{ import = "plugins.lsp.servers.oxlint" },
 	{ import = "plugins.lsp.servers.clang" },
 	{ import = "plugins.lsp.servers.typescript" },
 	{ import = "plugins.lsp.servers.zig" },

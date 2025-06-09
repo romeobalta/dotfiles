@@ -1338,6 +1338,22 @@ return {
 			return { mode = "cursor", max_lines = 3 }
 		end,
 	},
+
+	-- better quickfix
+	{
+		"stevearc/quicker.nvim",
+		event = "FileType qf",
+		---@module "quicker"
+		---@type quicker.SetupOptions
+		opts = {
+            opts = {
+                number = true,
+                relativenumber = true,
+            },
+            constrain_cursor = false,
+        },
+	},
+
 	-- Automatically add closing tags for HTML and JSX
 	{
 		"windwp/nvim-ts-autotag",
