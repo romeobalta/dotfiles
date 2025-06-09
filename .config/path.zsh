@@ -1,4 +1,4 @@
-SOFT_DIR="/Users/romeo/soft"
+SOFT_DIR="${HOME}/soft"
 
 # go
 export GOPATH=$HOME/.go
@@ -11,6 +11,16 @@ export PATH="$HOME/.local/bin/scripts:$PATH"
 
 export LESS='-FRX'
 export RUST_BACKTRACE=1
+
+# nvim
+NVIM_DIR="${SOFT_DIR}/nvim-macos-arm64/bin"
+if [ -d "$NVIM_DIR" ]; then
+    # Check if it's already in PATH to avoid duplicates
+    case ":$PATH:" in
+        *":$NVIM_DIR:"*) ;;
+        *) export PATH="$NVIM_DIR:$PATH" ;;
+    esac
+fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
