@@ -11,7 +11,7 @@ g.maplocalleader = " "
 g.snacks_animate = false
 g.copilot_no_maps = true -- no copilot maps
 
-opt.guicursor = "n-v-c:block"
+opt.guicursor = "n-v-c:block,i:block-iCursor"
 
 opt.autowrite = true
 opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard

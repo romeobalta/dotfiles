@@ -24,4 +24,3 @@ edit-and-run() {
 }
 
 zle -N edit-and-run
-bindkey '^[e' edit-and-run
