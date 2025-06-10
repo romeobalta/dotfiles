@@ -30,7 +30,6 @@ function M.start(opts)
 	local command = {
 		"zig",
 		"build",
-		opts.command or "run",
 		"-fincremental",
 		"--watch",
 		"--summary",
@@ -38,6 +37,8 @@ function M.start(opts)
 	}
 
 	vim.notify("Starting Zig watcher...")
+
+	local new_build = false
 
 	job_id = vim.fn.jobstart(command, {
 		pty = true,
@@ -53,6 +54,9 @@ function M.start(opts)
 					if line ~= "" and string.match(line, reset_pattern) then
 						matches = {}
 						vim.fn.setqflist({}, "r")
+
+						new_build = true
+
 						goto after_reset
 					end
 				end
@@ -72,9 +76,15 @@ function M.start(opts)
 				::continue::
 			end
 
+			if #matches == 0 and new_build then
+				vim.notify("Zig build successful.", vim.log.levels.INFO)
+			end
+
 			if #matches > 0 then
 				vim.fn.setqflist({}, " ", { title = "Zig Watch Errors", items = matches })
+				vim.notify("Build found " .. #matches .. " error(s). Check quickfix list.", vim.log.levels.ERROR)
 			end
+			new_build = false
 		end,
 
 		on_stderr = function(_, data, _)

@@ -1,24 +1,27 @@
-batdiff() {
-    git diff --name-only --relative --diff-filter=d | xargs bat --diff
+# Function to edit the current command buffer in nvim and execute on save
+edit-and-run() {
+  # Create a temporary file to store the command
+  local TMP_FILE=$(mktemp)
+
+  # Write the current command line buffer to the temp file
+  # $BUFFER is a special zsh variable holding the current command line
+  echo "$BUFFER" >"$TMP_FILE"
+
+  # Open the temp file in nvim. The script will pause here until you close nvim.
+  nvim "$TMP_FILE"
+
+  # After nvim closes, read the (potentially modified) command back
+  local NEW_CMD=$(<"$TMP_FILE")
+
+  # Clean up the temporary file
+  rm -f "$TMP_FILE"
+
+  # Replace the current command buffer with the new command
+  BUFFER="$NEW_CMD"
+
+  # Accept the command line to execute it
+  zle accept-line
 }
 
-# watch processes on a port
-watchport() {
-  if [ -z "$1" ]; then
-    echo "Usage: watchport <port-number>"
-    return 1
-  fi
-
-  watch -n 1 lsof -i :$1
-}
-
-# kill a go process on a port (hence why main is used)
-killgo() {
-  if [ -z "$1" ]; then
-    echo "Usage: killgo <port-number>"
-    return 1
-  fi
-
-  lsof -i :$1 | awk '$1 == "main"{print $2}' | xargs kill -9
-}
-
+zle -N edit-and-run
+bindkey '^[e' edit-and-run
