@@ -1,7 +1,7 @@
 local zig_watcher = require("util.zig-watcher")
 
 local build_notifier = nil
-local build_handle = nil
+local pid = nil
 
 local function close_terminal_window()
 	if build_notifier then
@@ -20,11 +20,15 @@ local function run_in_terminal_window(cmd, args)
 	-- If we close the window, we need to set the global variable to nil
 	vim.api.nvim_create_autocmd({ "BufHidden" }, {
 		buffer = buf,
+        once = true,
 		callback = function()
-			if build_handle then
-				build_handle:kill(15)
-                build_handle:close()
-                build_handle = nil
+			if pid then
+				-- Kill the process if it is still running
+				vim.schedule(function()
+					dd("Killing", pid)
+					vim.uv.kill(-pid, 15)
+                    pid = nil
+				end)
 			end
 			build_notifier = nil
 		end,
@@ -51,10 +55,11 @@ local function run_in_terminal_window(cmd, args)
 	local stderr = vim.uv.new_pipe()
 
 	---@diagnostic disable-next-line: missing-fields
-	build_handle = vim.uv.spawn(cmd, {
+	local handle = vim.uv.spawn(cmd, {
 		args = args,
 		cwd = Util.root(),
 		stdio = { nil, stdout, stderr },
+        detached = true,
 	}, function(code)
 		vim.schedule(function()
 			if code == 0 then
@@ -63,6 +68,8 @@ local function run_in_terminal_window(cmd, args)
 			end
 		end)
 	end)
+
+	pid = handle:get_pid()
 
 	if stdout and stderr then
 		stdout:read_start(function(err, data)
@@ -83,7 +90,7 @@ local function run_in_terminal_window(cmd, args)
 			end
 		end)
 	else
-		build_handle:kill(15)
+		handle:kill(15)
 	end
 
 	-- Add keymapping to close the window
