@@ -25,7 +25,6 @@ local function run_in_terminal_window(cmd, args)
 			if pid then
 				-- Kill the process if it is still running
 				vim.schedule(function()
-					dd("Killing", pid)
 					vim.uv.kill(-pid, 15)
                     pid = nil
 				end)
@@ -61,12 +60,12 @@ local function run_in_terminal_window(cmd, args)
 		stdio = { nil, stdout, stderr },
         detached = true,
 	}, function(code)
-		vim.schedule(function()
-			if code == 0 then
-				close_terminal_window()
-				Snacks.notify.success("Build successful")
-			end
-		end)
+		-- vim.schedule(function()
+		-- 	if code == 0 then
+		-- 		close_terminal_window()
+		-- 		Snacks.notify.success("Build successful")
+		-- 	end
+		-- end)
 	end)
 
 	pid = handle:get_pid()

@@ -56,7 +56,6 @@ local function run_build()
 		if #matches == 0 then
 			vim.notify("Zig build successful.", vim.log.levels.INFO)
 		elseif #matches > 0 then
-			vim.notify("Build found " .. #matches .. " error(s). Check quickfix list.", vim.log.levels.ERROR)
 			vim.schedule(function()
 				vim.fn.setqflist({}, "r", {
 					title = "Zig Build Errors",
