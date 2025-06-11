@@ -2,4 +2,11 @@
 .gitconfig
 .zshrc_custom
 
+*.zwc
+
 .config/nvim/lazyvim.json
+.config/git
+.config/github-copilot
+
+.local/share/nvim
+.local/state/nvim
