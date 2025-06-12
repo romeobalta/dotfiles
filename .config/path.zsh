@@ -32,7 +32,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # bun completions
-[ -s "/Users/romeo/.bun/_bun" ] && source "/Users/romeo/.bun/_bun"
+[ -s "${HOME}/.bun/_bun" ] && source "${HOME}/.bun/_bun"
 
 # zig
 ZIG_VERSION="zig-0.14.1"
@@ -59,7 +59,7 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 # pnpm
-export PNPM_HOME="/Users/romeo/Library/pnpm"
+export PNPM_HOME="${HOME}/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
