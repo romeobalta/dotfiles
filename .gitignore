@@ -7,6 +7,8 @@
 .config/nvim/lazyvim.json
 .config/git
 .config/github-copilot
+.config/fn_custom.zsh
 
 .local/share/nvim
 .local/state/nvim
+.local/state/pnpm

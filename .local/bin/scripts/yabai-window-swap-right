@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Get the ID of the focused window
+FOCUSED_WINDOW_ID=$(yabai -m query --windows --window | jq -r '.id')
+if [ -z "$FOCUSED_WINDOW_ID" ]; then
+    echo "No window focused."
+    exit 1
+fi
+
+# Get the ID of the display the focused window is currently on
+ORIGINAL_DISPLAY_ID=$(yabai -m query --windows --window | jq -r '.display')
+
+# Get the ID of the previous display (the left one)
+RIGHT_DISPLAY_INDEX=$(yabai -m query --displays --display east | jq -r '.index')
+if [ -z "$RIGHT_DISPLAY_INDEX" ]; then
+    echo "No right display found."
+    exit 1
+fi
+
+# Get the ID of a window on the previous display. We'll pick the first one if multiple.
+# Adjust this logic if you want to swap with a specific window on the other display (e.g., the focused one on that display)
+WINDOW_ON_RIGHT_DISPLAY_INDEX=$(yabai -m query --windows --display "$RIGHT_DISPLAY_INDEX" | jq -r '.[0].id')
+
+if [ -n "$WINDOW_ON_RIGHT_DISPLAY_INDEX" ]; then
+    # 1. Move the window from the previous display to the original display
+    yabai -m window "$WINDOW_ON_RIGHT_DISPLAY_INDEX" --display "$ORIGINAL_DISPLAY_ID"
+fi
+
+# No window found on the previous display. Just moving the focused window.
+yabai -m window "$FOCUSED_WINDOW_ID" --display "$RIGHT_DISPLAY_INDEX"
+
+yabai -m window --focus "$FOCUSED_WINDOW_ID"

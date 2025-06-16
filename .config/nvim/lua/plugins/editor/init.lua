@@ -1283,6 +1283,7 @@ return {
 			if type(opts.ensure_installed) == "table" then
 				opts.ensure_installed = Util.dedup(opts.ensure_installed)
 			end
+            vim.treesitter.language.register("bash", "zsh")
 			require("nvim-treesitter.configs").setup(opts)
 		end,
 	},

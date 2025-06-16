@@ -598,4 +598,5 @@ return {
 	{ import = "plugins.lsp.servers.tailwind" },
 	{ import = "plugins.lsp.servers.biome" },
 	{ import = "plugins.lsp.servers.prettier" },
+	{ import = "plugins.lsp.servers.vue" },
 }
