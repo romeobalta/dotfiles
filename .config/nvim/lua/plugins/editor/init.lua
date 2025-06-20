@@ -687,7 +687,7 @@ return {
 
 			-- add ai_accept to <Tab> key
 			opts.keymap["<Tab>"] = {
-				require("blink.cmp.keymap.presets")["super-tab"]["<Tab>"][1],
+				require("blink.cmp.keymap.presets").get("super-tab")["<Tab>"][1],
 				Util.cmp.map({ "snippet_forward", "ai_accept" }),
 				"fallback",
 			}

@@ -20,9 +20,6 @@ alias nosleep='caffeinate -disu &'
 
 alias gitchanges='git --no-pager diff --name-only FETCH_HEAD $(git merge-base FETCH_HEAD master)'
 
-# own scripts
-alias mov2gif="~/dotfiles/scripts/convert_mov_to_gif.sh" 
-
 # zig
 alias zb='zig build'
 alias zr='zig run'

@@ -21,8 +21,8 @@ default < ctrl - 8 : open -a /Applications/WhatsApp.app/Contents/MacOS/WhatsApp
 default < ctrl - 9 : open -a /System/Applications/Messages.app/Contents/MacOS/Messages
 
 # window management
-default, work < ctrl + shift - left : yabai -m window --display west ; yabai -m display --focus west
-default, work < ctrl + shift - right : yabai -m window --display east ; yabai -m display --focus east
+default, work < ctrl + shift - left : WINID=$(yabai -m query --windows --window | jq -r ".id") ; yabai -m window --display west ; yabai -m window --focus $WINID
+default, work < ctrl + shift - right : WINID=$(yabai -m query --windows --window | jq -r ".id") ; yabai -m window --display east ; yabai -m window --focus $WINID
 
 default, work < ctrl + alt - left : yabai-window-swap-left
 default, work < ctrl + alt - right : yabai-window-swap-right
