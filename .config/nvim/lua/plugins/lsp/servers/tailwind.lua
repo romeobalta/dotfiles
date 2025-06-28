@@ -10,6 +10,13 @@ return {
 					filetypes_include = {},
 					-- to fully override the default_config, change the below
 					-- filetypes = {}
+					root_dir = Util.lsp.root_if_config({
+						"tailwind.config.js",
+						"tailwind.config.cjs",
+						"tailwind.config.ts",
+						"tailwind.config.mts",
+						"tailwind.config.cts",
+					}),
 				},
 			},
 			setup = {

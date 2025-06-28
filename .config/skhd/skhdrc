@@ -5,11 +5,8 @@ default < ctrl - 0x1D ; work
 work < ctrl - 0x1D ; default
 
 default, work < ctrl - 1 : open -a /Applications/Ghostty.app/Contents/MacOS/ghostty
-
-default < ctrl - 2 : open -a /Applications/Arc.app/Contents/MacOS/Arc
-work < ctrl - 2 : open -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
-
-default, work < ctrl - 3 : open -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
+default, work < ctrl - 2 : open -a /Applications/Arc.app/Contents/MacOS/Arc
+default, work < ctrl - 3 : open -a /Applications/Claude.app/Contents/MacOS/Claude
 
 default < ctrl - 4 : open -a /Applications/Discord.app/Contents/MacOS/Discord
 work < ctrl - 4 : open -a /Applications/Slack.app/Contents/MacOS/Slack

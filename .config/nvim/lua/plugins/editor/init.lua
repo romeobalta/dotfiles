@@ -1283,7 +1283,7 @@ return {
 			if type(opts.ensure_installed) == "table" then
 				opts.ensure_installed = Util.dedup(opts.ensure_installed)
 			end
-            vim.treesitter.language.register("bash", "zsh")
+			vim.treesitter.language.register("bash", "zsh")
 			require("nvim-treesitter.configs").setup(opts)
 		end,
 	},
@@ -1347,12 +1347,12 @@ return {
 		---@module "quicker"
 		---@type quicker.SetupOptions
 		opts = {
-            opts = {
-                number = true,
-                relativenumber = true,
-            },
-            constrain_cursor = false,
-        },
+			opts = {
+				number = true,
+				relativenumber = true,
+			},
+			constrain_cursor = false,
+		},
 	},
 
 	-- Automatically add closing tags for HTML and JSX

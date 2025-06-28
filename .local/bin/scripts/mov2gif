@@ -9,23 +9,55 @@
 #-----------------------------------------------------------------------------------
 
 if [ -z "$1" ]; then
-	echo "Please provide a .mov file to convert"
-	exit 1
+    echo "Please provide a .mov file to convert"
+    exit 1
 fi
 
 if ! [ -x "$(command -v ffmpeg)" ]; then
-	echo 'Error: ffmpeg is not installed. please install with (brew install ffmpeg)' >&2
-	exit 1
+    echo 'Error: ffmpeg is not installed. please install with (brew install ffmpeg)' >&2
+    exit 1
 fi
 
 if ! [ -x "$(command -v gifsicle)" ]; then
-	echo 'Error: gifsicle is not installed. please install with (brew install gifsicle)' >&2
-	exit 1
+    echo 'Error: gifsicle is not installed. please install with (brew install gifsicle)' >&2
+    exit 1
 fi
 
-echo -n "enter name for your gif (the script will add the extension for you): "
-read -r GIFNAME
+# instead of asking for name, get the original name and change extension
+GIFNAME=$(basename "$1" .mov)
 
-ffmpeg -i "$1" -pix_fmt rgb24 -r 10 -vf scale="640:-1" -f gif - | gifsicle --optimize=3 --delay=6 >~/Downloads/"$GIFNAME".gif
+# ask for quality
+# 1) 640px
+# 2) 800px
+# 3) 1024px
+# 4) 1280px
+
+echo "Enter the quality of the gif: "
+echo "1) 640px"
+echo "2) 800px"
+echo "3) 1024px"
+echo "4) 1280px"
+read -p "Enter your choice (1-4): " quality
+
+case $quality in
+1)
+    echo "You chose 640px"
+    ;;
+2)
+    echo "You chose 800px"
+    ;;
+3)
+    echo "You chose 1024px"
+    ;;
+4)
+    echo "You chose 1280px"
+    ;;
+*)
+    echo "Invalid choice, defaulting to 640px"
+    quality=1
+    ;;
+esac
+
+ffmpeg -i "$1" -pix_fmt rgb24 -r 10 -vf scale="1280:-1" -f gif - | gifsicle --optimize=3 --delay=6 >~/Downloads/"$GIFNAME".gif
 
 echo -e "\nSaved ${GIFNAME}.gif to downloads"

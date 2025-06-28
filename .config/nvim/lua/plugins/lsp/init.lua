@@ -16,6 +16,11 @@ return {
 				-- options for vim.diagnostic.config()
 				---@type vim.diagnostic.Opts
 				diagnostics = {
+					float = {
+						suffix = function(diagnostic)
+							return string.format(" [%s: %s]", diagnostic.user_data.source or diagnostic.source, diagnostic.code), "NormalFloat"
+						end,
+					},
 					underline = true,
 					update_in_insert = false,
 					virtual_text = {

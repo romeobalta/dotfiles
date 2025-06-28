@@ -265,7 +265,7 @@ return {
 							name = "attach to server",
 							request = "attach",
 							cwd = "${workspaceFolder}",
-							port = 9230,
+							port = 9229,
 							skipFiles = { "<node_internals>/**", "**/node_modules/**" },
 						},
 						{

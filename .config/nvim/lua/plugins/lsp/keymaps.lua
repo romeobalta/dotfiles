@@ -7,10 +7,10 @@ M._keys = nil
 ---@alias LazyKeysLsp LazyKeys|{has?:string|string[], cond?:fun():boolean}
 
 function M.diagnostic_goto(next, severity)
-	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+	local count = next and 1 or -1
 	severity = severity and vim.diagnostic.severity[severity] or nil
 	return function()
-		go({ severity = severity })
+		vim.diagnostic.jump({ count = count, severity = severity, float = true })
 	end
 end
 

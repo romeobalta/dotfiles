@@ -12,7 +12,7 @@ return {
 				vue_ls = {
 					init_options = {
 						vue = {
-							hybridMode = false,
+							hybridMode = true,
 						},
 					},
 				},

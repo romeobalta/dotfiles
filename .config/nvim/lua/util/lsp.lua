@@ -245,4 +245,16 @@ function M.execute(opts)
 	end
 end
 
+--- @param root_files string[]
+function M.root_if_config(root_files)
+
+	return function(bufnr, on_dir)
+		local fname = vim.api.nvim_buf_get_name(bufnr)
+		local root_dir = vim.fs.dirname(vim.fs.find(root_files, { path = fname, upward = true })[1])
+		if root_dir then
+			on_dir(root_dir)
+		end
+	end
+end
+
 return M
