@@ -1,7 +1,6 @@
 local map = vim.keymap.set
 
 map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-map("i", "jk", "<ESC>", { desc = "Escape insert mode", nowait = true })
 map("n", "<Esc>", ":noh <CR>", { desc = "Clear highlights", silent = true })
 map("n", "<C-c>", "<cmd> %y+ <CR>", { desc = "Copy whole file" })
 map("n", "Q", "<nop>", { desc = "disable ex mode" })

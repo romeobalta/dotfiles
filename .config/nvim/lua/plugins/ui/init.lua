@@ -1,7 +1,7 @@
 return {
-	-- theme
+    -- theme
 	{
-		dir = "~/personal/kyotonight.nvim",
+		"romeobalta/kyotonight.nvim",
 		init = function()
 			vim.cmd("colorscheme kyotonight")
 		end,
@@ -19,15 +19,15 @@ return {
 	-- noice
 	-- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu.
 	{
-        enabled = false,
+		enabled = false,
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
-            lsp = {
-                signature = {
-                    enabled = false,
-                },
-            },
+			lsp = {
+				signature = {
+					enabled = false,
+				},
+			},
 			cmdline = {
 				view = "cmdline",
 			},
