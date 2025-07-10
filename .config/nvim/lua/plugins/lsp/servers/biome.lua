@@ -24,6 +24,8 @@ return {
 			servers = {
 				-- Ensure mason installs the server
 				biome = {
+					mason = false,
+					cmd = { Util.root() .. "/node_modules/.bin/biome", "lsp-proxy" },
 					root_dir = function(bufnr, on_dir)
 						local util = require("lspconfig.util")
 						local fname = vim.api.nvim_buf_get_name(bufnr)
@@ -37,11 +39,6 @@ return {
 				},
 			},
 		},
-	},
-
-	{
-		"mason-org/mason.nvim",
-		opts = { ensure_installed = { "biome" } },
 	},
 
 	{
