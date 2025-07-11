@@ -97,3 +97,34 @@ tmux-sessionizer() {
     tmux switch-client -t "$selected_name"
 }
 zle -N tmux-sessionizer 
+
+activate-zig-dev() {
+    if [ -d "$ZIG_DEV_DIR" ]; then
+        # Remove stable zig from PATH if present
+        export PATH=$(echo "$PATH" | sed "s|$ZIG_DIR:||g" | sed "s|:$ZIG_DIR||g")
+        # Add dev zig to PATH
+        case ":$PATH:" in
+            *":$ZIG_DEV_DIR:"*) ;;
+            *) export PATH="$ZIG_DEV_DIR:$PATH" ;;
+        esac
+        echo "Switched to development Zig: $(which zig)"
+    else
+        echo "Development Zig directory not found: $ZIG_DEV_DIR"
+    fi
+}
+
+# Function to switch back to stable zig
+activate-zig-stable() {
+    if [ -d "$ZIG_DIR" ]; then
+        # Remove dev zig from PATH if present
+        export PATH=$(echo "$PATH" | sed "s|$ZIG_DEV_DIR:||g" | sed "s|:$ZIG_DEV_DIR||g")
+        # Add stable zig to PATH
+        case ":$PATH:" in
+            *":$ZIG_DIR:"*) ;;
+            *) export PATH="$ZIG_DIR:$PATH" ;;
+        esac
+        echo "Switched to stable Zig: $(which zig)"
+    else
+        echo "Stable Zig directory not found: $ZIG_DIR"
+    fi
+}

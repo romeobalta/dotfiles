@@ -37,6 +37,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # zig
 ZIG_VERSION="zig-0.14.1"
 ZIG_DIR="${SOFT_DIR}/${ZIG_VERSION}"
+ZIG_DEV_DIR="${HOME}/soft/zig/build/stage3/bin"
 if [ -d "$ZIG_DIR" ]; then
     case ":$PATH:" in
         *":$ZIG_DIR:"*) ;;
