@@ -9,6 +9,7 @@ plugins=(
     dotenv
     colored-man-pages
     common-aliases
+    nix-shell
 )
 
 source $ZSH/oh-my-zsh.sh

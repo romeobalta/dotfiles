@@ -26,6 +26,13 @@ alias zr='zig run'
 alias zt='zig test'
 alias zbr='zig build run'
 alias zbt='zig build test --summary all'
+alias zd='zig-dev'
+alias zs='zig-stable'
+alias zf='zig fetch'
+alias zfs='zig fetch --save'
+
+# nix
+alias ns="nix-shell"
 
 # nvim
 alias vim='nvim'

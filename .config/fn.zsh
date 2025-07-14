@@ -25,6 +25,13 @@ edit-and-run() {
 zle -N edit-and-run
 
 tmux-sessionizer() {
+    local exit_on_finish=false
+
+    if [[ "$1" == "--exit" ]]; then
+        exit_on_finish=true
+        shift
+    fi
+
     # list of directories to search for
     dirs=(
         ~
@@ -35,6 +42,7 @@ tmux-sessionizer() {
         # nested dirs
         ~/personal/baremetal
         ~/personal/tutorials
+        ~/personal/tmp
     )
 
     # for each extra dir, check if it exists and add it to the list
@@ -71,8 +79,11 @@ tmux-sessionizer() {
     fi
 
     if [[ -z $selected ]]; then
-        return 0
-        # exit 0
+        if [[ $exit_on_finish == true ]]; then
+            exit 0
+        else
+            return 0
+        fi
     fi
 
     selected_name=$(basename "$selected" | tr . _)
@@ -80,8 +91,11 @@ tmux-sessionizer() {
 
     if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
         tmux new-session -s "$selected_name" -c "$selected"
-        return 0
-        # exit 0
+        if [[ $exit_on_finish == true ]]; then
+            exit 0
+        else
+            return 0
+        fi
     fi
 
     if ! tmux has-session -t="$selected_name" 2>/dev/null; then
@@ -90,15 +104,18 @@ tmux-sessionizer() {
 
     if [[ -z $TMUX ]]; then
         tmux attach-session -t "$selected_name"
-        return 0
-        # exit 0
+        if [[ $exit_on_finish == true ]]; then
+            exit 0
+        else
+            return 0
+        fi
     fi
 
     tmux switch-client -t "$selected_name"
 }
 zle -N tmux-sessionizer 
 
-activate-zig-dev() {
+zig-dev() {
     if [ -d "$ZIG_DEV_DIR" ]; then
         # Remove stable zig from PATH if present
         export PATH=$(echo "$PATH" | sed "s|$ZIG_DIR:||g" | sed "s|:$ZIG_DIR||g")
@@ -107,14 +124,29 @@ activate-zig-dev() {
             *":$ZIG_DEV_DIR:"*) ;;
             *) export PATH="$ZIG_DEV_DIR:$PATH" ;;
         esac
+
         echo "Switched to development Zig: $(which zig)"
     else
         echo "Development Zig directory not found: $ZIG_DEV_DIR"
     fi
+
+    if [ -d "$ZLS_DEV_DIR" ]; then
+        # Remove stable zls from PATH if present
+        export PATH=$(echo "$PATH" | sed "s|$ZLS_DIR:||g" | sed "s|:$ZLS_DIR||g")
+        # Add dev zls to PATH
+        case ":$PATH:" in
+            *":$ZLS_DEV_DIR:"*) ;;
+            *) export PATH="$ZLS_DEV_DIR:$PATH" ;;
+        esac
+
+        echo "Switched to development zls: $(which zls)"
+    else
+        echo "Development zls directory not found: $ZLS_DEV_DIR"
+    fi
 }
 
 # Function to switch back to stable zig
-activate-zig-stable() {
+zig-stable() {
     if [ -d "$ZIG_DIR" ]; then
         # Remove dev zig from PATH if present
         export PATH=$(echo "$PATH" | sed "s|$ZIG_DEV_DIR:||g" | sed "s|:$ZIG_DEV_DIR||g")
@@ -126,5 +158,18 @@ activate-zig-stable() {
         echo "Switched to stable Zig: $(which zig)"
     else
         echo "Stable Zig directory not found: $ZIG_DIR"
+    fi
+
+    if [ -d "$ZLS_DIR" ]; then
+        # Remove dev zls from PATH if present
+        export PATH=$(echo "$PATH" | sed "s|$ZLS_DEV_DIR:||g" | sed "s|:$ZLS_DEV_DIR||g")
+        # Add stable zls to PATH
+        case ":$PATH:" in
+            *":$ZLS_DIR:"*) ;;
+            *) export PATH="$ZLS_DIR:$PATH" ;;
+        esac
+        echo "Switched to stable zls: $(which zls)"
+    else
+        echo "Stable zls directory not found: $ZLS_DIR"
     fi
 }

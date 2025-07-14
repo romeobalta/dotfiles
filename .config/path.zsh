@@ -38,19 +38,20 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 ZIG_VERSION="zig-0.14.1"
 ZIG_DIR="${SOFT_DIR}/${ZIG_VERSION}"
 ZIG_DEV_DIR="${HOME}/soft/zig/build/stage3/bin"
-if [ -d "$ZIG_DIR" ]; then
+if [ -d "$ZIG_DEV_DIR" ]; then
     case ":$PATH:" in
-        *":$ZIG_DIR:"*) ;;
-        *) export PATH="$ZIG_DIR:$PATH" ;;
+        *":$ZIG_DEV_DIR:"*) ;;
+        *) export PATH="$ZIG_DEV_DIR:$PATH" ;;
     esac
 fi
 
 ZLS_DIR="${SOFT_DIR}/zls/zig-out/bin"
-if [ -d "$ZLS_DIR" ]; then
+ZLS_DEV_DIR="${SOFT_DIR}/zls-dev/zig-out/bin"
+if [ -d "$ZLS_DEV_DIR" ]; then
     # Check if it's already in PATH to avoid duplicates
     case ":$PATH:" in
-        *":$ZLS_DIR:"*) ;;
-        *) export PATH="$ZLS_DIR:$PATH" ;;
+        *":$ZLS_DEV_DIR:"*) ;;
+        *) export PATH="$ZLS_DEV_DIR:$PATH" ;;
     esac
 fi
 
