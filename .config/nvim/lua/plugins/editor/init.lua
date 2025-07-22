@@ -58,6 +58,7 @@ return {
 				},
 				defaults = {
 					-- formatter = "path.filename_first",
+                    path_shorten = 1,
 					formatter = "path.dirname_first",
 				},
 				previewers = {
