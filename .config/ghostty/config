@@ -2,8 +2,8 @@
 font-family = Berkeley Mono Variable
 font-size = 20
 font-thicken = true
-adjust-cell-height = "20%"
-adjust-cursor-height = "20%"
+adjust-cell-height = "30%"
+adjust-cursor-height = "30%"
 adjust-underline-position = "25%"
 
 # theme

@@ -87,7 +87,6 @@ tmux-sessionizer() {
 
     tmux switch-client -t "$selected_name"
 }
-zle -N tmux-sessionizer 
 
 zig-dev() {
     if [ -d "$ZIG_DEV_DIR" ]; then
@@ -147,3 +146,30 @@ zig-stable() {
         echo "Stable zls directory not found: $ZLS_DIR"
     fi
 }
+
+claude-select() {
+    local exit_on_finish=false
+
+    if [[ "$1" == "--exit" ]]; then
+        exit_on_finish=true
+        shift
+    fi
+
+    if [[ $# -eq 1 ]]; then
+        selected=$1
+    else
+        selected=$(fd . --type d --min-depth 1 | fzf)
+    fi
+
+    if [[ -z $selected ]]; then
+        if [[ $exit_on_finish == true ]]; then
+            exit 0
+        else
+            return 0
+        fi
+    fi
+
+    cd "$selected"
+    "$HOME/.claude/local/claude"
+}
+

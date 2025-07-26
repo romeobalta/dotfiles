@@ -39,14 +39,14 @@ return {
 		opts = { ensure_installed = { "markdownlint-cli2", "markdown-toc" } },
 	},
 
-	{
-		"mfussenegger/nvim-lint",
-		opts = {
-			linters_by_ft = {
-				markdown = { "markdownlint-cli2" },
-			},
-		},
-	},
+	-- {
+	-- 	"mfussenegger/nvim-lint",
+	-- 	opts = {
+	-- 		linters_by_ft = {
+	-- 			markdown = { "markdownlint-cli2" },
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"neovim/nvim-lspconfig",
 		opts = {

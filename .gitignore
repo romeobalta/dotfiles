@@ -12,3 +12,5 @@
 .local/share/nvim
 .local/state/nvim
 .local/state/pnpm
+
+CLAUDE.md
