@@ -9,13 +9,7 @@ return {
 		"neovim/nvim-lspconfig",
 		opts = {
 			servers = {
-				vue_ls = {
-					init_options = {
-						vue = {
-							hybridMode = true,
-						},
-					},
-				},
+				vue_ls = {},
 				vtsls = {},
 			},
 		},

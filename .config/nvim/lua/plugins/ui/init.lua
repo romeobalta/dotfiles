@@ -9,7 +9,7 @@ return {
 
 	-- statusline
 	{
-		"echasnovski/mini.statusline",
+		"nvim-mini/mini.statusline",
 		version = "*",
 		config = function()
 			require("plugins.ui.statusline")
@@ -99,7 +99,7 @@ return {
 	-- mini.icons
 	-- icons
 	{
-		"echasnovski/mini.icons",
+		"nvim-mini/mini.icons",
 		lazy = true,
 		opts = {
 			filetype = {

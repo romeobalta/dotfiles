@@ -5,10 +5,7 @@ return {
 		event = "LazyFile",
 		dependencies = {
 			"mason.nvim",
-			{
-				"mason-org/mason-lspconfig.nvim",
-				config = function() end,
-			},
+			{ "mason-org/mason-lspconfig.nvim", config = function() end },
 		},
 		opts = function()
 			---@class PluginLspOpts
@@ -44,6 +41,9 @@ return {
 				codelens = {
 					enabled = false,
 				},
+				folds = {
+					enabled = true,
+				},
 				capabilities = {
 					workspace = {
 						fileOperations = {
@@ -57,8 +57,10 @@ return {
 					timeout_ms = nil,
 				},
 				-- LSP Server Settings
-				---@type lspconfig.options
+				---@alias lazyvim.lsp.Config vim.lsp.Config|{mason?:boolean, enabled?:boolean}
+				---@type table<string, lazyvim.lsp.Config|boolean>
 				servers = {
+					stylua = { enabled = false },
 					lua_ls = {
 						settings = {
 							Lua = {
@@ -86,7 +88,7 @@ return {
 						},
 					},
 				},
-				---@type table<string, fun(server:string, opts:lspconfig.options):boolean?>
+				---@type table<string, fun(server:string, opts: vim.lsp.Config):boolean?>
 				setup = {
 					-- example to setup with typescript.nvim
 					-- tsserver = function(_, opts)
@@ -100,7 +102,7 @@ return {
 			return ret
 		end,
 		---@param opts PluginLspOpts
-		config = function(_, opts)
+		config = vim.schedule_wrap(function(_, opts)
 			-- setup autoformat
 			Util.format.register(Util.lsp.formatter())
 
@@ -125,6 +127,15 @@ return {
 				end)
 			end
 
+			-- folds
+			if opts.folds.enabled then
+				Util.lsp.on_supports_method("textDocument/foldingRange", function(client, buffer)
+					if Util.set_default("foldmethod", "expr") then
+						Util.set_default("foldexpr", "v:lua.vim.lsp.foldexpr()")
+					end
+				end)
+			end
+
 			-- code lens
 			if opts.codelens.enabled and vim.lsp.codelens then
 				Util.lsp.on_supports_method("textDocument/codeLens", function(client, buffer)
@@ -136,103 +147,71 @@ return {
 				end)
 			end
 
+			-- diagnostics
+			if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
+				opts.diagnostics.virtual_text.prefix = function(diagnostic)
+					local icons = Util.config.icons.diagnostics
+					for d, icon in pairs(icons) do
+						if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+							return icon
+						end
+					end
+					return "●"
+				end
+			end
 			vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
-			local servers = opts.servers
-			local has_blink, blink = pcall(require, "blink.cmp")
-			local capabilities = vim.tbl_deep_extend(
-				"force",
-				{},
-				vim.lsp.protocol.make_client_capabilities(),
-				has_blink and blink.get_lsp_capabilities() or {},
-				opts.capabilities or {}
-			)
-
-			-- get all the servers that are available through mason-lspconfig
-			local have_mason, mlsp = pcall(require, "mason-lspconfig")
-			local all_mslp_servers = {}
-			if have_mason then
-				all_mslp_servers = vim.tbl_keys(require("mason-lspconfig").get_mappings().lspconfig_to_package)
+			if opts.capabilities then
+				vim.lsp.config("*", { capabilities = opts.capabilities })
 			end
 
-			local exclude_automatic_enable = {} ---@type string[]
+			-- get all the servers that are available through mason-lspconfig
+			local have_mason = Util.has("mason-lspconfig.nvim")
+			local mason_all = have_mason
+					and vim.tbl_keys(require("mason-lspconfig.mappings").get_mason_map().lspconfig_to_package)
+				or {} --[[ @as string[] ]]
+			local mason_exclude = {} ---@type string[]
 
+			---@return boolean? exclude automatic setup
 			local function configure(server)
-				local server_opts = vim.tbl_deep_extend("force", {
-					capabilities = vim.deepcopy(capabilities),
-				}, servers[server] or {})
-				if server_opts.enabled == false then
+				local sopts = opts.servers[server]
+				sopts = sopts == true and {} or (not sopts) and { enabled = false } or sopts --[[@as lazyvim.lsp.Config]]
+
+				if sopts.enabled == false then
+					mason_exclude[#mason_exclude + 1] = server
 					return
 				end
 
-				if opts.setup[server] then
-					if opts.setup[server](server, server_opts) then
-						return
-					end
-				elseif opts.setup["*"] then
-					if opts.setup["*"](server, server_opts) then
-						return
+				local use_mason = sopts.mason ~= false and vim.tbl_contains(mason_all, server)
+				local setup = opts.setup[server] or opts.setup["*"]
+				if setup and setup(server, sopts) then
+					mason_exclude[#mason_exclude + 1] = server
+				else
+					vim.lsp.config(server, sopts) -- configure the server
+					if not use_mason then
+						vim.lsp.enable(server)
 					end
 				end
-				vim.lsp.config(server, server_opts)
-
-				-- manually enable if mason=false or if this is a server that cannot be installed with mason-lspconfig
-				if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
-					vim.lsp.enable(server)
-					return true
-				end
-
-				return false
+				return use_mason
 			end
 
-			local ensure_installed = {} ---@type string[]
-			for server, server_opts in pairs(servers) do
-				if server_opts then
-					server_opts = server_opts == true and {} or server_opts
-					if server_opts.enabled ~= false then
-						-- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
-						if configure(server) then
-							exclude_automatic_enable[#exclude_automatic_enable + 1] = server
-						else
-							ensure_installed[#ensure_installed + 1] = server
-						end
-					end
-				end
-			end
-
+			local install = vim.tbl_filter(configure, vim.tbl_keys(opts.servers))
 			if have_mason then
-				local setup_config = {
-					ensure_installed = vim.tbl_deep_extend(
-						"force",
-						ensure_installed,
+				require("mason-lspconfig").setup({
+					ensure_installed = vim.list_extend(
+						install,
 						Util.opts("mason-lspconfig.nvim").ensure_installed or {}
 					),
-					automatic_installation = false,
-				}
-
-				setup_config.automatic_enable = {
-					exclude = exclude_automatic_enable,
-				}
-
-				mlsp.setup(setup_config)
+					automatic_enable = { exclude = mason_exclude },
+				})
 			end
-
-			if Util.lsp.is_enabled("denols") and Util.lsp.is_enabled("vtsls") then
-				local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
-				Util.lsp.disable("vtsls", is_deno)
-				Util.lsp.disable("denols", function(root_dir, config)
-					if not is_deno(root_dir) then
-						config.settings.deno.enable = false
-					end
-					return false
-				end)
-			end
-		end,
+		end),
 	},
 
 	-- mason
 	-- cmdline tools and lsp servers
 	{
+
 		"mason-org/mason.nvim",
 		cmd = "Mason",
 		keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
@@ -339,7 +318,7 @@ return {
 				names = vim.tbl_filter(function(name)
 					local linter = lint.linters[name]
 					if not linter then
-						LazyVim.warn("Linter not found: " .. name, { title = "nvim-lint" })
+						Util.warn("Linter not found: " .. name, { title = "nvim-lint" })
 					end
 					return linter and not (type(linter) == "table" and linter.condition and not linter.condition(ctx))
 				end, names)

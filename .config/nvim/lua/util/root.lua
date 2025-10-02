@@ -34,10 +34,10 @@ function M.detectors.lsp(buf)
 		return {}
 	end
 	local roots = {} ---@type string[]
-	local clients = Util.lsp.get_clients({ bufnr = buf })
+	local clients = vim.lsp.get_clients({ bufnr = buf })
 	clients = vim.tbl_filter(function(client)
 		return not vim.tbl_contains(M.root_lsp_ignore or {}, client.name)
-	end, clients)
+	end, clients) --[[@as vim.lsp.Client[] ]]
 	for _, client in pairs(clients) do
 		local workspace = client.config.workspace_folders
 		for _, ws in pairs(workspace or {}) do

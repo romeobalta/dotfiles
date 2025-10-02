@@ -100,7 +100,7 @@ M.section_lsp = function(args)
 	local t = {}
 	local icons = require("config").icons.lsp
 
-	for _, client in ipairs(Util.lsp.get_clients({ bufnr = 0 })) do
+	for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
 		local icon = icons[client.name] or " "
 		if icon ~= nil then
 			table.insert(t, icon)

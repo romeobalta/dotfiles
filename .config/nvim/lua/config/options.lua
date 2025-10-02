@@ -34,7 +34,8 @@ opt.fillchars = {
 	vertright = "┣", --right facing vertical separator
 	verthoriz = "╋", --overlapping vertical and horizontal
 }
-opt.foldexpr = "v:lua.require'util'.foldexpr()"
+opt.foldexpr = "v:lua.Util.ui.foldexpr()" -- treesitter folds
+opt.indentexpr = "v:lua.Util.ui.indentexpr()" -- treesitter indents
 opt.foldlevel = 99
 opt.foldmethod = "expr"
 opt.foldtext = ""
