@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+source ~/.config/aliases.zsh
+source ~/.config/fzf.zsh
+source ~/.config/fn.zsh
+
+claude-select --exit

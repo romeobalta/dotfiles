@@ -53,10 +53,10 @@ end, { desc = "Copy full file path" })
 -----------------------
 -- Window mappings
 -----------------------
-map("n", "<C-h>", "<C-w>h", { desc = "Window left" })
-map("n", "<C-l>", "<C-w>l", { desc = "Window right" })
-map("n", "<C-j>", "<C-w>j", { desc = "Window down" })
-map("n", "<C-k>", "<C-w>k", { desc = "Window up" })
+-- map("n", "<C-h>", "<C-w>h", { desc = "Window left" })
+-- map("n", "<C-l>", "<C-w>l", { desc = "Window right" })
+-- map("n", "<C-j>", "<C-w>j", { desc = "Window down" })
+-- map("n", "<C-k>", "<C-w>k", { desc = "Window up" })
 
 map("n", "<M->>", "<C-W>5>", { desc = "Increase window height" })
 map("n", "<M-<>", "<C-W>5<", { desc = "Increase window height" })

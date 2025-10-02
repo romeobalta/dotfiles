@@ -38,4 +38,4 @@ alias ns="nix-shell"
 alias vim='nvim'
 alias nvim-own='NVIM_APPNAME="nvim-own" nvim'
 
-alias claude="$HOME/.claude/local/claude"
+alias claude="~/.claude/local/claude"

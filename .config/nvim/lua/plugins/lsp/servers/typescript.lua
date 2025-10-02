@@ -49,6 +49,9 @@ return {
 								propertyDeclarationTypes = { enabled = true },
 								variableTypes = { enabled = false },
 							},
+							tsserver = {
+								maxTsServerMemory = 8192,
+							},
 						},
 					},
 					keys = {

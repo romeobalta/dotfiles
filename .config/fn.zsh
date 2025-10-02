@@ -158,18 +158,34 @@ claude-select() {
     if [[ $# -eq 1 ]]; then
         selected=$1
     else
-        selected=$(fd . --type d --min-depth 1 | fzf)
+        selected=$(fd . --type d | fzf)
     fi
 
-    if [[ -z $selected ]]; then
-        if [[ $exit_on_finish == true ]]; then
-            exit 0
-        else
-            return 0
-        fi
+    if [[ $selected ]]; then
+        cd "$selected"
     fi
 
-    cd "$selected"
     "$HOME/.claude/local/claude"
+}
+
+gemini-select() {
+    local exit_on_finish=false
+
+    if [[ "$1" == "--exit" ]]; then
+        exit_on_finish=true
+        shift
+    fi
+
+    if [[ $# -eq 1 ]]; then
+        selected=$1
+    else
+        selected=$(fd . --type d | fzf)
+    fi
+
+    if [[ $selected ]]; then
+        cd "$selected"
+    fi
+
+    gemini
 }
 

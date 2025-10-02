@@ -14,3 +14,7 @@
 .local/state/pnpm
 
 CLAUDE.md
+.local/bin/uv
+.local/bin/uvx
+.config/uv
+.config/raycast

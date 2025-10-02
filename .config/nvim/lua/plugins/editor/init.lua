@@ -2,6 +2,23 @@ local mini = require("plugins.editor.mini")
 local extensions = require("plugins.editor.extensions")
 
 return {
+	{
+		"alexghergh/nvim-tmux-navigation",
+		config = function()
+			require("nvim-tmux-navigation").setup({
+				disable_when_zoomed = true, -- defaults to false
+				keybindings = {
+					left = "<C-h>",
+					down = "<C-j>",
+					up = "<C-k>",
+					right = "<C-l>",
+					last_active = "<C-\\>",
+					next = "<C-Space>",
+				},
+			})
+		end,
+	},
+
 	-- fzf-lua
 	{
 		"ibhagwan/fzf-lua",
@@ -58,7 +75,7 @@ return {
 				},
 				defaults = {
 					-- formatter = "path.filename_first",
-                    -- path_shorten = 1,
+					-- path_shorten = 1,
 					formatter = "path.dirname_first",
 				},
 				previewers = {
