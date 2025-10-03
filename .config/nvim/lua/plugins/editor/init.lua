@@ -1,6 +1,8 @@
 local mini = require("plugins.editor.mini")
 local extensions = require("plugins.editor.extensions")
 
+local blink_main = false
+
 return {
 	{
 		"alexghergh/nvim-tmux-navigation",
@@ -611,7 +613,7 @@ return {
 				version = "*",
 			},
 		},
-		event = "InsertEnter",
+		event = { "InsertEnter", "CmdlineEnter" },
 
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
@@ -662,11 +664,17 @@ return {
 
 			cmdline = {
 				enabled = true,
+				keymap = {
+					preset = "cmdline",
+				},
 				completion = {
-					menu = { auto_show = true },
-					list = {
-						selection = { preselect = false },
+					menu = {
+						auto_show = function(ctx)
+							return vim.fn.getcmdtype() == ":"
+						end,
+						list = { selection = { preselect = false } },
 					},
+					ghost_text = { enabled = true },
 				},
 			},
 
@@ -674,7 +682,10 @@ return {
 				-- adding any nvim-cmp sources here will enable them
 				-- with blink.compat
 				compat = {},
-				default = { "lsp", "path", "snippets", "buffer", "lazydev" },
+				default = { "lsp", "path", "snippets", "buffer" },
+				per_filetype = {
+					lua = { inherit_defaults = true, "lazydev" },
+				},
 				providers = {
 					lazydev = {
 						name = "LazyDev",
@@ -706,7 +717,7 @@ return {
 			-- add ai_accept to <Tab> key
 			opts.keymap["<Tab>"] = {
 				require("blink.cmp.keymap.presets").get("super-tab")["<Tab>"][1],
-				Util.cmp.map({ "snippet_forward", "ai_accept" }),
+				Util.cmp.map({ "snippet_forward", "ai_nes", "ai_accept" }),
 				"fallback",
 			}
 

@@ -12,37 +12,6 @@ local M = {
 ---@field col number
 ---@field topline number
 
-function M.ufo_fold_text(virtText, lnum, endLnum, width, truncate)
-	local newVirtText = {}
-	local numLines = endLnum - lnum
-	local word = numLines == 1 and "line" or "lines"
-	local suffix = ("󰁂 %d " .. word):format(endLnum - lnum)
-	local sufWidth = vim.fn.strdisplaywidth(suffix)
-	local targetWidth = width - sufWidth
-	local curWidth = 0
-	for _, chunk in ipairs(virtText) do
-		local chunkText = chunk[1]
-		local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-		if targetWidth > curWidth + chunkWidth then
-			table.insert(newVirtText, chunk)
-		else
-			chunkText = truncate(chunkText, targetWidth - curWidth)
-			local hlGroup = chunk[2]
-			table.insert(newVirtText, { chunkText, hlGroup })
-			chunkWidth = vim.fn.strdisplaywidth(chunkText)
-			-- str width returned from truncate() may less than 2nd argument, need padding
-			if curWidth + chunkWidth < targetWidth then
-				suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
-			end
-			break
-		end
-		curWidth = curWidth + chunkWidth
-	end
-	table.insert(newVirtText, { " ", "Folded" })
-	table.insert(newVirtText, { suffix, "FoldedComment" })
-	return newVirtText
-end
-
 -- the follwing code is some harpoon code repurposed to mimick the :Rex command for oil.nvim
 local Path = require("plenary.path")
 local function normalize_path(buf_name, root)
