@@ -19,8 +19,20 @@ tmux-sessionizer() {
         ~/personal/tmp
     )
 
+    # Directories that contain git worktrees (search their subdirs)
+    worktree_parents=(
+        ~/work/n8n
+        # Add other worktree parent directories here
+    )
+
     # for each extra dir, check if it exists and add it to the list
     for dir in "${extra_dirs[@]}"; do
+        if [[ -d "$dir" ]]; then
+            dirs+=("$dir")
+        fi
+    done
+
+    for dir in "${worktree_parents[@]}"; do
         if [[ -d "$dir" ]]; then
             dirs+=("$dir")
         fi
@@ -61,6 +73,17 @@ tmux-sessionizer() {
     fi
 
     selected_name=$(basename "$selected" | tr . _)
+
+    # For worktree directories, you might want to prefix with parent name
+    # to avoid collisions (e.g., multiple "master" directories)
+    for parent in "${worktree_parents[@]}"; do
+        if [[ "$selected" == "$parent"/* ]]; then
+            parent_name=$(basename "$parent")
+            selected_name="${parent_name}_${selected_name}"
+            break
+        fi
+    done
+
     tmux_running=$(pgrep tmux)
 
     if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then

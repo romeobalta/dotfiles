@@ -35,13 +35,13 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "${HOME}/.bun/_bun" ] && source "${HOME}/.bun/_bun"
 
 # zig
-ZIG_VERSION="zig-0.14.1"
+ZIG_VERSION="zig"
 ZIG_DIR="${SOFT_DIR}/${ZIG_VERSION}"
-ZIG_DEV_DIR="${HOME}/soft/zig/build/stage3/bin"
-if [ -d "$ZIG_DEV_DIR" ]; then
+ZIG_DEV_DIR="${HOME}/soft/zig/stage4/bin"
+if [ -d "$ZIG_DIR" ]; then
     case ":$PATH:" in
-        *":$ZIG_DEV_DIR:"*) ;;
-        *) export PATH="$ZIG_DEV_DIR:$PATH" ;;
+        *":$ZIG_DIR:"*) ;;
+        *) export PATH="$ZIG_DIR:$PATH" ;;
     esac
 fi
 
