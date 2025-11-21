@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Calculate the width: minimum of 100 or 50% of window width
 width=$(($(tmux display -p "#{window_width}") / 2))

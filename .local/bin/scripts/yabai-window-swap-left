@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Get the ID of the focused window
 FOCUSED_WINDOW_ID=$(yabai -m query --windows --window | jq -r '.id')

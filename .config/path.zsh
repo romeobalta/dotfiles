@@ -70,3 +70,7 @@ esac
 
 # kubectl
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# wasmtime
+export WASMTIME_HOME="$HOME/.wasmtime"
+export PATH="$WASMTIME_HOME/bin:$PATH"

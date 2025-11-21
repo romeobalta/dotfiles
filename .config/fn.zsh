@@ -1,114 +1,100 @@
 tmux-sessionizer() {
+    # 1. Argument Parsing
     local exit_on_finish=false
-
     if [[ "$1" == "--exit" ]]; then
         exit_on_finish=true
         shift
     fi
 
-    # list of directories to search for
-    dirs=(
+    # 2. Configuration
+    # Standard directories to search (children will be listed)
+    local search_roots=(
         ~
-    )
-
-    # list of extra dirs
-    extra_dirs=(
-        # nested dirs
+        ~/personal
         ~/personal/baremetal
-        ~/personal/tutorials
         ~/personal/tmp
+        ~/personal/tutorials
+        ~/soft
+        ~/work
     )
 
-    # Directories that contain git worktrees (search their subdirs)
-    worktree_parents=(
+    # Worktree parents (children listed, parent itself excluded)
+    local worktree_parents=(
         ~/work/n8n
         # Add other worktree parent directories here
     )
 
-    # for each extra dir, check if it exists and add it to the list
-    for dir in "${extra_dirs[@]}"; do
-        if [[ -d "$dir" ]]; then
-            dirs+=("$dir")
-        fi
+    # 3. Build Valid Directory List
+    local valid_dirs=()
+    
+    # Add search roots if they exist
+    for dir in "${search_roots[@]}"; do
+        [[ -d "$dir" ]] && valid_dirs+=("$dir")
     done
 
+    # Add worktree parents if they exist
+    local grep_excludes=()
     for dir in "${worktree_parents[@]}"; do
         if [[ -d "$dir" ]]; then
-            dirs+=("$dir")
+            valid_dirs+=("$dir")
+            # We add this to an exclude list so grep removes the parent folder itself
+            grep_excludes+=("-e" "$dir")
         fi
     done
 
-    # check if ~/projects/_archived exists and add it to the list
-    if [[ -d ~/projects/_archived ]]; then
-        dirs+=(~/projects/_archived)
-    fi
-
-    # check if ~/personal exists and add it to the list
-    if [[ -d ~/personal ]]; then
-        dirs+=(~/personal)
-    fi
-
-    # check if ~/work exists and add it to the list
-    if [[ -d ~/work ]]; then
-        dirs+=(~/work)
-    fi
-
-    # check if ~/soft exists and add it to the list
-    if [[ -d ~/soft ]]; then
-        dirs+=(~/soft)
-    fi
-
+    # 4. Select Directory (fd + grep + fzf)
+    local selected
     if [[ $# -eq 1 ]]; then
         selected=$1
     else
-        selected=$(find "${dirs[@]}" -mindepth 1 -maxdepth 1 -type d | fzf)
+        # FD OPTIMIZATION:
+        # fd . -> search for everything (catch-all pattern)
+        # "${valid_dirs[@]}" -> search inside these paths
+        # --min-depth 1 --max-depth 1 -> only direct children
+        # --type d -> only directories
+        # grep -vFx -> Exclude the exact lines matching worktree parents
+        selected=$(fd . "${valid_dirs[@]}" --min-depth 1 --max-depth 1 --type d | \
+                   sed 's:/*$::' | \
+                   grep -vFx "${grep_excludes[@]}" | \
+                   fzf)
     fi
 
     if [[ -z $selected ]]; then
-        if [[ $exit_on_finish == true ]]; then
-            exit 0
-        else
-            return 0
-        fi
+        return 0
     fi
 
-    selected_name=$(basename "$selected" | tr . _)
+    # 5. Determine Session Name (Zsh Native)
+    # ${selected:t} gets the tail (basename)
+    local selected_name="${selected:t}"
+    
+    # Replace dots and colons with underscores
+    selected_name="${selected_name//[. :]/-}"
 
-    # For worktree directories, you might want to prefix with parent name
-    # to avoid collisions (e.g., multiple "master" directories)
+    # Handle Worktree Naming (prefix with parent folder name)
     for parent in "${worktree_parents[@]}"; do
         if [[ "$selected" == "$parent"/* ]]; then
-            parent_name=$(basename "$parent")
-            selected_name="${parent_name}_${selected_name}"
+            selected_name="${parent:t}_${selected_name}"
             break
         fi
     done
 
-    tmux_running=$(pgrep tmux)
-
-    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-        tmux new-session -s "$selected_name" -c "$selected"
-        if [[ $exit_on_finish == true ]]; then
-            exit 0
-        else
-            return 0
-        fi
-    fi
-
+    # 6. Unified Tmux Logic
+    # Create detached session if it doesn't exist
     if ! tmux has-session -t="$selected_name" 2>/dev/null; then
         tmux new-session -ds "$selected_name" -c "$selected"
     fi
 
-    if [[ -z $TMUX ]]; then
+    # Switch (if inside tmux) or Attach (if outside)
+    if [[ -n $TMUX ]]; then
+        tmux switch-client -t "$selected_name"
+    else
         tmux attach-session -t "$selected_name"
-        if [[ $exit_on_finish == true ]]; then
-            exit 0
-        else
-            return 0
-        fi
     fi
 
-    tmux switch-client -t "$selected_name"
+    # 7. Exit if requested
+    if [[ $exit_on_finish == true ]]; then
+        exit 0
+    fi
 }
 
 zig-dev() {
