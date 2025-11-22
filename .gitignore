@@ -18,3 +18,8 @@ CLAUDE.md
 .local/bin/uvx
 .config/uv
 .config/raycast
+.config/configstore/update-notifier-@google
+.config/gh
+.local/share/delta
+.local/state/gh
+.luarc.json

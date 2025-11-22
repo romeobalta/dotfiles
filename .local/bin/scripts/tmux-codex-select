@@ -11,4 +11,4 @@ source ~/.config/aliases.zsh
 source ~/.config/fzf.zsh
 source ~/.config/fn.zsh
 
-gemini-select --exit
+codex-select --exit

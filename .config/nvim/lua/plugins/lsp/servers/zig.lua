@@ -10,7 +10,6 @@ return {
 			servers = {
 				zls = {
 					mason = false,
-					cmd = { "zls" },
 
 					settings = {
 						zls = {

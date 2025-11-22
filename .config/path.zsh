@@ -45,13 +45,13 @@ if [ -d "$ZIG_DIR" ]; then
     esac
 fi
 
-ZLS_DIR="${SOFT_DIR}/zls/zig-out/bin"
+ZLS_DIR="${SOFT_DIR}/zls"
 ZLS_DEV_DIR="${SOFT_DIR}/zls-dev/zig-out/bin"
-if [ -d "$ZLS_DEV_DIR" ]; then
+if [ -d "$ZLS_DIR" ]; then
     # Check if it's already in PATH to avoid duplicates
     case ":$PATH:" in
-        *":$ZLS_DEV_DIR:"*) ;;
-        *) export PATH="$ZLS_DEV_DIR:$PATH" ;;
+        *":$ZLS_DIR:"*) ;;
+        *) export PATH="$ZLS_DIR:$PATH" ;;
     esac
 fi
 

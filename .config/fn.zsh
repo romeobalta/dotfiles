@@ -198,3 +198,23 @@ gemini-select() {
     gemini
 }
 
+codex-select() {
+    local exit_on_finish=false
+
+    if [[ "$1" == "--exit" ]]; then
+        exit_on_finish=true
+        shift
+    fi
+
+    if [[ $# -eq 1 ]]; then
+        selected=$1
+    else
+        selected=$(fd . --type d | fzf)
+    fi
+
+    if [[ $selected ]]; then
+        cd "$selected"
+    fi
+
+    codex
+}

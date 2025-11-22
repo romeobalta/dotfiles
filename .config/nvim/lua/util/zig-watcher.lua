@@ -1,116 +1,61 @@
+local uv = vim.uv
+local util = require("lspconfig.util")
+
 local M = {}
 
--- The state is now tracked by an augroup ID, not a job ID.
-local augroup_id = nil
-local AUGROUP_NAME = "ZigBuildOnSave"
+local state = {}
 
-local ERROR_PATTERN = "(.-%.zig):(%d+):(%d+):%s*error:%s*(.*)"
+local function get_zig_root()
+	local bufname = vim.api.nvim_buf_get_name(0)
+	if bufname == "" then
+		return nil
+	end
 
-local function strip_ansi_codes(text)
-	local clean_text = text:gsub("\27%[[;%d%?]*[a-zA-Z]", "")
-
-	clean_text = clean_text:gsub("\27%(0[a-zA-Z]+\27%(B", "")
-	clean_text = clean_text:gsub("\27M", "")
-	clean_text = clean_text:gsub("\r", "")
-
-	return clean_text
+	local root = util.root_pattern("build.zig", ".git")(bufname)
+	return root
 end
 
--- This new function runs a single build. It's called by the autocmd.
-local function run_build()
-	vim.notify("Starting Zig build...", vim.log.levels.INFO)
-	vim.schedule(function()
-		vim.cmd("cclose")
-	end)
-
-	-- The command no longer uses '--watch'.
-	local command = {
-		"zig",
-		"build",
-		"-fincremental",
-		"--summary",
-		"none",
-	}
-
-	vim.system(command, {
-		text = true,
-	}, function(res)
-		-- split into new lines
-		local data = (res.stderr or "")
-		local matches = {}
-
-		for line in data:gmatch("([^\r\n]*)[\r\n]?") do
-			local clean_line = strip_ansi_codes(line)
-			local path, ln, col, errorMessage = string.match(clean_line, ERROR_PATTERN)
-
-			if path and ln and col and errorMessage then
-				table.insert(matches, {
-					text = errorMessage,
-					filename = path,
-					lnum = tonumber(ln),
-					col = tonumber(col),
-				})
-			end
-		end
-
-		if #matches == 0 then
-			vim.notify("Zig build successful.", vim.log.levels.INFO)
-		elseif #matches > 0 then
-			vim.schedule(function()
-				vim.fn.setqflist({}, "r", {
-					title = "Zig Build Errors",
-					items = matches,
-				})
-				vim.cmd("copen")
-			end)
-		end
-	end)
-end
-
--- M.start now creates an autocommand group instead of a job.
 function M.start()
-	if augroup_id then
-		vim.notify("Zig build-on-save is already active.", vim.log.levels.WARN)
+	local root = get_zig_root()
+
+	if not root then
 		return
 	end
 
-	vim.notify("Activating Zig build-on-save...")
-
-	-- Create a dedicated, clearable autocommand group.
-	augroup_id = vim.api.nvim_create_augroup(AUGROUP_NAME, { clear = true })
-
-	-- Create the autocommand that triggers the build on save.
-	vim.api.nvim_create_autocmd("BufWritePost", {
-		group = augroup_id,
-		pattern = "*.zig",
-		callback = run_build,
-	})
-end
-
--- M.stop now removes the autocommand group.
-function M.stop()
-	if not augroup_id then
-		vim.notify("Zig build-on-save is not active.", vim.log.levels.WARN)
+	if state.artifact_watcher then
 		return
 	end
 
-	vim.notify("Deactivating Zig build-on-save...")
+	state.artifact_watcher = uv.new_fs_event()
+	local bin_dir = root .. "/zig-out/bin"
 
-	-- Clear the autocommands and delete the group.
-	vim.api.nvim_clear_autocmds({ group = AUGROUP_NAME })
-	augroup_id = nil
-end
-
-function M.is_running()
-	return augroup_id ~= nil
-end
-
-function M.toggle()
-	if M.is_running() then
-		M.stop()
-	else
-		M.start()
+	local stat = uv.fs_stat(bin_dir)
+	if not stat or stat.type ~= "directory" then
+		-- no bin dir yet (maybe build never run) -> do nothing
+		return
 	end
+
+	vim.notify("👀 Starting Zig artifact watcher on: " .. bin_dir)
+
+	state.artifact_watcher:start(bin_dir, {}, function(err)
+		if err then
+			dd("Zig watcher error:", err)
+			return
+		end
+		-- reset debounce timer
+		if state.debounce_timer then
+			state.debounce_timer:stop()
+		else
+			state.debounce_timer = uv.new_timer()
+		end
+
+		-- start or restart the timer
+		state.debounce_timer:start(500, 0, function()
+			vim.schedule(function()
+				vim.notify("🔄 Zig artifacts updated")
+			end)
+		end)
+	end)
 end
 
 return M

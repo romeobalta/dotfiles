@@ -20,13 +20,13 @@ local function run_in_terminal_window(cmd, args)
 	-- If we close the window, we need to set the global variable to nil
 	vim.api.nvim_create_autocmd({ "BufHidden" }, {
 		buffer = buf,
-        once = true,
+		once = true,
 		callback = function()
 			if pid then
 				-- Kill the process if it is still running
 				vim.schedule(function()
 					vim.uv.kill(-pid, 15)
-                    pid = nil
+					pid = nil
 				end)
 			end
 			build_notifier = nil
@@ -58,7 +58,7 @@ local function run_in_terminal_window(cmd, args)
 		args = args,
 		cwd = Util.root(),
 		stdio = { nil, stdout, stderr },
-        detached = true,
+		detached = true,
 	}, function(code)
 		-- vim.schedule(function()
 		-- 	if code == 0 then
@@ -118,8 +118,4 @@ end, {
 	desc = "zig: Build run (with args)",
 })
 
-vim.keymap.set("n", "<leader>zbw", function()
-	zig_watcher.toggle()
-end, {
-	desc = "zig: Start build watcher",
-})
+zig_watcher.start()
