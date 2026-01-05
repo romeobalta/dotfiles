@@ -7,6 +7,7 @@ width=$(($(tmux display -p "#{window_width}") / 2))
 # Resize the current pane to the calculated width
 tmux resize-pane -x $width
 
+source ~/.config/path.zsh
 source ~/.config/aliases.zsh
 source ~/.config/fzf.zsh
 source ~/.config/fn.zsh

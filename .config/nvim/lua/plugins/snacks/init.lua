@@ -11,7 +11,7 @@ return {
 		lazy = false,
 		---@type snacks.Config
 		opts = {
-            image = { enabled = true },
+			image = { enabled = true },
 			bigfile = { enabled = true },
 			bufdelete = { enabled = true },
 			debug = { enabled = true },
@@ -107,8 +107,8 @@ return {
 				callback = function()
 					extensions.setup()
 
-					Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
-					Snacks.toggle.zen():map("<leader>uz")
+					Snacks.toggle.zoom():map("<leader>wz")
+					-- Snacks.toggle.zen():map("<leader>uz")
 				end,
 			})
 		end,

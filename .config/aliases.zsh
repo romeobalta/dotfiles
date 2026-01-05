@@ -31,6 +31,8 @@ alias zs='zig-stable'
 alias zf='zig fetch'
 alias zfs='zig fetch --save'
 
+alias kc="kubectl"
+
 # nix
 alias ns="nix-shell"
 
@@ -38,4 +40,4 @@ alias ns="nix-shell"
 alias vim='nvim'
 alias nvim-own='NVIM_APPNAME="nvim-own" nvim'
 
-alias claude="~/.claude/local/claude"
+alias claude="~/.local/bin/claude"

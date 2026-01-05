@@ -94,6 +94,7 @@ return {
 				},
 				-- Custom LazyVim option to configure vim.ui.select
 				ui_select = function(fzf_opts, items)
+
 					return vim.tbl_deep_extend("force", fzf_opts, {
 						prompt = " ",
 						winopts = {
@@ -119,7 +120,7 @@ return {
 						winopts = {
 							width = 0.5,
 							-- height is number of items, with a max of 80% screen height
-							height = math.floor(math.min(vim.o.lines * 0.8, #items + 2) + 0.5),
+							height = math.floor(math.min(vim.o.lines * 0.8, #items + 2) + 0.5) + 2,
 						},
 					})
 				end,

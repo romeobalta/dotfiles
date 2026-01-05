@@ -74,3 +74,6 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # wasmtime
 export WASMTIME_HOME="$HOME/.wasmtime"
 export PATH="$WASMTIME_HOME/bin:$PATH"
+
+export WABT_BIN="/opt/homebrew/Cellar/wabt/1.0.39/bin/"
+export PATH="$WABT_BIN:$PATH"

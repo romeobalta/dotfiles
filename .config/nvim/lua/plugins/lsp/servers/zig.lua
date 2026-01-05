@@ -69,6 +69,24 @@ return {
 				},
 				{
 					type = "codelldb",
+					request = "launch",
+					name = "LLDB: Launch",
+					program = function()
+						return require("dap.utils").pick_file({
+							executables = true,
+							path = Util.root(),
+							filter = function(filepath)
+								-- look only for paths in the cwd with zig-out in them
+								return vim.fn.match(filepath, "zig-out") ~= -1
+									and vim.fn.match(filepath, Util.root()) ~= -1
+							end,
+						})
+					end,
+					args = {},
+					cwd = vim.fn.getcwd(),
+				},
+				{
+					type = "codelldb",
 					request = "attach",
 					name = "LLDB: Attach to process",
 					pid = function()

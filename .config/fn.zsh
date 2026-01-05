@@ -21,6 +21,8 @@ tmux-sessionizer() {
     # Worktree parents (children listed, parent itself excluded)
     local worktree_parents=(
         ~/work/n8n
+        ~/work/n8n-cloud
+        ~/work/ai-assistant-service
         # Add other worktree parent directories here
     )
 
@@ -156,6 +158,18 @@ zig-stable() {
     fi
 }
 
+send_with_length() {
+  local msg="$1"
+  local len=${#msg}  # Get string length in bytes
+  {
+    printf "\\x$(printf '%02x' $((len & 0xFF)))"
+    printf "\\x$(printf '%02x' $(((len >> 8) & 0xFF)))"
+    printf "\\x$(printf '%02x' $(((len >> 16) & 0xFF)))"
+    printf "\\x$(printf '%02x' $(((len >> 24) & 0xFF)))"
+    printf "%s" "$msg"
+  } > /tmp/input
+}
+
 claude-select() {
     local exit_on_finish=false
 
@@ -174,7 +188,7 @@ claude-select() {
         cd "$selected"
     fi
 
-    "$HOME/.claude/local/claude"
+    claude
 }
 
 gemini-select() {

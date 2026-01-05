@@ -138,16 +138,3 @@ map("n", "<leader>uw", function()
 	local wrap = vim.wo.wrap
 	vim.wo.wrap = not wrap
 end, { desc = "Inspect Tree" })
-
-------------------------------
----These should move
-------------------------------
-
-map("n", "<leader>wz", function()
-	---@diagnostic disable-next-line: missing-fields
-	require("snacks").zen.zen({
-		window = {
-			width = 130, -- width will be 85% of the editor width
-		},
-	})
-end)
