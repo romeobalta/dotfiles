@@ -1,0 +1,1 @@
+I want to open a PR with our changes, write a concise summary of the changes made in this PR to be used as the description. Write all of this to a temporary file. At the end of your response, add the command to copy the contents of the file to clipboard and to delete the file. e.g.: `cat {path-to-file} | pbcopy && rm -f {path-to-file}`

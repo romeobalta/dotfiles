@@ -1,0 +1,4 @@
+#!/bin/bash
+cmd=$(cat)
+tmux set-buffer "$cmd"
+tmux split-window -v -l 30% "tmux-exec-selection $1"

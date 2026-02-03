@@ -94,7 +94,6 @@ return {
 				},
 				-- Custom LazyVim option to configure vim.ui.select
 				ui_select = function(fzf_opts, items)
-
 					return vim.tbl_deep_extend("force", fzf_opts, {
 						prompt = " ",
 						winopts = {
@@ -669,13 +668,8 @@ return {
 					preset = "cmdline",
 				},
 				completion = {
-					menu = {
-						auto_show = function(ctx)
-							return vim.fn.getcmdtype() == ":"
-						end,
-						list = { selection = { preselect = false } },
-					},
-					ghost_text = { enabled = true },
+					keymap = { preset = "inherit" },
+					completion = { menu = { auto_show = true } },
 				},
 			},
 

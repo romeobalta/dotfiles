@@ -1,0 +1,35 @@
+#!/bin/bash
+copy_output=false
+[[ "$1" == "--copy" ]] && copy_output=true
+
+cmd=$(tmux show-buffer 2>/dev/null)
+
+if [[ -z "$cmd" ]]; then
+    echo "No command in buffer"
+    read -n 1 -s -r -p "Press any key to close..."
+    exit 1
+fi
+
+output_file=$(mktemp)
+
+echo "$ $cmd"
+echo ""
+
+eval "$cmd" 2>&1 | tee "$output_file"
+exit_code=$?
+
+if $copy_output; then
+    {
+        echo "$ $cmd"
+        echo ""
+        cat "$output_file"
+    } | pbcopy
+    echo ""
+    echo "--- Command + output copied to clipboard (exit: $exit_code) ---"
+else
+    echo ""
+    echo "--- Exit: $exit_code ---"
+fi
+
+rm -f "$output_file"
+read -n 1 -s -r -p "Press any key to close..."

@@ -23,3 +23,5 @@ CLAUDE.md
 .local/share/delta
 .local/state/gh
 .luarc.json
+.local/bin/claude
+.local/share/claude/versions
