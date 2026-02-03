@@ -1,15 +1,10 @@
 #!/usr/bin/env zsh
 
-# Calculate the width: minimum of 100 or 50% of window width
-width=$(($(tmux display -p "#{window_width}") / 2))
-[ $width -gt 100 ] && width=100
-
-# Resize the current pane to the calculated width
-tmux resize-pane -x $width
-
 source ~/.config/path.zsh
 source ~/.config/aliases.zsh
 source ~/.config/fzf.zsh
 source ~/.config/fn.zsh
+
+tmux-resize-panel
 
 claude-select --exit

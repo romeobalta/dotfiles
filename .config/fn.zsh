@@ -1,3 +1,18 @@
+# Resize tmux pane to a consistent width for AI chat panels
+# Usage: tmux-resize-panel [max_width]
+# Default max_width is 100 columns, or 50% of window width (whichever is smaller)
+TMUX_PANEL_MAX_WIDTH=160
+
+tmux-resize-panel() {
+    local max_width="${1:-$TMUX_PANEL_MAX_WIDTH}"
+    local window_width=$(tmux display -p "#{window_width}")
+    local width=$((window_width / 2))
+
+    [[ $width -gt $max_width ]] && width=$max_width
+
+    tmux resize-pane -x $width
+}
+
 tmux-sessionizer() {
     # 1. Argument Parsing
     local exit_on_finish=false
